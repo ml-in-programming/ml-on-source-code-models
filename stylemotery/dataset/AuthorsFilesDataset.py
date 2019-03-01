@@ -1,7 +1,7 @@
 from __future__ import print_function, division
 
 import os
-
+import torch
 from torch.utils.data import Dataset
 
 
@@ -43,8 +43,7 @@ class AuthorsFilesDataset(Dataset):
         :param index: index in data sequence
         :return: pair:ast node and author name of it (aka label).
         """
-        return {"ast": [self.ast_generator(self.file_paths[index])], "label": self.labels[index]}
-        # return {"ast": ["Node1", "Node2", "Node3"], "label": self.labels[index]}
+        return {"ast": self.ast_generator(self.file_paths[index]), "label": self.labels[index]}
 
     def __len__(self):
         return len(self.file_paths)
