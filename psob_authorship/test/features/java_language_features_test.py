@@ -57,34 +57,34 @@ class BaseFeaturesTest(unittest.TestCase):
         self.check_macros_variable()
 
     def test_on_all_test_data(self):
-        self.blank_lines = 17
-        self.single_line_comments_lines = 1
-        self.comment_lines = 6
-        self.code_lines = 56
-        self.open_braces = 14
-        self.open_braces_alone = 1
-        self.close_braces = 14
-        self.close_braces_alone = 13
-        self.variables = 2 + 3
-        self.all_variables_length = 1 + 23 + 1 + 1 + 1
-        self.lowercase_variables = 1 + 2
-        self.starting_with_lowercase_variables = 2 + 2
+        self.blank_lines = 8 + 15
+        self.single_line_comments_lines = 7 + 0
+        self.comment_lines = 12 + 0
+        self.code_lines = 28 + 53
+        self.open_braces = 6 + 14
+        self.open_braces_alone = 4 + 0
+        self.close_braces = 6 + 14
+        self.close_braces_alone = 4 + 13
+        self.variables = 4 + 3
+        self.lowercase_variables = 3 + 2
+        self.all_variables_length = 8 + 3
+        self.starting_with_lowercase_variables = 4 + 2
         self.test_file = "../test_data/author1"
         self.run_all_checks()
 
     def test_on_1_file(self):
-        self.blank_lines = 2
-        self.single_line_comments_lines = 1
-        self.comment_lines = 6
-        self.code_lines = 10
-        self.open_braces = 2
-        self.open_braces_alone = 1
-        self.close_braces = 2
-        self.all_variables_length = 1 + 23
-        self.close_braces_alone = 1
-        self.variables = 2
-        self.lowercase_variables = 1
-        self.starting_with_lowercase_variables = 2
+        self.blank_lines = 8
+        self.single_line_comments_lines = 7
+        self.comment_lines = 12
+        self.code_lines = 28
+        self.open_braces = 6
+        self.open_braces_alone = 4
+        self.close_braces = 6
+        self.close_braces_alone = 4
+        self.variables = 4
+        self.lowercase_variables = 3
+        self.all_variables_length = 8
+        self.starting_with_lowercase_variables = 4
         self.test_file = "../test_data/author1/1.java"
         self.run_all_checks()
 

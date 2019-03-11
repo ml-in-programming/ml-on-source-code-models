@@ -123,9 +123,14 @@ def ratio_of_macro_variables(file_or_dir, ast_path):
     return 0
 
 
+def percentage_of_for_statements_to_all_loop_statements(file_or_dir, ast_path):
+    pass
+
+
 def get_variables_names(asts, nodes, tokens):
     # TODO: add support for fields and parameters. Tree reading will be the most convenient way.
     variable_declarator_id = [node for node in nodes if node[1] == "variableDeclarator"]
+    variable_declarator_id_for = [node for node in nodes if node[1] == "variableDeclaratorId"]
     field_declarator_id = [node for node in nodes if node[1] == "fieldDeclaration"]
     parameter_declarator_id = [node for node in nodes if node[1] == "formalParameter"]
     variable_local_declarator_id = [node for node in nodes if node[1] == "localVariableDeclaration"]

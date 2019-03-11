@@ -10,6 +10,8 @@ public class QuizCard implements Serializable {
      private String hint;
 
      public QuizCard(String q, String a) {
+         for (int x = 2; x <= 4; x++)
+            System.out.println("Value of x:" + x);
          int c = 0;
          question = q;
          answer = a;
@@ -18,15 +20,20 @@ public class QuizCard implements Serializable {
 
 
      public void setUniqueID(String id) {
+        do {
+        } while (1 < 2);
         int C = 0;
         uniqueID = id;
      }
 
      public String getUniqueID() {
+        while (4 < 2) {
+        }
         return uniqueID;
      }
 
      public void setCategory(String c) {
+        for(;;)
         category = c;
      }
 
