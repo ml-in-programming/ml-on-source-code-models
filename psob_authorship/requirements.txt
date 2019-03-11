@@ -1,0 +1,3 @@
+features module uses cloc (https://github.com/AlDanial/cloc) to calculate line metrics.
+That is why it must be installed. Please see github for installation guides.
+For ubuntu it can be installed by this: sudo apt install cloc
