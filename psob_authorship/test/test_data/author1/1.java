@@ -11,5 +11,8 @@ public final class BufferedRunningLengthWord
      * @param a the word
      */
     public BufferedRunningLengthWord(final long a) {
-        this.runningBit = (a & 1) != 0;  }
+        int lowercase = 0;
+        this.runningBit = (a & 1) != 0;
+        int notLowerCaseInitialized = 20;
+        int notLowerCaseNotInitialized; }
 }

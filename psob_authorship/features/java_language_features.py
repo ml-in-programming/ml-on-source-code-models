@@ -2,31 +2,6 @@ import os
 import subprocess
 
 
-def get_cloc_output(file_or_dir):
-    """
-    If file_or_dir is dir then sum is calculated (e.g. file1_blank_lines + file2_blank_lines).
-    """
-    return subprocess.run(["cloc", file_or_dir, "--quiet", "--csv"], check=True, stdout=subprocess.PIPE) \
-        .stdout.decode("utf-8")
-
-
-def get_blank_lines_from_cloc_output(cloc_output):
-    return int(cloc_output.splitlines()[2].split(',')[2])
-
-
-def get_comment_lines_from_cloc_output(cloc_output):
-    return int(cloc_output.splitlines()[2].split(',')[3])
-
-
-def get_code_lines_from_cloc_output(cloc_output):
-    return int(cloc_output.splitlines()[2].split(',')[4])
-
-
-def get_ratio(file_or_dir, numerator, denominator):
-    cloc_output = get_cloc_output(file_or_dir)
-    return numerator(cloc_output) / denominator(cloc_output)
-
-
 def ratio_of_blank_lines_to_code_lines(file_or_dir):
     """
     Blank line is a line consisting only of zero or several whitespaces.
@@ -52,12 +27,6 @@ def ratio_of_comment_lines_to_code_lines(file_or_dir):
     return get_ratio(file_or_dir, get_comment_lines_from_cloc_output, get_code_lines_from_cloc_output)
 
 
-def percentage_of_block_comments_to_all_comment_lines(file_or_dir):
-    all_comments = get_comment_lines_from_cloc_output(get_cloc_output(file_or_dir))
-    block_comments = all_comments - count_single_line_comments(file_or_dir)
-    return block_comments / all_comments * 100
-
-
 def count_single_line_comments(file_or_dir):
     """
     Counts number of single line comments.
@@ -72,20 +41,8 @@ def count_single_line_comments(file_or_dir):
     :param file_or_dir: must be string containing path to file or directory
     :return: single line comment metric
     """
-    if os.path.isfile(file_or_dir):
-        return count_single_line_comments_for_single_file(file_or_dir)
-
-    result = 0
-    for root, dirs, files in os.walk(file_or_dir):
-        for name in files:
-            filename = os.path.join(root, name)
-            result += count_single_line_comments_for_single_file(filename)
-    return result
-
-
-def count_single_line_comments_for_single_file(filename):
-    with open(filename) as file:
-        return sum(line.lstrip().startswith("//") for line in file)
+    filenames = get_filenames(file_or_dir)
+    return sum(count_single_line_comments_for_single_file(filename) for filename in filenames)
 
 
 def percentage_of_open_braces_alone_in_a_line(file_or_dir):
@@ -112,18 +69,86 @@ def percentage_of_close_braces_alone_in_a_line(file_or_dir):
     return percentage_of_symbol_alone_in_a_line(file_or_dir, '}')
 
 
-def percentage_of_symbol_alone_in_a_line(file_or_dir, symbol):
-    if os.path.isfile(file_or_dir):
-        return number_of_symbols_alone_in_a_line(file_or_dir, symbol) / \
-               number_of_symbols_in_a_line(file_or_dir, symbol) * 100
+def percentage_of_variable_naming_without_uppercase_letters(file_or_dir, ast_path):
+    """
+    This metric uses ast of files so you will need to generate files stated below with PathMiner.
+    :param ast_path: path to folder where asts.csv, node_types.csv, tokens.csv are stored
+    :param file_or_dir: must be string containing path to file or directory
+    :return: variables without uppercase letters metric
+    """
+    filenames = get_filenames(file_or_dir)
+    asts = load_asts(filenames, ast_path)
+    nodes = load_nodes(ast_path)
+    tokens = load_tokens(ast_path)
+    return number_of_variables_in_lowercase(asts, nodes, tokens) / number_of_variables(asts, nodes, tokens) * 100
 
-    alone_symbols = 0
-    all_symbols = 0
-    for root, dirs, files in os.walk(file_or_dir):
-        for name in files:
-            filename = os.path.join(root, name)
-            alone_symbols += number_of_symbols_alone_in_a_line(filename, symbol)
-            all_symbols += number_of_symbols_in_a_line(filename, symbol)
+
+def get_variables_names(asts, nodes, tokens):
+    # TODO: add support for fields and parameters. Tree reading will be the most convenient way.
+    variable_declarator_id = [node for node in nodes if node[1] == "variableDeclarator"]
+    field_declarator_id = [node for node in nodes if node[1] == "fieldDeclaration"]
+    parameter_declarator_id = [node for node in nodes if node[1] == "formalParameter"]
+
+    if len(variable_declarator_id) == 0:
+        return 0
+    if len(variable_declarator_id) > 1:
+        raise ValueError("Several variable declarators found in node_types.csv")
+    variable_declarator_id = variable_declarator_id[0][0]
+    variable_token_ids = []
+    for ast in asts:
+        variable_token_ids += \
+            [piece.split('{')[1] for piece in ast[1].split(' ') if piece.startswith(str(variable_declarator_id) + "{")]
+    return [token[1] for token in tokens if token[0] in variable_token_ids]
+
+
+def number_of_variables(asts, nodes, tokens):
+    return len(get_variables_names(asts, nodes, tokens))
+
+
+def number_of_variables_in_lowercase(asts, nodes, tokens):
+    return len([name for name in get_variables_names(asts, nodes, tokens) if name.islower()])
+
+
+def get_cloc_output(file_or_dir):
+    """
+    If file_or_dir is dir then sum is calculated (e.g. file1_blank_lines + file2_blank_lines).
+    """
+    return subprocess.run(["cloc", file_or_dir, "--quiet", "--csv"], check=True, stdout=subprocess.PIPE) \
+        .stdout.decode("utf-8")
+
+
+def get_blank_lines_from_cloc_output(cloc_output):
+    return int(cloc_output.splitlines()[2].split(',')[2])
+
+
+def get_comment_lines_from_cloc_output(cloc_output):
+    return int(cloc_output.splitlines()[2].split(',')[3])
+
+
+def get_code_lines_from_cloc_output(cloc_output):
+    return int(cloc_output.splitlines()[2].split(',')[4])
+
+
+def get_ratio(file_or_dir, numerator, denominator):
+    cloc_output = get_cloc_output(file_or_dir)
+    return numerator(cloc_output) / denominator(cloc_output)
+
+
+def percentage_of_block_comments_to_all_comment_lines(file_or_dir):
+    all_comments = get_comment_lines_from_cloc_output(get_cloc_output(file_or_dir))
+    block_comments = all_comments - count_single_line_comments(file_or_dir)
+    return block_comments / all_comments * 100
+
+
+def count_single_line_comments_for_single_file(filename):
+    with open(filename) as file:
+        return sum(line.lstrip().startswith("//") for line in file)
+
+
+def percentage_of_symbol_alone_in_a_line(file_or_dir, symbol):
+    filenames = get_filenames(file_or_dir)
+    alone_symbols = sum(number_of_symbols_alone_in_a_line(filename, symbol) for filename in filenames)
+    all_symbols = sum(number_of_symbols_in_a_line(filename, symbol) for filename in filenames)
     return alone_symbols / all_symbols * 100
 
 
@@ -135,3 +160,29 @@ def number_of_symbols_alone_in_a_line(filename, symbol):
 def number_of_symbols_in_a_line(filename, symbol):
     with open(filename) as file:
         return sum(symbol in line for line in file)
+
+
+def load_nodes(path_to_ast_data):
+    with open(os.path.join(path_to_ast_data, "node_types.csv")) as file:
+        return [(line.split(',')[0], line.split(',')[1].rstrip("\n")) for line in file][1:]
+
+
+def load_tokens(path_to_ast_data):
+    with open(os.path.join(path_to_ast_data, "tokens.csv")) as file:
+        return [(line.split(',')[0], line.split(',')[1].rstrip("\n")) for line in file][1:]
+
+
+def load_asts(filenames, path_to_ast_data):
+    filenames = [os.path.abspath(filename) for filename in filenames]
+    with open(os.path.join(path_to_ast_data, "asts.csv")) as file:
+        return [(line.split(',')[0], line.split(',')[1].rstrip("\n")) for line in file if line.split(',')[0] in filenames]
+
+
+def get_filenames(file_or_dir):
+    if os.path.isfile(file_or_dir):
+        return [file_or_dir]
+    filenames = []
+    for root, dirs, files in os.walk(file_or_dir):
+        for name in files:
+            filenames += [os.path.join(root, name)]
+    return filenames

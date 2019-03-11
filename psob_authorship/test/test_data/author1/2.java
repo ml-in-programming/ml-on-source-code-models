@@ -10,12 +10,15 @@ public class QuizCard implements Serializable {
      private String hint;
 
      public QuizCard(String q, String a) {
+         int c = 0;
          question = q;
          answer = a;
+         int d = 0;
     }
 
 
      public void setUniqueID(String id) {
+        int C = 0;
         uniqueID = id;
      }
 
