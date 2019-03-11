@@ -113,6 +113,16 @@ def average_variable_name_length(file_or_dir, ast_path):
     return sum(len(name) for name in variable_names) / len(variable_names)
 
 
+def ratio_of_macro_variables(file_or_dir, ast_path):
+    """
+    This metric is strange. There is no macros in Java. That is why it always returns 0.
+    :param ast_path: path to folder where asts.csv, node_types.csv, tokens.csv are stored
+    :param file_or_dir: must be string containing path to file or directory
+    :return: 0
+    """
+    return 0
+
+
 def get_variables_names(asts, nodes, tokens):
     # TODO: add support for fields and parameters. Tree reading will be the most convenient way.
     variable_declarator_id = [node for node in nodes if node[1] == "variableDeclarator"]

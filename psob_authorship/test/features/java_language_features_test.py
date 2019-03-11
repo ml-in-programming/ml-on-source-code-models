@@ -4,7 +4,8 @@ from psob_authorship.features.java_language_features import ratio_of_blank_lines
     ratio_of_comment_lines_to_code_lines, percentage_of_block_comments_to_all_comment_lines, \
     percentage_of_open_braces_alone_in_a_line, percentage_of_close_braces_alone_in_a_line, \
     percentage_of_variable_naming_without_uppercase_letters, \
-    percentage_of_variable_naming_starting_with_lowercase_letters, average_variable_name_length
+    percentage_of_variable_naming_starting_with_lowercase_letters, average_variable_name_length, \
+    ratio_of_macro_variables
 
 
 class BaseFeaturesTest(unittest.TestCase):
@@ -38,9 +39,11 @@ class BaseFeaturesTest(unittest.TestCase):
                          percentage_of_variable_naming_starting_with_lowercase_letters(self.test_file, self.ast_path))
 
     def check_average_variable_name(self):
-        print(self.all_variables_length / self.variables)
         self.assertEqual(self.all_variables_length / self.variables,
                          average_variable_name_length(self.test_file, self.ast_path))
+
+    def check_macros_variable(self):
+        self.assertEqual(0, ratio_of_macro_variables(self.test_file, self.ast_path))
 
     def run_all_checks(self):
         self.check_blank_lines_ratio()
@@ -51,6 +54,7 @@ class BaseFeaturesTest(unittest.TestCase):
         self.check_variable_naming_without_uppercase_letters()
         self.check_variable_naming_starting_with_lowercase_letters()
         self.check_average_variable_name()
+        self.check_macros_variable()
 
     def test_on_all_test_data(self):
         self.blank_lines = 17
