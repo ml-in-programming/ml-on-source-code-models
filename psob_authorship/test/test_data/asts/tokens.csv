@@ -33,6 +33,7 @@ id,token
 30,=
 65,20
 13,implements
+59,с
 16,private
 46,setHint
 37,C
@@ -50,7 +51,6 @@ id,token
 29,c
 20,question
 32,d
-59,lowercase
 47,h
 54,BufferedRunningLengthWord
 28,int

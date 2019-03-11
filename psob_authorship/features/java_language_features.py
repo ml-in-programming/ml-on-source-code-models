@@ -128,6 +128,7 @@ def get_variables_names(asts, nodes, tokens):
     variable_declarator_id = [node for node in nodes if node[1] == "variableDeclarator"]
     field_declarator_id = [node for node in nodes if node[1] == "fieldDeclaration"]
     parameter_declarator_id = [node for node in nodes if node[1] == "formalParameter"]
+    variable_local_declarator_id = [node for node in nodes if node[1] == "localVariableDeclaration"]
 
     if len(variable_declarator_id) == 0:
         return 0

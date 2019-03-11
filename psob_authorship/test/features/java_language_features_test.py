@@ -66,7 +66,7 @@ class BaseFeaturesTest(unittest.TestCase):
         self.close_braces = 14
         self.close_braces_alone = 13
         self.variables = 2 + 3
-        self.all_variables_length = 9 + 23 + 1 + 1 + 1
+        self.all_variables_length = 1 + 23 + 1 + 1 + 1
         self.lowercase_variables = 1 + 2
         self.starting_with_lowercase_variables = 2 + 2
         self.test_file = "../test_data/author1"
@@ -80,7 +80,7 @@ class BaseFeaturesTest(unittest.TestCase):
         self.open_braces = 2
         self.open_braces_alone = 1
         self.close_braces = 2
-        self.all_variables_length = 9 + 23
+        self.all_variables_length = 1 + 23
         self.close_braces_alone = 1
         self.variables = 2
         self.lowercase_variables = 1
