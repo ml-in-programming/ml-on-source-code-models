@@ -12,23 +12,24 @@ class BaseFeaturesTest(unittest.TestCase):
     ast_path = "../test_data/asts"
 
     def check_blank_lines_ratio(self):
-        self.assertEqual(self.blank_lines / self.code_lines, ratio_of_blank_lines_to_code_lines(self.test_file))
+        self.assertEqual(self.blank_lines / self.code_lines,
+                         ratio_of_blank_lines_to_code_lines(self.test_file, self.ast_path))
 
     def check_comment_lines_ratio(self):
         self.assertEqual(self.comment_lines / self.code_lines,
-                         ratio_of_comment_lines_to_code_lines(self.test_file))
+                         ratio_of_comment_lines_to_code_lines(self.test_file, self.ast_path))
 
     def check_block_comments_percentage(self):
         self.assertEqual((self.comment_lines - self.single_line_comments_lines) / self.comment_lines * 100,
-                         percentage_of_block_comments_to_all_comment_lines(self.test_file))
+                         percentage_of_block_comments_to_all_comment_lines(self.test_file, self.ast_path))
 
     def check_open_braces_alone_percentage(self):
         self.assertEqual(self.open_braces_alone / self.open_braces * 100,
-                         percentage_of_open_braces_alone_in_a_line(self.test_file))
+                         percentage_of_open_braces_alone_in_a_line(self.test_file, self.ast_path))
 
     def check_close_braces_alone_percentage(self):
         self.assertEqual(self.close_braces_alone / self.close_braces * 100,
-                         percentage_of_close_braces_alone_in_a_line(self.test_file))
+                         percentage_of_close_braces_alone_in_a_line(self.test_file, self.ast_path))
 
     def check_variable_naming_without_uppercase_letters(self):
         self.assertEqual(self.lowercase_variables / self.variables * 100,

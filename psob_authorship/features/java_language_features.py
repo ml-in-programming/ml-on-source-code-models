@@ -2,7 +2,21 @@ import os
 import subprocess
 
 
-def ratio_of_blank_lines_to_code_lines(file_or_dir):
+def get_all_metrics():
+    return [
+        ratio_of_blank_lines_to_code_lines,
+        ratio_of_comment_lines_to_code_lines,
+        percentage_of_block_comments_to_all_comment_lines,
+        percentage_of_open_braces_alone_in_a_line,
+        percentage_of_close_braces_alone_in_a_line,
+        percentage_of_variable_naming_without_uppercase_letters,
+        percentage_of_variable_naming_starting_with_lowercase_letters,
+        average_variable_name_length,
+        ratio_of_macro_variables
+    ]
+
+
+def ratio_of_blank_lines_to_code_lines(file_or_dir, ast_path):
     """
     Blank line is a line consisting only of zero or several whitespaces.
     More formally in UML notation: blank line = whitespace[0..*]
@@ -14,7 +28,7 @@ def ratio_of_blank_lines_to_code_lines(file_or_dir):
     return get_ratio(file_or_dir, get_blank_lines_from_cloc_output, get_code_lines_from_cloc_output)
 
 
-def ratio_of_comment_lines_to_code_lines(file_or_dir):
+def ratio_of_comment_lines_to_code_lines(file_or_dir, ast_path):
     """
     Comment line is a line that starts (without regard to leading whitespaces) with "//" or located in commented block.
     If any symbol (except whitespace) exists before "//" and it is not located in commented block
@@ -27,25 +41,7 @@ def ratio_of_comment_lines_to_code_lines(file_or_dir):
     return get_ratio(file_or_dir, get_comment_lines_from_cloc_output, get_code_lines_from_cloc_output)
 
 
-def count_single_line_comments(file_or_dir):
-    """
-    Counts number of single line comments.
-    Line is single line commented if it starts with "//" (without regard to leading whitespaces) and
-    is located not inside comment block.
-    Now it doesn't works correctly in such case:
-    /*
-    //this single line comment will be counted, but shouldn't.
-    */
-    But this case appears too rare so implementation of it can wait.
-
-    :param file_or_dir: must be string containing path to file or directory
-    :return: single line comment metric
-    """
-    filenames = get_filenames(file_or_dir)
-    return sum(count_single_line_comments_for_single_file(filename) for filename in filenames)
-
-
-def percentage_of_open_braces_alone_in_a_line(file_or_dir):
+def percentage_of_open_braces_alone_in_a_line(file_or_dir, ast_path):
     """
     Counts the following: (number of lines with alone open braces) / (number of lines that contain open braces) * 100
     If open brace is located in comment then it will be counted too.
@@ -57,7 +53,7 @@ def percentage_of_open_braces_alone_in_a_line(file_or_dir):
     return percentage_of_symbol_alone_in_a_line(file_or_dir, '{')
 
 
-def percentage_of_close_braces_alone_in_a_line(file_or_dir):
+def percentage_of_close_braces_alone_in_a_line(file_or_dir, ast_path):
     """
     Counts the following: (number of lines with alone close braces) / (number of lines that contain close braces) * 100
     If close brace is located in comment then it will be counted too.
@@ -80,7 +76,8 @@ def percentage_of_variable_naming_without_uppercase_letters(file_or_dir, ast_pat
     asts = load_asts(filenames, ast_path)
     nodes = load_nodes(ast_path)
     tokens = load_tokens(ast_path)
-    return number_of_variables_in_lowercase(asts, nodes, tokens) / number_of_variables(asts, nodes, tokens) * 100
+    return divide_with_handling_zero_division(number_of_variables_in_lowercase(asts, nodes, tokens),
+                                              number_of_variables(asts, nodes, tokens)) * 100
 
 
 def percentage_of_variable_naming_starting_with_lowercase_letters(file_or_dir, ast_path):
@@ -94,8 +91,8 @@ def percentage_of_variable_naming_starting_with_lowercase_letters(file_or_dir, a
     asts = load_asts(filenames, ast_path)
     nodes = load_nodes(ast_path)
     tokens = load_tokens(ast_path)
-    return number_of_variables_starting_with_lowercase(asts, nodes, tokens) / \
-        number_of_variables(asts, nodes, tokens) * 100
+    return divide_with_handling_zero_division(number_of_variables_starting_with_lowercase(asts, nodes, tokens),
+                                              number_of_variables(asts, nodes, tokens)) * 100
 
 
 def average_variable_name_length(file_or_dir, ast_path):
@@ -110,7 +107,7 @@ def average_variable_name_length(file_or_dir, ast_path):
     nodes = load_nodes(ast_path)
     tokens = load_tokens(ast_path)
     variable_names = get_variables_names(asts, nodes, tokens)
-    return sum(len(name) for name in variable_names) / len(variable_names)
+    return divide_with_handling_zero_division(sum(len(name) for name in variable_names), len(variable_names))
 
 
 def ratio_of_macro_variables(file_or_dir, ast_path):
@@ -123,8 +120,32 @@ def ratio_of_macro_variables(file_or_dir, ast_path):
     return 0
 
 
+def percentage_of_block_comments_to_all_comment_lines(file_or_dir, ast_path):
+    all_comments = get_comment_lines_from_cloc_output(get_cloc_output(file_or_dir))
+    block_comments = all_comments - count_single_line_comments(file_or_dir)
+    return divide_with_handling_zero_division(block_comments, all_comments) * 100
+
+
 def percentage_of_for_statements_to_all_loop_statements(file_or_dir, ast_path):
     pass
+
+
+def count_single_line_comments(file_or_dir):
+    """
+    Counts number of single line comments.
+    Line is single line commented if it starts with "//" (without regard to leading whitespaces) and
+    is located not inside comment block.
+    Now it doesn't works correctly in such case:
+    /*
+    //this single line comment will be counted, but shouldn't.
+    */
+    But this case appears too rare so implementation of it can wait.
+
+    :param file_or_dir: must be string containing path to file or directory
+    :return: single line comment metric
+    """
+    filenames = get_filenames(file_or_dir)
+    return sum(count_single_line_comments_for_single_file(filename) for filename in filenames)
 
 
 def get_variables_names(asts, nodes, tokens):
@@ -181,13 +202,7 @@ def get_code_lines_from_cloc_output(cloc_output):
 
 def get_ratio(file_or_dir, numerator, denominator):
     cloc_output = get_cloc_output(file_or_dir)
-    return numerator(cloc_output) / denominator(cloc_output)
-
-
-def percentage_of_block_comments_to_all_comment_lines(file_or_dir):
-    all_comments = get_comment_lines_from_cloc_output(get_cloc_output(file_or_dir))
-    block_comments = all_comments - count_single_line_comments(file_or_dir)
-    return block_comments / all_comments * 100
+    return divide_with_handling_zero_division(numerator(cloc_output), denominator(cloc_output))
 
 
 def count_single_line_comments_for_single_file(filename):
@@ -199,7 +214,7 @@ def percentage_of_symbol_alone_in_a_line(file_or_dir, symbol):
     filenames = get_filenames(file_or_dir)
     alone_symbols = sum(number_of_symbols_alone_in_a_line(filename, symbol) for filename in filenames)
     all_symbols = sum(number_of_symbols_in_a_line(filename, symbol) for filename in filenames)
-    return alone_symbols / all_symbols * 100
+    return divide_with_handling_zero_division(alone_symbols, all_symbols) * 100
 
 
 def number_of_symbols_alone_in_a_line(filename, symbol):
@@ -237,3 +252,7 @@ def get_filenames(file_or_dir):
         for name in files:
             filenames += [os.path.join(root, name)]
     return filenames
+
+
+def divide_with_handling_zero_division(numerator, denominator, zero_division_return=float('nan')):
+    return zero_division_return if denominator == 0 else numerator / denominator
