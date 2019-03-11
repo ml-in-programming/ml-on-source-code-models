@@ -83,6 +83,36 @@ def percentage_of_variable_naming_without_uppercase_letters(file_or_dir, ast_pat
     return number_of_variables_in_lowercase(asts, nodes, tokens) / number_of_variables(asts, nodes, tokens) * 100
 
 
+def percentage_of_variable_naming_starting_with_lowercase_letters(file_or_dir, ast_path):
+    """
+    This metric uses ast of files so you will need to generate files stated below with PathMiner.
+    :param ast_path: path to folder where asts.csv, node_types.csv, tokens.csv are stored
+    :param file_or_dir: must be string containing path to file or directory
+    :return: variables starting with lowercase letters metric
+    """
+    filenames = get_filenames(file_or_dir)
+    asts = load_asts(filenames, ast_path)
+    nodes = load_nodes(ast_path)
+    tokens = load_tokens(ast_path)
+    return number_of_variables_starting_with_lowercase(asts, nodes, tokens) / \
+        number_of_variables(asts, nodes, tokens) * 100
+
+
+def average_variable_name_length(file_or_dir, ast_path):
+    """
+    This metric uses ast of files so you will need to generate files stated below with PathMiner.
+    :param ast_path: path to folder where asts.csv, node_types.csv, tokens.csv are stored
+    :param file_or_dir: must be string containing path to file or directory
+    :return: average variable name metric
+    """
+    filenames = get_filenames(file_or_dir)
+    asts = load_asts(filenames, ast_path)
+    nodes = load_nodes(ast_path)
+    tokens = load_tokens(ast_path)
+    variable_names = get_variables_names(asts, nodes, tokens)
+    return sum(len(name) for name in variable_names) / len(variable_names)
+
+
 def get_variables_names(asts, nodes, tokens):
     # TODO: add support for fields and parameters. Tree reading will be the most convenient way.
     variable_declarator_id = [node for node in nodes if node[1] == "variableDeclarator"]
@@ -107,6 +137,10 @@ def number_of_variables(asts, nodes, tokens):
 
 def number_of_variables_in_lowercase(asts, nodes, tokens):
     return len([name for name in get_variables_names(asts, nodes, tokens) if name.islower()])
+
+
+def number_of_variables_starting_with_lowercase(asts, nodes, tokens):
+    return len([name for name in get_variables_names(asts, nodes, tokens) if name[0].islower()])
 
 
 def get_cloc_output(file_or_dir):
@@ -175,7 +209,8 @@ def load_tokens(path_to_ast_data):
 def load_asts(filenames, path_to_ast_data):
     filenames = [os.path.abspath(filename) for filename in filenames]
     with open(os.path.join(path_to_ast_data, "asts.csv")) as file:
-        return [(line.split(',')[0], line.split(',')[1].rstrip("\n")) for line in file if line.split(',')[0] in filenames]
+        return [(line.split(',')[0], line.split(',')[1].rstrip("\n")) for line in file if
+                line.split(',')[0] in filenames]
 
 
 def get_filenames(file_or_dir):
