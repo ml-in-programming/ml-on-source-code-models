@@ -1,5 +1,6 @@
 import os
 import re
+from typing import Dict
 
 from psob_authorship.features.java.ast.AstNode import AstNode
 from psob_authorship.features.java.ast.AstVisitor import AstVisitor
@@ -37,6 +38,7 @@ class Ast:
     def __init__(self, ast_in_string, tokens, nodes) -> None:
         super().__init__()
         self.root = AstNode(Ast.split_on_strings(ast_in_string), tokens, nodes)
+        self.depth = self.root.depth
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, Ast):
@@ -53,7 +55,7 @@ class FileAst(Ast):
         self.filename = filename
 
     @staticmethod
-    def load_asts_from_files(ast_path, filenames=None) -> dict:
+    def load_asts_from_files(ast_path, filenames=None) -> Dict[str, Ast]:
         nodes = load_nodes(ast_path)
         tokens = load_tokens(ast_path)
         return {filename: FileAst(filename, ast, tokens, nodes)

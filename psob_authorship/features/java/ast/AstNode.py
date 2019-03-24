@@ -9,6 +9,7 @@ class AstNode:
         while ast_in_strings[-1] != '}':
             self.children.append(AstNode(ast_in_strings, tokens, nodes))
         ast_in_strings.pop()
+        self.depth = 1 + max([child.depth for child in self.children], default=0)
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, AstNode):

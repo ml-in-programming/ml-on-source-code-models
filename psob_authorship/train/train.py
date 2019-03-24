@@ -10,6 +10,7 @@ from psob_authorship.model.Model import Model
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
+    n = min(n, len(l))
     step = int(len(l) / n)
     for i in range(0, n):
         if i == n - 1:
@@ -42,6 +43,7 @@ def run_train():
     features, labels = get_labeled_data()
     net = NeuralNetClassifier(Model, max_epochs=20, lr=0.1)
     net.fit(features, labels)
+    print(features[0])
     print(net.predict(features[:10]))
     print(labels[:10])
     print(net.predict_proba(features[:10]))

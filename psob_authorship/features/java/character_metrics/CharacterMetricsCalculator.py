@@ -10,8 +10,9 @@ class CharacterMetricsCalculator:
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
             self.percentage_of_open_braces_alone_in_a_line(filepaths),
-            self.percentage_of_close_braces_alone_in_a_line(filepaths)
-            # self.average_character_number_per_java_file(filepaths)
+            self.percentage_of_close_braces_alone_in_a_line(filepaths),
+            self.average_character_number_per_java_file(filepaths)
+            # TODO: this metric decreases significantly accuracy
         ])
 
     def percentage_of_open_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
@@ -77,6 +78,7 @@ class CharacterMetricsCalculator:
     def calculate_metrics(self, filepath: str) -> None:
         with open(filepath) as file:
             self.character_number_for_file[filepath] = len(file.read())
+            file.seek(0)
             for line in file.read().splitlines():
                 self.alone_open_braces_for_file[filepath] += line.strip() == CharacterMetricsCalculator.OPEN_BRACE
                 self.open_braces_for_file[filepath] += CharacterMetricsCalculator.OPEN_BRACE in line

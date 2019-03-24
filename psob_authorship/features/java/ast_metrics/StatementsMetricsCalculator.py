@@ -1,7 +1,9 @@
-import torch
+from collections import defaultdict
 from typing import Dict, Set
 
-from psob_authorship.features.java.ast.Ast import FileAst
+import torch
+
+from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstNode import AstNode
 from psob_authorship.features.java.ast.AstVisitor import AstVisitor
 from psob_authorship.features.utils import divide_with_handling_zero_division
@@ -64,16 +66,16 @@ class StatementsMetricsCalculator:
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
         ) * 100
 
-    def __init__(self, asts: Dict[str, FileAst]) -> None:
+    def __init__(self, asts: Dict[str, Ast]) -> None:
         super().__init__()
-        self.fors_for_file = {}
-        self.whiles_for_file = {}
-        self.ifs_for_file = {}
-        self.switches_for_file = {}
-        self.tries_for_file = {}
-        self.catches_for_file = {}
-        self.methods_for_file = {}
-        self.classes_for_file = {}
+        self.fors_for_file = defaultdict(lambda: 0)
+        self.whiles_for_file = defaultdict(lambda: 0)
+        self.ifs_for_file = defaultdict(lambda: 0)
+        self.switches_for_file = defaultdict(lambda: 0)
+        self.tries_for_file = defaultdict(lambda: 0)
+        self.catches_for_file = defaultdict(lambda: 0)
+        self.methods_for_file = defaultdict(lambda: 0)
+        self.classes_for_file = defaultdict(lambda: 0)
         for filepath, ast in asts.items():
             statements_visitor = StatementsVisitor()
             ast.accept(statements_visitor)

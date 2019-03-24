@@ -1,9 +1,9 @@
 from collections import defaultdict
-
-import torch
 from typing import Dict, Set, List
 
-from psob_authorship.features.java.ast.Ast import FileAst, Ast
+import torch
+
+from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstSpecificTokensExtractor import AstSpecificTokensExtractor
 from psob_authorship.features.utils import divide_with_handling_zero_division
 
@@ -69,14 +69,14 @@ class VariableMetricsCalculator:
     # nodes to check: {"variableDeclaratorId", "fieldDeclaration", "formalParameter", "localVariableDeclaration"}
 
     @staticmethod
-    def get_variable_names_for_file(asts: Dict[str, FileAst]) -> Dict[str, List[str]]:
+    def get_variable_names_for_file(asts: Dict[str, Ast]) -> Dict[str, List[str]]:
         return {filepath: VariableMetricsCalculator.get_variable_names(ast) for filepath, ast in asts.items()}
 
     @staticmethod
     def get_variable_names(ast: Ast) -> List[str]:
         return AstSpecificTokensExtractor(ast).extract_tokens_by_nodes(VariableMetricsCalculator.VARIABLE_NODE_NAMES)
 
-    def __init__(self, asts: Dict[str, FileAst]) -> None:
+    def __init__(self, asts: Dict[str, Ast]) -> None:
         super().__init__()
         self.variable_names_for_file = self.get_variable_names_for_file(asts)
         self.number_of_variables_in_lowercase_for_file: Dict[str, int] = defaultdict(lambda: 0)
