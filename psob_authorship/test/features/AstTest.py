@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from psob_authorship.features.Ast import FileAst
+from psob_authorship.features.java.ast.Ast import FileAst
 
 
 class AstTest(unittest.TestCase):

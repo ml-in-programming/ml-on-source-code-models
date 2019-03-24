@@ -1,11 +1,20 @@
+import torch
 from typing import Dict, Set
 
-from psob_authorship.features.Ast import FileAst, Ast
-from psob_authorship.features.java.AstSpecificTokensExtractor import AstSpecificTokensExtractor
+from psob_authorship.features.java.ast.Ast import FileAst, Ast
+from psob_authorship.features.java.ast.AstSpecificTokensExtractor import AstSpecificTokensExtractor
 from psob_authorship.features.utils import divide_with_handling_zero_division
 
 
 class VariableMetricsCalculator:
+    def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
+        return torch.tensor([
+            self.percentage_of_variable_naming_without_uppercase_letters(filepaths),
+            self.percentage_of_variable_naming_starting_with_lowercase_letters(filepaths),
+            self.average_variable_name_length(filepaths),
+            self.ratio_of_macro_variables(filepaths)
+        ])
+
     def percentage_of_variable_naming_without_uppercase_letters(self, filepaths: Set[str]) -> float:
         """
         This metric uses ast of files so you will need to generate files stated below with PathMiner.
@@ -13,8 +22,8 @@ class VariableMetricsCalculator:
         :return: variables without uppercase letters metric
         """
         return divide_with_handling_zero_division(
-            sum(self.number_of_variables_in_lowercase_for_file[filepaths]),  # TODO: works?
-            sum(self.number_of_variables_in_lowercase_for_file[filepaths]),
+            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             "calculating metric percentage of variable naming without uppercase letters for " + str(filepaths)
         ) * 100
 
@@ -25,8 +34,8 @@ class VariableMetricsCalculator:
         :return: variables starting with lowercase letters metric
         """
         return divide_with_handling_zero_division(
-            sum(self.number_of_variables_starting_with_lowercase_for_file[filepaths]),  # TODO: works?
-            sum(self.number_of_variables_in_lowercase_for_file[filepaths]),
+            sum([self.number_of_variables_starting_with_lowercase_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             "calculating metric percentage of variable naming starting with lowercase letters for " + str(filepaths)
         ) * 100
 
@@ -37,8 +46,8 @@ class VariableMetricsCalculator:
         :return: average variable name metric
         """
         return divide_with_handling_zero_division(
-            sum(self.length_of_variables_for_file[filepaths]),  # TODO: works?
-            sum(self.number_of_variables_in_lowercase_for_file[filepaths]),
+            sum([self.length_of_variables_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             "calculating metric average_variable_name_length for " + str(filepaths)
         ) * 100
 
@@ -67,10 +76,10 @@ class VariableMetricsCalculator:
     def __init__(self, asts: dict) -> None:
         super().__init__()
         self.variable_names_for_file = self.get_variable_names_for_file(asts)
-        self.number_of_variables_in_lowercase_for_file = {}
-        self.number_of_variables_for_file = {}
-        self.number_of_variables_starting_with_lowercase_for_file = {}
-        self.length_of_variables_for_file = {}
+        self.number_of_variables_in_lowercase_for_file: Dict[str, int] = {}
+        self.number_of_variables_for_file: Dict[str, int] = {}
+        self.number_of_variables_starting_with_lowercase_for_file: Dict[str, int] = {}
+        self.length_of_variables_for_file: Dict[str, int] = {}
         self.calculate_metrics_for_file()
 
     def calculate_metrics_for_file(self):

@@ -1,6 +1,6 @@
 import abc
 
-from psob_authorship.features.Ast import Ast, Node
+from psob_authorship.features.java.ast.Ast import Node
 
 
 class AstVisitor:

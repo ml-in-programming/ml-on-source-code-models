@@ -1,7 +1,7 @@
 from typing import Set
 
-from psob_authorship.features.Ast import Node, Ast
-from psob_authorship.features.java.AstVisitor import AstVisitor
+from psob_authorship.features.java.ast.Ast import Node, Ast
+from psob_authorship.features.java.ast.AstVisitor import AstVisitor
 
 
 class AstSpecificTokensExtractor:

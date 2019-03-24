@@ -1,7 +1,7 @@
 import os
 import re
 
-from psob_authorship.features.java.AstVisitor import AstVisitor
+from psob_authorship.features.java.ast.AstVisitor import AstVisitor
 
 
 def load_tokens(path_to_ast_data):
