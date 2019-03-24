@@ -5,7 +5,7 @@ import torch.nn.functional as F
 
 
 class Model(nn.Module):
-    def __init__(self, input_dim=9, output=40, nonlin=torch.tanh):
+    def __init__(self, input_dim=13, output=40, nonlin=torch.tanh):
         super(Model, self).__init__()
 
         self.nonlin = nonlin

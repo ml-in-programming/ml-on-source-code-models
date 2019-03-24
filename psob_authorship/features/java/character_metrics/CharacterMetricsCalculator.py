@@ -6,11 +6,12 @@ from typing import Dict, Set
 from psob_authorship.features.utils import get_absfilepaths, divide_with_handling_zero_division
 
 
-class BracesMetricsCalculator:
+class CharacterMetricsCalculator:
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
             self.percentage_of_open_braces_alone_in_a_line(filepaths),
             self.percentage_of_close_braces_alone_in_a_line(filepaths)
+            # self.average_character_number_per_java_file(filepaths)
         ])
 
     def percentage_of_open_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
@@ -43,6 +44,18 @@ class BracesMetricsCalculator:
             "calculating percentage of close braces alone in a line for " + str(filepaths)
         ) * 100
 
+    def average_character_number_per_java_file(self, filepaths: Set[str]) -> float:
+        """
+        Character number is including line separators and etc.
+        :param filepaths: paths to files for which metric should be calculated
+        :return: character number / len(filepaths)
+        """
+        return divide_with_handling_zero_division(
+            sum([self.character_number_for_file[filepath] for filepath in filepaths]),
+            len(filepaths),
+            "calculating average character number per java file for " + str(filepaths)
+        ) * 100
+
     OPEN_BRACE = '{'
     CLOSE_BRACE = '}'
 
@@ -53,6 +66,7 @@ class BracesMetricsCalculator:
         self.open_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.alone_close_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.close_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.character_number_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
 
     def calculate_metrics_for_file(self) -> None:
@@ -62,8 +76,9 @@ class BracesMetricsCalculator:
 
     def calculate_metrics(self, filepath: str) -> None:
         with open(filepath) as file:
+            self.character_number_for_file[filepath] = len(file.read())
             for line in file.read().splitlines():
-                self.alone_open_braces_for_file[filepath] += line.strip() == BracesMetricsCalculator.OPEN_BRACE
-                self.open_braces_for_file[filepath] += BracesMetricsCalculator.OPEN_BRACE in line
-                self.alone_close_braces_for_file[filepath] += line.strip() == BracesMetricsCalculator.CLOSE_BRACE
-                self.close_braces_for_file[filepath] += BracesMetricsCalculator.CLOSE_BRACE in line
+                self.alone_open_braces_for_file[filepath] += line.strip() == CharacterMetricsCalculator.OPEN_BRACE
+                self.open_braces_for_file[filepath] += CharacterMetricsCalculator.OPEN_BRACE in line
+                self.alone_close_braces_for_file[filepath] += line.strip() == CharacterMetricsCalculator.CLOSE_BRACE
+                self.close_braces_for_file[filepath] += CharacterMetricsCalculator.CLOSE_BRACE in line

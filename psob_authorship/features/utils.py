@@ -11,5 +11,7 @@ def get_absfilepaths(file_or_dir):
     return filenames
 
 
-def divide_with_handling_zero_division(numerator, denominator, log_information, zero_division_return=float(0)):
+def divide_with_handling_zero_division(numerator, denominator, log_information, zero_division_return=float(-1)):
+    if denominator == 0:
+        print("SUSPICIOUS ZERO DIVISION: " + log_information)
     return zero_division_return if denominator == 0 else numerator / denominator
