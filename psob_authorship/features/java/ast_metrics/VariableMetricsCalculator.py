@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import torch
 from typing import Dict, Set
 
@@ -62,24 +64,25 @@ class VariableMetricsCalculator:
     def percentage_of_for_statements_to_all_loop_statements(self, filepaths: Set[str]) -> float:
         pass
 
-    VARIABLE_NODE_NAMES = {"variableDeclarator", "variableDeclaratorId", "fieldDeclaration", "formalParameter",
-                           "localVariableDeclaration"}
+    # TODO: make more correct and check all cases
+    VARIABLE_NODE_NAMES = {"variableDeclarator"}
+    # nodes to check: {"variableDeclaratorId", "fieldDeclaration", "formalParameter", "localVariableDeclaration"}
 
     @staticmethod
     def get_variable_names_for_file(asts: Dict[str, FileAst]) -> Dict[str, Set[str]]:
-        return {filepath: VariableMetricsCalculator.get_variable_names(ast) for filepath, ast in asts}
+        return {filepath: VariableMetricsCalculator.get_variable_names(ast) for filepath, ast in asts.items()}
 
     @staticmethod
     def get_variable_names(ast: Ast) -> Set[str]:
         return AstSpecificTokensExtractor(ast).extract_tokens_by_nodes(VariableMetricsCalculator.VARIABLE_NODE_NAMES)
 
-    def __init__(self, asts: dict) -> None:
+    def __init__(self, asts: Dict[str, FileAst]) -> None:
         super().__init__()
         self.variable_names_for_file = self.get_variable_names_for_file(asts)
-        self.number_of_variables_in_lowercase_for_file: Dict[str, int] = {}
-        self.number_of_variables_for_file: Dict[str, int] = {}
-        self.number_of_variables_starting_with_lowercase_for_file: Dict[str, int] = {}
-        self.length_of_variables_for_file: Dict[str, int] = {}
+        self.number_of_variables_in_lowercase_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.number_of_variables_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.number_of_variables_starting_with_lowercase_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.length_of_variables_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
 
     def calculate_metrics_for_file(self):

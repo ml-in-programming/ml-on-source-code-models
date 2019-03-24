@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import torch
 from typing import Dict, Set
 
@@ -47,10 +49,10 @@ class BracesMetricsCalculator:
     def __init__(self, dataset_path: str) -> None:
         super().__init__()
         self.dataset_path = dataset_path
-        self.alone_open_braces_for_file: Dict[str, int] = {}
-        self.open_braces_for_file: Dict[str, int] = {}
-        self.alone_close_braces_for_file: Dict[str, int] = {}
-        self.close_braces_for_file: Dict[str, int] = {}
+        self.alone_open_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.open_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.alone_close_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.close_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
 
     def calculate_metrics_for_file(self) -> None:
@@ -60,8 +62,8 @@ class BracesMetricsCalculator:
 
     def calculate_metrics(self, filepath: str) -> None:
         with open(filepath) as file:
-            for line in file:
+            for line in file.read().splitlines():
                 self.alone_open_braces_for_file[filepath] += line.strip() == BracesMetricsCalculator.OPEN_BRACE
-                self.open_braces_for_file += BracesMetricsCalculator.OPEN_BRACE in line
-                self.alone_close_braces_for_file += line.strip() == BracesMetricsCalculator.CLOSE_BRACE
-                self.close_braces_for_file += BracesMetricsCalculator.CLOSE_BRACE in line
+                self.open_braces_for_file[filepath] += BracesMetricsCalculator.OPEN_BRACE in line
+                self.alone_close_braces_for_file[filepath] += line.strip() == BracesMetricsCalculator.CLOSE_BRACE
+                self.close_braces_for_file[filepath] += BracesMetricsCalculator.CLOSE_BRACE in line

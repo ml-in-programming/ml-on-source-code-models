@@ -1,6 +1,7 @@
 import os
 import re
 
+from psob_authorship.features.java.ast.AstNode import AstNode
 from psob_authorship.features.java.ast.AstVisitor import AstVisitor
 
 
@@ -35,13 +36,12 @@ class Ast:
 
     def __init__(self, ast_in_string, tokens, nodes) -> None:
         super().__init__()
-        self.root = Node(Ast.split_on_strings(ast_in_string), tokens, nodes)
+        self.root = AstNode(Ast.split_on_strings(ast_in_string), tokens, nodes)
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, Ast):
             return False
         return self.root == o.root
-
 
     def accept(self, ast_visitor: AstVisitor) -> None:
         ast_visitor.visit(self.root)
@@ -63,23 +63,3 @@ class FileAst(Ast):
         if not isinstance(o, FileAst):
             return False
         return super().__eq__(o) and self.filename == o.filename
-
-
-class Node:
-    def __init__(self, ast_in_strings, tokens, nodes):
-        self.token = ast_in_strings.pop()
-        self.token_name = tokens[self.token]
-        self.node = ast_in_strings.pop()
-        self.node_name = nodes[self.node]
-        self.children = []
-        ast_in_strings.pop()
-        while ast_in_strings[-1] != '}':
-            self.children.append(Node(ast_in_strings, tokens, nodes))
-        ast_in_strings.pop()
-
-    def __eq__(self, o: object) -> bool:
-        if not isinstance(o, Node):
-            return False
-        return self.token == o.token and self.node == self.node and \
-            self.token_name == self.token_name and self.node_name == o.node_name and \
-            self.children == o.children

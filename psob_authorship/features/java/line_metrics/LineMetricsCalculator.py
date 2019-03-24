@@ -1,5 +1,7 @@
 import os
 import subprocess
+from collections import defaultdict
+
 import torch
 from typing import Dict, Set
 
@@ -62,16 +64,16 @@ class LineMetricsCalculator:
     def __init__(self, dataset_path: str) -> None:
         super().__init__()
         self.dataset_path = dataset_path
-        self.single_line_comments_for_file: Dict[str, int] = {}
-        self.blank_lines_for_file: Dict[str, int] = {}
-        self.comment_lines_for_file: Dict[str, int] = {}
-        self.code_lines_for_file: Dict[str, int] = {}
+        self.single_line_comments_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.blank_lines_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.comment_lines_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.code_lines_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
 
     def calculate_metrics_for_file(self) -> None:
         self.count_single_line_comments_for_file()
         cloc_output = self.get_cloc_output()
-        for cloc_file_output in cloc_output:
+        for cloc_file_output in cloc_output.splitlines():
             if not cloc_file_output.startswith("Java"):
                 continue
             splitted = cloc_file_output.split(',')

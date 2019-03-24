@@ -5,22 +5,24 @@ import torch
 from skorch import NeuralNetClassifier
 from tqdm import tqdm
 
-from psob_authorship.features.java_language_features import get_all_metrics
+from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
 from psob_authorship.model.Model import Model
 
 
 def get_labeled_data():
-    root_dataset = "../dataset"
+    dataset_path = "../dataset"
+    ast_path = "../asts"
+    metrics_calculator = MetricsCalculator(dataset_path, ast_path)
     features = []
     labels = []
-    metrics = get_all_metrics()
-    ast_path = "../asts"
-    for author_id, author in enumerate(tqdm(os.listdir(root_dataset))):
-        for root, dirs, files in os.walk(os.path.join(root_dataset, author)):
+    for author_id, author in enumerate(tqdm(os.listdir(dataset_path))):
+        for root, dirs, files in os.walk(os.path.join(dataset_path, author)):
             for file in files:
-                features.append([metric(os.path.join(root, file), ast_path) for metric in metrics])
+                filepaths = {os.path.abspath(os.path.join(root, file))}
+                files_features = metrics_calculator.get_metrics(filepaths)
+                features.append(torch.tensor(files_features))
                 labels.append(author_id)
-    return torch.tensor(features), torch.tensor(labels)
+    return torch.stack(tuple(features)), torch.tensor(labels)
 
 
 def run_train():
