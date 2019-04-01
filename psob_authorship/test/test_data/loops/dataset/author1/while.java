@@ -8,10 +8,11 @@ class A {
 
         for (String var3 : array)
         {
+            break;
         }
 
         for (int var4 = 0; var4 < 100; var4++) {
-
+            continue;
         }
    }
 }

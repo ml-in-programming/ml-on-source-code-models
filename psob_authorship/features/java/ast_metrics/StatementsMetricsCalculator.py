@@ -15,7 +15,8 @@ class StatementsMetricsCalculator:
             self.percentage_of_for_statements_to_all_loop_statements(filepaths),
             self.percentage_of_if_statements_to_all_conditional_statements(filepaths),
             self.average_number_of_methods_per_class(filepaths),
-            self.percentage_of_catch_statements_when_dealing_with_exceptions(filepaths)
+            self.percentage_of_catch_statements_when_dealing_with_exceptions(filepaths),
+            self.ratio_of_branch_statements(filepaths)
         ])
 
     def percentage_of_for_statements_to_all_loop_statements(self, filepaths: Set[str]) -> float:
@@ -66,6 +67,24 @@ class StatementsMetricsCalculator:
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
         ) * 100
 
+    def ratio_of_branch_statements(self, filepaths: Set[str]) -> float:
+        """
+        Strange metric. Branch statements are: break, continue, return
+        Possible variants of interpretation:
+        1. number of branch / all statements
+        2. number of break / (number of break + number of continue)
+        3. (number of break + number of continue) / (number of break, continue, return)
+        4. number of break + number of continue + number of return
+        2 variant was chosen.
+        :param filepaths: paths to files for which metric should be calculated
+        :return: number of break / (number of break + number of continue)
+        """
+        return divide_with_handling_zero_division(
+            sum([self.breaks_for_file[filepath] for filepath in filepaths]),
+            sum([self.breaks_for_file[filepath] + self.continues_for_file[filepath] for filepath in filepaths]),
+            "calculating ratio of ratio_of_branch_statements for " + str(filepaths)
+        ) * 100
+
     def __init__(self, asts: Dict[str, Ast]) -> None:
         super().__init__()
         self.fors_for_file = defaultdict(lambda: 0)
@@ -74,6 +93,8 @@ class StatementsMetricsCalculator:
         self.switches_for_file = defaultdict(lambda: 0)
         self.tries_for_file = defaultdict(lambda: 0)
         self.catches_for_file = defaultdict(lambda: 0)
+        self.breaks_for_file = defaultdict(lambda: 0)
+        self.continues_for_file = defaultdict(lambda: 0)
         self.methods_for_file = defaultdict(lambda: 0)
         self.classes_for_file = defaultdict(lambda: 0)
         for filepath, ast in asts.items():
@@ -85,6 +106,8 @@ class StatementsMetricsCalculator:
             self.switches_for_file[filepath] = statements_visitor.switches
             self.tries_for_file[filepath] = statements_visitor.tries
             self.catches_for_file[filepath] = statements_visitor.catches
+            self.breaks_for_file[filepath] = statements_visitor.breaks
+            self.continues_for_file[filepath] = statements_visitor.continues
             self.methods_for_file[filepath] = statements_visitor.methods
             self.classes_for_file[filepath] = statements_visitor.classes
 
@@ -96,6 +119,8 @@ class StatementsVisitor(AstVisitor):
     SWITCH = "switch"
     TRY = "try"
     CATCH = "catch"
+    BREAK = "break"
+    CONTINUE = "continue"
     METHOD = "methodDeclaration"
     CLASS = "classDeclaration"
 
@@ -107,6 +132,8 @@ class StatementsVisitor(AstVisitor):
         self.switches = 0
         self.tries = 0
         self.catches = 0
+        self.breaks = 0
+        self.continues = 0
         self.methods = 0
         self.classes = 0
 
@@ -123,6 +150,10 @@ class StatementsVisitor(AstVisitor):
             self.tries += 1
         elif node.token_name == StatementsVisitor.CATCH:
             self.catches += 1
+        elif node.token_name == StatementsVisitor.BREAK:
+            self.breaks += 1
+        elif node.token_name == StatementsVisitor.CONTINUE:
+            self.continues += 1
         if node.node_name == StatementsVisitor.METHOD:
             self.methods += 1
         elif node.node_name == StatementsVisitor.CLASS:
