@@ -8,6 +8,9 @@ class A {
 
         for (String var3 : array)
         {
+        try {
+
+        }
             break;
         }
 

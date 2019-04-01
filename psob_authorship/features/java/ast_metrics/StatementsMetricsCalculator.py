@@ -16,7 +16,8 @@ class StatementsMetricsCalculator:
             self.percentage_of_if_statements_to_all_conditional_statements(filepaths),
             self.average_number_of_methods_per_class(filepaths),
             self.percentage_of_catch_statements_when_dealing_with_exceptions(filepaths),
-            self.ratio_of_branch_statements(filepaths)
+            self.ratio_of_branch_statements(filepaths),
+            self.ratio_of_try_structure(filepaths)
         ])
 
     def percentage_of_for_statements_to_all_loop_statements(self, filepaths: Set[str]) -> float:
@@ -75,18 +76,37 @@ class StatementsMetricsCalculator:
         2. number of break / (number of break + number of continue)
         3. (number of break + number of continue) / (number of break, continue, return)
         4. number of break + number of continue + number of return
-        2 variant was chosen.
+        5. number of branch / number of characters
+        6. (number of break + number of continue) / number of characters
+        6 variant was chosen.
         :param filepaths: paths to files for which metric should be calculated
-        :return: number of break / (number of break + number of continue)
+        :return: (number of break + number of continue) / number of characters
         """
         return divide_with_handling_zero_division(
-            sum([self.breaks_for_file[filepath] for filepath in filepaths]),
             sum([self.breaks_for_file[filepath] + self.continues_for_file[filepath] for filepath in filepaths]),
+            sum([self.character_number_for_file[filepath] for filepath in filepaths]),
             "calculating ratio of ratio_of_branch_statements for " + str(filepaths)
-        ) * 100
+        )
 
-    def __init__(self, asts: Dict[str, Ast]) -> None:
+    def ratio_of_try_structure(self, filepaths: Set[str]) -> float:
+        """
+        Strange metric. Ratio to what?
+        Possible variants of interpretation:
+        1. number of tries / number of characters
+        2. number of tries
+        1 variant was chosen.
+        :param filepaths: paths to files for which metric should be calculated
+        :return: number of tries / number of characters
+        """
+        return divide_with_handling_zero_division(
+            sum([self.tries_for_file[filepath] for filepath in filepaths]),
+            sum([self.character_number_for_file[filepath] for filepath in filepaths]),
+            "calculating ratio of ratio_of_try_structure for " + str(filepaths)
+        )
+
+    def __init__(self, asts: Dict[str, Ast], character_number_for_file: Dict[str, int]) -> None:
         super().__init__()
+        self.character_number_for_file = character_number_for_file
         self.fors_for_file = defaultdict(lambda: 0)
         self.whiles_for_file = defaultdict(lambda: 0)
         self.ifs_for_file = defaultdict(lambda: 0)

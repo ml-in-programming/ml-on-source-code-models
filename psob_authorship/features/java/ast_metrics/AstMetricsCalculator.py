@@ -1,4 +1,4 @@
-from typing import Set
+from typing import Set, Dict
 
 import torch
 
@@ -8,11 +8,11 @@ from psob_authorship.features.java.ast_metrics.VariableMetricsCalculator import 
 
 
 class AstMetricsCalculator:
-    def __init__(self, ast_path, filenames=None) -> None:
+    def __init__(self, ast_path, character_number_for_file: Dict[str, int], filenames=None) -> None:
         super().__init__()
         self.asts = FileAst.load_asts_from_files(ast_path, filenames)
         self.variable_metrics_calculator = VariableMetricsCalculator(self.asts)
-        self.loops_metrics_calculator = StatementsMetricsCalculator(self.asts)
+        self.loops_metrics_calculator = StatementsMetricsCalculator(self.asts, character_number_for_file)
 
     def maximum_depth_of_an_ast(self, filepaths: Set[str]) -> torch.Tensor:
         """
