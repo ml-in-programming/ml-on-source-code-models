@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Dict, Set, List
+from typing import Dict, Set, List, Tuple
 
 import torch
 
@@ -14,7 +14,8 @@ class VariableMetricsCalculator:
             self.percentage_of_variable_naming_without_uppercase_letters(filepaths),
             self.percentage_of_variable_naming_starting_with_lowercase_letters(filepaths),
             self.average_variable_name_length(filepaths),
-            self.ratio_of_macro_variables(filepaths)
+            self.ratio_of_macro_variables(filepaths),
+            self.preference_for_cyclic_variables(filepaths)
         ])
 
     def percentage_of_variable_naming_without_uppercase_letters(self, filepaths: Set[str]) -> float:
@@ -53,6 +54,19 @@ class VariableMetricsCalculator:
             "calculating metric average_variable_name_length for " + str(filepaths)
         ) * 100
 
+    def preference_for_cyclic_variables(self, filepaths: Set[str]) -> float:
+        """
+        Strange metric. It is interpreted as ratio of variables declared in for loops
+        to all variables.
+        :param filepaths: paths to files for which metric should be calculated
+        :return: ratio of loops variables to all variables
+        """
+        return divide_with_handling_zero_division(
+            sum([self.number_of_variables_in_for_control_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
+            "calculating metric preference_for_cyclic_variables for " + str(filepaths)
+        ) * 100
+
     def ratio_of_macro_variables(self, filepaths: Set[str]) -> float:
         """
         This metric is strange. There is no macros in Java. That is why it always returns 0.
@@ -68,11 +82,11 @@ class VariableMetricsCalculator:
     VARIABLE_NODE_NAMES = [["variableDeclarator", "enhancedForControl", "variableDeclaratorId"], [0, 1, 0]]
 
     @staticmethod
-    def get_variable_names_for_file(asts: Dict[str, Ast]) -> Dict[str, List[str]]:
+    def get_variable_names_for_file(asts: Dict[str, Ast]) -> Dict[str, List[Tuple[str, bool]]]:
         return {filepath: VariableMetricsCalculator.get_variable_names(ast) for filepath, ast in asts.items()}
 
     @staticmethod
-    def get_variable_names(ast: Ast) -> List[str]:
+    def get_variable_names(ast: Ast) -> List[Tuple[str, bool]]:
         return AstSpecificTokensExtractor(ast).extract_tokens_by_nodes(VariableMetricsCalculator.VARIABLE_NODE_NAMES)
 
     def __init__(self, asts: Dict[str, Ast]) -> None:
@@ -80,6 +94,7 @@ class VariableMetricsCalculator:
         self.variable_names_for_file = self.get_variable_names_for_file(asts)
         self.number_of_variables_in_lowercase_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.number_of_variables_for_file: Dict[str, int] = defaultdict(lambda: 0)
+        self.number_of_variables_in_for_control_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.number_of_variables_starting_with_lowercase_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.length_of_variables_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
@@ -89,8 +104,9 @@ class VariableMetricsCalculator:
             self.calculate_metrics(filepath)
 
     def calculate_metrics(self, filepath: str) -> None:
-        for variable_name in self.variable_names_for_file[filepath]:
+        for variable_name, in_for_control in self.variable_names_for_file[filepath]:
             self.number_of_variables_for_file[filepath] += 1
+            self.number_of_variables_in_for_control_for_file[filepath] += in_for_control
             self.number_of_variables_in_lowercase_for_file[filepath] += variable_name.islower()
             self.number_of_variables_starting_with_lowercase_for_file[filepath] += variable_name[0].islower()
             self.length_of_variables_for_file[filepath] += len(variable_name)
