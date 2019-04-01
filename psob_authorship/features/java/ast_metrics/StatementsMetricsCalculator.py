@@ -17,7 +17,8 @@ class StatementsMetricsCalculator:
             self.average_number_of_methods_per_class(filepaths),
             self.percentage_of_catch_statements_when_dealing_with_exceptions(filepaths),
             self.ratio_of_branch_statements(filepaths),
-            self.ratio_of_try_structure(filepaths)
+            self.ratio_of_try_structure(filepaths),
+            self.average_number_of_interfaces_per_class(filepaths)
         ])
 
     def percentage_of_for_statements_to_all_loop_statements(self, filepaths: Set[str]) -> float:
@@ -104,6 +105,19 @@ class StatementsMetricsCalculator:
             "calculating ratio of ratio_of_try_structure for " + str(filepaths)
         )
 
+    def average_number_of_interfaces_per_class(self, filepaths: Set[str]) -> float:
+        """
+        TODO: calculate all of interfaces, not only implements words
+        Calculates average number of interfaces per class
+        :param filepaths: paths to files for which metric should be calculated
+        :return: number of implements keywords / number of classes
+        """
+        return divide_with_handling_zero_division(
+            sum([self.implements_for_file[filepath] for filepath in filepaths]),
+            sum([self.classes_for_file[filepath] for filepath in filepaths]),
+            "calculating average_number_of_interfaces_per_class metric for " + str(filepaths)
+        )
+
     def __init__(self, asts: Dict[str, Ast], character_number_for_file: Dict[str, int]) -> None:
         super().__init__()
         self.character_number_for_file = character_number_for_file
@@ -115,6 +129,7 @@ class StatementsMetricsCalculator:
         self.catches_for_file = defaultdict(lambda: 0)
         self.breaks_for_file = defaultdict(lambda: 0)
         self.continues_for_file = defaultdict(lambda: 0)
+        self.implements_for_file = defaultdict(lambda: 0)
         self.methods_for_file = defaultdict(lambda: 0)
         self.classes_for_file = defaultdict(lambda: 0)
         for filepath, ast in asts.items():
@@ -128,6 +143,7 @@ class StatementsMetricsCalculator:
             self.catches_for_file[filepath] = statements_visitor.catches
             self.breaks_for_file[filepath] = statements_visitor.breaks
             self.continues_for_file[filepath] = statements_visitor.continues
+            self.implements_for_file[filepath] = statements_visitor.implements
             self.methods_for_file[filepath] = statements_visitor.methods
             self.classes_for_file[filepath] = statements_visitor.classes
 
@@ -141,6 +157,7 @@ class StatementsVisitor(AstVisitor):
     CATCH = "catch"
     BREAK = "break"
     CONTINUE = "continue"
+    IMPLEMENTS = "implements"
     METHOD = "methodDeclaration"
     CLASS = "classDeclaration"
 
@@ -154,6 +171,7 @@ class StatementsVisitor(AstVisitor):
         self.catches = 0
         self.breaks = 0
         self.continues = 0
+        self.implements = 0
         self.methods = 0
         self.classes = 0
 
@@ -174,6 +192,8 @@ class StatementsVisitor(AstVisitor):
             self.breaks += 1
         elif node.token_name == StatementsVisitor.CONTINUE:
             self.continues += 1
+        elif node.token_name == StatementsVisitor.IMPLEMENTS:
+            self.implements += 1
         if node.node_name == StatementsVisitor.METHOD:
             self.methods += 1
         elif node.node_name == StatementsVisitor.CLASS:

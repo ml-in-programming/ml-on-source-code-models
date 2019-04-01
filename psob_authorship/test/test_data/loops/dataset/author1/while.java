@@ -1,6 +1,6 @@
 package b;
 
-class A {
+class A implements Serializable {
    private int var1 = 0;
 
    void method() {
@@ -18,4 +18,7 @@ class A {
             continue;
         }
    }
+}
+
+class B implements Closable {
 }
