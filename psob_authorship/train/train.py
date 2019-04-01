@@ -20,8 +20,8 @@ def chunks(l, n):
 
 
 def get_labeled_data():
-    # dataset_path = "../test/test_data/dataset"
-    # ast_path = "../test/test_data/asts"
+    # dataset_path = "../test/test_data/loops/dataset"
+    # ast_path = "../test/test_data/loops/asts"
     dataset_path = "../dataset"
     ast_path = "../asts"
     metrics_calculator = MetricsCalculator(dataset_path, ast_path)
@@ -32,7 +32,7 @@ def get_labeled_data():
             if len(files) == 0:
                 continue
             for chunk in chunks(files, len(files)):
-                filepaths = {os.path.abspath(os.path.join(root, file)) for file in chunk}
+                filepaths = {os.path.abspath(os.path.join(root,  file)) for file in chunk}
                 files_features = metrics_calculator.get_metrics(filepaths)
                 features.append(torch.tensor(files_features))
                 labels.append(author_id)
@@ -41,7 +41,7 @@ def get_labeled_data():
 
 def run_train():
     features, labels = get_labeled_data()
-    net = NeuralNetClassifier(Model, max_epochs=20, lr=0.1)
+    net = NeuralNetClassifier(Model, max_epochs=30, lr=0.1)
     net.fit(features, labels)
     print(features[0])
     print(net.predict(features[:10]))

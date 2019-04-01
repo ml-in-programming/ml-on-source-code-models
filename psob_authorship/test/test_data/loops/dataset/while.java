@@ -1,26 +1,17 @@
 package b;
 
 class A {
-   int a() {
-      if (true) {
+   private int var1 = 0;
 
-      }
-      int x = 0;
-      switch(x) {
-      case 0:
-         break;
-      }
-      return x == 0 ? 1 : 0;
+   void method() {
+        String var2[] = {"Ron", "Harry", "Hermoine"};
+
+        for (String var3 : array)
+        {
+        }
+
+        for (int var4 = 0; var4 < 100; var4++) {
+
+        }
    }
-   void printCollection(Collection<?> c) {
-        try {
-        }
-        try {
-        for (Object e : c) {
-            System.out.println(e);
-        }
-        } catch(Exception e) {
-
-        }
-    }
 }

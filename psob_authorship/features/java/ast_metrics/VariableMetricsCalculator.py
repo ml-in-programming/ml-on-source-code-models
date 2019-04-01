@@ -64,9 +64,8 @@ class VariableMetricsCalculator:
     def percentage_of_for_statements_to_all_loop_statements(self, filepaths: Set[str]) -> float:
         pass
 
-    # TODO: make more correct and check all cases
-    VARIABLE_NODE_NAMES = {"variableDeclarator"}
-    # nodes to check: {"variableDeclaratorId", "fieldDeclaration", "formalParameter", "localVariableDeclaration"}
+    # second list is child numbers
+    VARIABLE_NODE_NAMES = [["variableDeclarator", "enhancedForControl", "variableDeclaratorId"], [0, 1, 0]]
 
     @staticmethod
     def get_variable_names_for_file(asts: Dict[str, Ast]) -> Dict[str, List[str]]:
