@@ -5,12 +5,14 @@ import torch.nn.functional as F
 
 
 class Model(nn.Module):
+    HIDDEN_DIM = 150
+
     def __init__(self, input_dim=19, output=40, nonlin=torch.tanh):
         super(Model, self).__init__()
 
         self.nonlin = nonlin
-        self.input_hidden = nn.Linear(input_dim, 150)
-        self.hidden_output = nn.Linear(150, output)
+        self.input_hidden = nn.Linear(input_dim, Model.HIDDEN_DIM, bias=False)  # + 1 = + bias
+        self.hidden_output = nn.Linear(Model.HIDDEN_DIM, output, bias=False)  # + 1 = + bias
 
     def forward(self, x, **kwargs):
         x = self.nonlin(self.input_hidden(x))

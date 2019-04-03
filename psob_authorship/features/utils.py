@@ -15,3 +15,14 @@ def divide_with_handling_zero_division(numerator, denominator, log_information, 
     if denominator == 0:
         print("SUSPICIOUS ZERO DIVISION: " + log_information)
     return zero_division_return if denominator == 0 else numerator / denominator
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    n = min(n, len(l))
+    step = int(len(l) / n)
+    for i in range(0, n):
+        if i == n - 1:
+            yield l[i * step:len(l)]
+        else:
+            yield l[i * step:(i + 1) * step]
