@@ -50,9 +50,9 @@ class VariableMetricsCalculator:
         """
         return divide_with_handling_zero_division(
             sum([self.length_of_variables_for_file[filepath] for filepath in filepaths]),
-            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             "calculating metric average_variable_name_length for " + str(filepaths)
-        ) * 100
+        )
 
     def preference_for_cyclic_variables(self, filepaths: Set[str]) -> float:
         """

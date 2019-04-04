@@ -5,7 +5,7 @@ from typing import Tuple
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from sklearn.model_selection import StratifiedKFold, RepeatedStratifiedKFold
+from sklearn.model_selection import RepeatedStratifiedKFold
 from skorch import NeuralNetClassifier
 from skorch.dataset import CVSplit
 from tqdm import tqdm
@@ -29,7 +29,8 @@ def print_author_files_distribution(dataset_path="../dataset") -> None:
         print('{},{},{}'.format(author_id, author, num_of_files))
 
 
-def get_labeled_data(split=None, dataset_path="../dataset", ast_path="../asts") -> Tuple[torch.Tensor, torch.Tensor]:
+def get_labeled_data(split=None, dataset_path=os.path.abspath("../dataset"),
+                     ast_path=os.path.abspath("../asts")) -> Tuple[torch.Tensor, torch.Tensor]:
     metrics_calculator = MetricsCalculator(dataset_path, ast_path)
     features = []
     labels = []
@@ -189,5 +190,4 @@ def run_train_skorch():
 
 
 if __name__ == '__main__':
-    print_author_files_distribution()
-    # run_cross_validation()
+    run_cross_validation()

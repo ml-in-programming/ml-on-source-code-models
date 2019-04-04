@@ -1,0 +1,8 @@
+id,node_type
+1,compilationUnit
+7,variableDeclarator
+5,classBody
+6,fieldDeclaration
+2,typeDeclaration
+3,Terminal
+4,classDeclaration

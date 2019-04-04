@@ -6,7 +6,7 @@ from psob_authorship.features.java.character_metrics.CharacterMetricsCalculator 
 
 class AverageCharacterNumberPerJavaFileTest(unittest.TestCase):
     TEST_DATA_ROOT_DIR = \
-        os.path.abspath("../../../test_data/features/java/character_metrics/average_character_number_per_java_file/")
+        os.path.abspath("../../../../test_data/features/java/character_metrics/average_character_number_per_java_file/")
     CHAR_NUMBER_BY_FILEPATH = {
         os.path.join(TEST_DATA_ROOT_DIR, "empty"): 0,
         os.path.join(TEST_DATA_ROOT_DIR, "one_line"): 15,
