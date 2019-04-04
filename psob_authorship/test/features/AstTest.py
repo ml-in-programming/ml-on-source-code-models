@@ -23,3 +23,7 @@ class AstTest(unittest.TestCase):
         # TODO: create complex test checking the stucture of created asts.
         asts = FileAst.load_asts_from_files(AstTest.ast_path)
         self.assertEqual(4, len(asts))
+
+
+if __name__ == '__main__':
+    unittest.main()

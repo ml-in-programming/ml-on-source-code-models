@@ -38,3 +38,7 @@ class AverageCharacterNumberPerJavaFileTest(unittest.TestCase):
             ),
             sum(self.CHAR_NUMBER_BY_FILEPATH.values()) / len(self.CHAR_NUMBER_BY_FILEPATH.values())
         )
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -143,7 +143,7 @@ class StatementsMetricsCalculator:
             self.catches_for_file[filepath] = statements_visitor.catches
             self.breaks_for_file[filepath] = statements_visitor.breaks
             self.continues_for_file[filepath] = statements_visitor.continues
-            self.implements_for_file[filepath] = statements_visitor.visited_implements
+            self.implements_for_file[filepath] = statements_visitor.implements
             self.methods_for_file[filepath] = statements_visitor.methods
             self.classes_for_file[filepath] = statements_visitor.classes
 
@@ -179,6 +179,15 @@ class StatementsVisitor(AstVisitor):
         self.classes = 0
 
     def visit(self, node: AstNode):
+        if self.visited_implements:
+            if node.node_name == self.TYPE_LIST:
+                self.implements += (len(node.children) + 1) / 2
+            elif node.node_name == self.TERMINAL:
+                self.implements += 1
+            else:
+                raise ValueError("visitor visited implements statement "
+                                 "but next child is not an interface name or type list")
+        self.visited_implements = False
         if node.token_name == StatementsVisitor.FOR:
             self.fors += 1
         elif node.token_name == StatementsVisitor.WHILE:
@@ -201,12 +210,4 @@ class StatementsVisitor(AstVisitor):
             self.methods += 1
         elif node.node_name == StatementsVisitor.CLASS:
             self.classes += 1
-        if self.visited_implements:
-            if node.node_name == self.TYPE_LIST:
-                self.implements += len(node.children)
-            elif node.node_name == self.TERMINAL:
-                self.implements += 1
-            else:
-                raise ValueError("visitor visited implements statement "
-                                 "but next child is not an interface name or type list")
         super().visit(node)

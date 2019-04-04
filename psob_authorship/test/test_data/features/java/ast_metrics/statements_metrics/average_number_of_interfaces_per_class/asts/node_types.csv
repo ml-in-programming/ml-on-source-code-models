@@ -1,0 +1,6 @@
+id,node_type
+1,compilationUnit
+4,typeList
+5,classBody
+3,Terminal
+2,classDeclaration

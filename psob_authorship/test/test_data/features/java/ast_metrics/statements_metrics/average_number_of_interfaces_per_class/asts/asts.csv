@@ -1,0 +1,4 @@
+id,ast
+/home/mikhail/Documents/Development/ml-on-source-code-models/psob_authorship/test/test_data/features/java/ast_metrics/statements_metrics/average_number_of_interfaces_per_class/2_classes.java,1 1{1 2{2 3{}11 3{}4 3{}1 4{7 3{}6 3{}12 3{}}1 5{8 3{}9 3{}}}1 2{2 3{}3 3{}4 3{}5 3{}1 5{8 3{}9 3{}}}10 3{}}
+/home/mikhail/Documents/Development/ml-on-source-code-models/psob_authorship/test/test_data/features/java/ast_metrics/statements_metrics/average_number_of_interfaces_per_class/2_interfaces.java,1 1{1 2{2 3{}3 3{}4 3{}1 4{5 3{}6 3{}7 3{}}1 5{8 3{}9 3{}}}10 3{}}
+/home/mikhail/Documents/Development/ml-on-source-code-models/psob_authorship/test/test_data/features/java/ast_metrics/statements_metrics/average_number_of_interfaces_per_class/1_interface.java,1 1{1 2{2 3{}3 3{}4 3{}5 3{}1 5{8 3{}9 3{}}}10 3{}}

@@ -7,7 +7,8 @@ from psob_authorship.features.java.ast_metrics.VariableMetricsCalculator import 
 
 class AverageVariableNameLength(unittest.TestCase):
     TEST_DATA_ROOT_DIR = \
-        os.path.abspath("../../../../test_data/features/java/ast_metrics/average_variable_name_length/")
+        os.path.abspath("../../../../../test_data/"
+                        "features/java/ast_metrics/variable_metrics/average_variable_name_length/")
 
     AST_PATH = \
         os.path.join(TEST_DATA_ROOT_DIR, "asts")
@@ -45,3 +46,7 @@ class AverageVariableNameLength(unittest.TestCase):
             sum(self.VARIABLE_LENGTH_BY_FILEPATH.values()) / sum(self.VARIABLE_NUMBER_BY_FILEPATH.values()),
             self.METRICS_CALCULATOR.average_variable_name_length(set(self.VARIABLE_LENGTH_BY_FILEPATH.keys()))
         )
+
+
+if __name__ == '__main__':
+    unittest.main()
