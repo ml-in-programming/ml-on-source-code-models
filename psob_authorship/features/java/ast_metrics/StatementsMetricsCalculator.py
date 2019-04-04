@@ -143,7 +143,7 @@ class StatementsMetricsCalculator:
             self.catches_for_file[filepath] = statements_visitor.catches
             self.breaks_for_file[filepath] = statements_visitor.breaks
             self.continues_for_file[filepath] = statements_visitor.continues
-            self.implements_for_file[filepath] = statements_visitor.implements
+            self.implements_for_file[filepath] = statements_visitor.visited_implements
             self.methods_for_file[filepath] = statements_visitor.methods
             self.classes_for_file[filepath] = statements_visitor.classes
 
@@ -158,6 +158,8 @@ class StatementsVisitor(AstVisitor):
     BREAK = "break"
     CONTINUE = "continue"
     IMPLEMENTS = "implements"
+    TYPE_LIST = "typeList"
+    TERMINAL = "Terminal"
     METHOD = "methodDeclaration"
     CLASS = "classDeclaration"
 
@@ -171,6 +173,7 @@ class StatementsVisitor(AstVisitor):
         self.catches = 0
         self.breaks = 0
         self.continues = 0
+        self.visited_implements = False
         self.implements = 0
         self.methods = 0
         self.classes = 0
@@ -193,9 +196,17 @@ class StatementsVisitor(AstVisitor):
         elif node.token_name == StatementsVisitor.CONTINUE:
             self.continues += 1
         elif node.token_name == StatementsVisitor.IMPLEMENTS:
-            self.implements += 1
+            self.visited_implements = True
         if node.node_name == StatementsVisitor.METHOD:
             self.methods += 1
         elif node.node_name == StatementsVisitor.CLASS:
             self.classes += 1
+        if self.visited_implements:
+            if node.node_name == self.TYPE_LIST:
+                self.implements += len(node.children)
+            elif node.node_name == self.TERMINAL:
+                self.implements += 1
+            else:
+                raise ValueError("visitor visited implements statement "
+                                 "but next child is not an interface name or type list")
         super().visit(node)

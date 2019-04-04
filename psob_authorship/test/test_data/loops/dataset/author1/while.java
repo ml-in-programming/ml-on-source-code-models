@@ -1,6 +1,6 @@
 package b;
 
-class A implements Serializable {
+class A implements Serializable, Cloneable {
    private int var1 = 0;
 
    void method() {
