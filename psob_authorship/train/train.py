@@ -5,7 +5,7 @@ from typing import Tuple
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold, RepeatedStratifiedKFold
 from skorch import NeuralNetClassifier
 from skorch.dataset import CVSplit
 from tqdm import tqdm
@@ -15,8 +15,8 @@ from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
 from psob_authorship.features.utils import chunks
 from psob_authorship.model.Model import Model
 
-EPOCHS = 200
-BATCH_SIZE = 90
+EPOCHS = 100
+BATCH_SIZE = 128
 NUM_OF_AUTHORS = 40
 
 
@@ -44,12 +44,13 @@ def run_cross_validation():
     k_fold = 10
     loaded_features, loaded_labels = \
         torch.load("./split_each_file_features.tr"), torch.load("./split_each_file_labels.tr")
-    skf = StratifiedKFold(n_splits=k_fold, shuffle=True, random_state=0)
-    # metrics = [i for i in range(19)]
+    skf = RepeatedStratifiedKFold(n_splits=k_fold, n_repeats=10)
     metrics = [0, 1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18]
+    accuraces = torch.zeros((10, 10))
+    loop = 0
     for train_index, test_index in skf.split(loaded_features, loaded_labels):
         model = Model(len(metrics))
-        criterion = nn.MSELoss()
+        criterion = nn.CrossEntropyLoss()
         optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
         train_features, train_labels = loaded_features[train_index], loaded_labels[train_index]
         test_features, test_labels = loaded_features[test_index], loaded_labels[test_index]
@@ -79,9 +80,9 @@ def run_cross_validation():
 
                 # print statistics
                 running_loss += loss.item()
-                if i % 10 == 9:  # print every 2000 mini-batches
-                    print('[%d, %5d] loss: %.3f' %
-                          (epoch + 1, i + 1, running_loss / 10))
+                if i % 10 == 9:
+                    # print('[%d, %5d] loss: %.3f' %
+                    #      (epoch + 1, i + 1, running_loss / 10))
                     running_loss = 0.0
 
         print('Finished Training')
@@ -94,6 +95,7 @@ def run_cross_validation():
                 features, labels = data
                 outputs = model(features)
                 _, predicted = torch.max(outputs.data, 1)
+                print(predicted)
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
                 for i, label in enumerate(labels):
@@ -101,7 +103,12 @@ def run_cross_validation():
         print('Accuracy of the network: %d / %d = %d %%' % (
             correct, total, 100 * correct / total))
         print(labels_correct)
+        accuraces[loop % 10][int(loop / 10)] = correct / total
+        loop += 1
         return
+    print(torch.mean(accuraces, 1))
+    print(torch.std(accuraces, 1))
+    print(accuraces)
 
 
 def run_train():
