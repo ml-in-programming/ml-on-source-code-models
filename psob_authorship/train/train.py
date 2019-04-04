@@ -20,9 +20,16 @@ BATCH_SIZE = 128
 NUM_OF_AUTHORS = 40
 
 
-def get_labeled_data(split=None) -> Tuple[torch.Tensor, torch.Tensor]:
-    dataset_path = "../dataset"
-    ast_path = "../asts"
+def print_author_files_distribution(dataset_path="../dataset") -> None:
+    print("ID,author_name,number_of_author_files")
+    for author_id, author in enumerate(os.listdir(dataset_path)):
+        num_of_files = 0
+        for _, _, files in os.walk(os.path.join(dataset_path, author)):
+            num_of_files += len(files)
+        print('{},{},{}'.format(author_id, author, num_of_files))
+
+
+def get_labeled_data(split=None, dataset_path="../dataset", ast_path="../asts") -> Tuple[torch.Tensor, torch.Tensor]:
     metrics_calculator = MetricsCalculator(dataset_path, ast_path)
     features = []
     labels = []
@@ -105,7 +112,6 @@ def run_cross_validation():
         print(labels_correct)
         accuraces[loop % 10][int(loop / 10)] = correct / total
         loop += 1
-        return
     print(torch.mean(accuraces, 1))
     print(torch.std(accuraces, 1))
     print(accuraces)
@@ -183,4 +189,5 @@ def run_train_skorch():
 
 
 if __name__ == '__main__':
-    run_cross_validation()
+    print_author_files_distribution()
+    # run_cross_validation()

@@ -2,6 +2,10 @@ import os
 
 
 def get_absfilepaths(file_or_dir):
+    if not os.path.isabs(file_or_dir):
+        raise ValueError("passed argument to get_absfilepaths(file_or_dir) function must be absolute path")
+    if not os.path.exists(file_or_dir):
+        raise ValueError("passed argument to get_absfilepaths(file_or_dir) function must be existing path")
     if os.path.isfile(file_or_dir):
         return [os.path.abspath(file_or_dir)]
     filenames = []
