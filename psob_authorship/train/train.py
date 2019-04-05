@@ -1,3 +1,4 @@
+import logging
 import os
 import random
 from typing import Tuple
@@ -50,10 +51,10 @@ def get_labeled_data(split=None, dataset_path=os.path.abspath("../dataset"),
 
 def run_cross_validation():
     k_fold = 10
-    loaded_features, loaded_labels = \
-        torch.load("./split_each_file_features.tr"), torch.load("./split_each_file_labels.tr")
+    loaded_features, loaded_labels = get_labeled_data()
     skf = RepeatedStratifiedKFold(n_splits=k_fold, n_repeats=10)
-    metrics = [0, 1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18]
+    metrics = [i for i in range(19)]
+    # metrics = [0, 1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18]
     accuraces = torch.zeros((10, 10))
     loop = 0
     for train_index, test_index in skf.split(loaded_features, loaded_labels):
@@ -113,6 +114,7 @@ def run_cross_validation():
         print(labels_correct)
         accuraces[loop % 10][int(loop / 10)] = correct / total
         loop += 1
+        return
     print(torch.mean(accuraces, 1))
     print(torch.std(accuraces, 1))
     print(accuraces)
@@ -190,4 +192,5 @@ def run_train_skorch():
 
 
 if __name__ == '__main__':
-    run_cross_validation()
+    get_labeled_data()
+    # run_cross_validation()

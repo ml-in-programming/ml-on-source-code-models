@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 from typing import Dict, Set
 
@@ -10,6 +11,8 @@ from psob_authorship.features.utils import divide_with_handling_zero_division
 
 
 class StatementsMetricsCalculator:
+    LOGGER = logging.getLogger('metrics_calculator')
+
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
             self.percentage_of_for_statements_to_all_loop_statements(filepaths),
@@ -30,6 +33,7 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.fors_for_file[filepath] for filepath in filepaths]),
             sum([self.fors_for_file[filepath] + self.whiles_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating percentage of for statements to all loop statements for " + str(filepaths)
         ) * 100
 
@@ -42,6 +46,7 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.ifs_for_file[filepath] for filepath in filepaths]),
             sum([self.ifs_for_file[filepath] + self.switches_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
         ) * 100
 
@@ -54,6 +59,7 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.methods_for_file[filepath] for filepath in filepaths]),
             sum([self.classes_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating average number of methods per class for " + str(filepaths)
         )
 
@@ -66,6 +72,7 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.catches_for_file[filepath] for filepath in filepaths]),
             sum([self.tries_for_file[filepath] - self.catches_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
         ) * 100
 
@@ -86,6 +93,7 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.breaks_for_file[filepath] + self.continues_for_file[filepath] for filepath in filepaths]),
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating ratio of ratio_of_branch_statements for " + str(filepaths)
         )
 
@@ -102,6 +110,7 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.tries_for_file[filepath] for filepath in filepaths]),
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating ratio of ratio_of_try_structure for " + str(filepaths)
         )
 
@@ -115,10 +124,12 @@ class StatementsMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.implements_for_file[filepath] for filepath in filepaths]),
             sum([self.classes_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating average_number_of_interfaces_per_class metric for " + str(filepaths)
         )
 
     def __init__(self, asts: Dict[str, Ast], character_number_for_file: Dict[str, int]) -> None:
+        self.LOGGER.info("Started calculating statements metrics")
         super().__init__()
         self.character_number_for_file = character_number_for_file
         self.fors_for_file = defaultdict(lambda: 0)
@@ -133,6 +144,7 @@ class StatementsMetricsCalculator:
         self.methods_for_file = defaultdict(lambda: 0)
         self.classes_for_file = defaultdict(lambda: 0)
         for filepath, ast in asts.items():
+            self.LOGGER.info("Started calculating metrics for " + filepath)
             statements_visitor = StatementsVisitor()
             ast.accept(statements_visitor)
             self.fors_for_file[filepath] = statements_visitor.fors
@@ -146,6 +158,7 @@ class StatementsMetricsCalculator:
             self.implements_for_file[filepath] = statements_visitor.implements
             self.methods_for_file[filepath] = statements_visitor.methods
             self.classes_for_file[filepath] = statements_visitor.classes
+        self.LOGGER.info("End calculating statements metrics")
 
 
 class StatementsVisitor(AstVisitor):
@@ -160,8 +173,10 @@ class StatementsVisitor(AstVisitor):
     IMPLEMENTS = "implements"
     TYPE_LIST = "typeList"
     TERMINAL = "Terminal"
+    CLASS_OR_INTERFACE_TYPE = "classOrInterfaceType"
     METHOD = "methodDeclaration"
     CLASS = "classDeclaration"
+    ENUM = "enumDeclaration"
 
     def __init__(self) -> None:
         super().__init__()
@@ -182,11 +197,13 @@ class StatementsVisitor(AstVisitor):
         if self.visited_implements:
             if node.node_name == self.TYPE_LIST:
                 self.implements += (len(node.children) + 1) / 2
-            elif node.node_name == self.TERMINAL:
+            elif node.node_name == self.TERMINAL or node.node_name == self.CLASS_OR_INTERFACE_TYPE:
                 self.implements += 1
             else:
-                raise ValueError("visitor visited implements statement "
-                                 "but next child is not an interface name or type list")
+                error_message = "visitor visited implements statement " \
+                                "but next child is not an interface name or type list"
+                StatementsMetricsCalculator.LOGGER.error(error_message)
+                raise ValueError(error_message)
         self.visited_implements = False
         if node.token_name == StatementsVisitor.FOR:
             self.fors += 1
@@ -208,6 +225,6 @@ class StatementsVisitor(AstVisitor):
             self.visited_implements = True
         if node.node_name == StatementsVisitor.METHOD:
             self.methods += 1
-        elif node.node_name == StatementsVisitor.CLASS:
+        elif node.node_name == StatementsVisitor.CLASS or node.node_name == StatementsVisitor.ENUM:
             self.classes += 1
         super().visit(node)

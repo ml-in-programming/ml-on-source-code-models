@@ -1,4 +1,24 @@
+import logging
 import os
+
+
+def get_log_filepath(log_filename: str) -> str:
+    log_root = "../logs"
+    log_filename = log_filename + ".log"
+    return os.path.join(log_root, log_filename)
+
+
+def configure_logger_by_default(logger: logging.Logger) -> None:
+    logger.setLevel(logging.DEBUG)
+    fh = logging.FileHandler(get_log_filepath(logger.name))
+    fh.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.ERROR)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    logger.addHandler(fh)
+    logger.addHandler(ch)
 
 
 def get_absfilepaths(file_or_dir):
@@ -15,9 +35,10 @@ def get_absfilepaths(file_or_dir):
     return filenames
 
 
-def divide_with_handling_zero_division(numerator, denominator, log_information, zero_division_return=float(-1)):
+def divide_with_handling_zero_division(numerator, denominator, logger: logging.Logger, log_information,
+                                       zero_division_return=float(-1)):
     if denominator == 0:
-        print("SUSPICIOUS ZERO DIVISION: " + log_information)
+        logger.warning("SUSPICIOUS ZERO DIVISION: " + log_information)
     return zero_division_return if denominator == 0 else numerator / denominator
 
 

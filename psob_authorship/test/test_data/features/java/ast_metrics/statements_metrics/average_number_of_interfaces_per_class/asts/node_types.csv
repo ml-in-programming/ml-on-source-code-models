@@ -1,6 +1,11 @@
 id,node_type
+9,typeArguments
 1,compilationUnit
 4,typeList
+10,classBodyDeclaration
+8,classOrInterfaceType
 5,classBody
+6,typeDeclaration
 3,Terminal
+7,enumDeclaration
 2,classDeclaration

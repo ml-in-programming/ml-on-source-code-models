@@ -1,3 +1,4 @@
+import logging
 import os
 import subprocess
 from collections import defaultdict
@@ -9,6 +10,8 @@ from psob_authorship.features.utils import divide_with_handling_zero_division, g
 
 
 class LineMetricsCalculator:
+    LOGGER = logging.getLogger('metrics_calculator')
+
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
             self.ratio_of_blank_lines_to_code_lines(filepaths),
@@ -28,6 +31,7 @@ class LineMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.blank_lines_for_file[filepath] for filepath in filepaths]),
             sum([self.code_lines_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating ratio of blank lines to code lines for " + str(filepaths)
         )
 
@@ -44,6 +48,7 @@ class LineMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.comment_lines_for_file[filepath] for filepath in filepaths]),
             sum([self.code_lines_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating ratio of comment lines to code lines for " + str(filepaths)
         )
 
@@ -58,10 +63,12 @@ class LineMetricsCalculator:
             sum([self.comment_lines_for_file[filepath] - self.single_line_comments_for_file[filepath]
                  for filepath in filepaths]),
             sum([self.comment_lines_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating percentage of block comments to all comment lines for " + str(filepaths)
         ) * 100
 
     def __init__(self, dataset_path: str) -> None:
+        self.LOGGER.info("Started calculating line metrics")
         super().__init__()
         self.dataset_path = dataset_path
         self.single_line_comments_for_file: Dict[str, int] = defaultdict(lambda: 0)
@@ -69,6 +76,7 @@ class LineMetricsCalculator:
         self.comment_lines_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.code_lines_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
+        self.LOGGER.info("End calculating line metrics")
 
     def calculate_metrics_for_file(self) -> None:
         self.count_single_line_comments_for_file()

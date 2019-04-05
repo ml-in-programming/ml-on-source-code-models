@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 
 import torch
@@ -7,6 +8,8 @@ from psob_authorship.features.utils import get_absfilepaths, divide_with_handlin
 
 
 class CharacterMetricsCalculator:
+    LOGGER = logging.getLogger('metrics_calculator')
+
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
             self.percentage_of_open_braces_alone_in_a_line(filepaths),
@@ -27,6 +30,7 @@ class CharacterMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.alone_open_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.open_braces_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating percentage of open braces alone in a line for " + str(filepaths)
         ) * 100
 
@@ -42,6 +46,7 @@ class CharacterMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.alone_close_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.close_braces_for_file[filepath] for filepath in filepaths]),
+            self.LOGGER,
             "calculating percentage of close braces alone in a line for " + str(filepaths)
         ) * 100
 
@@ -54,6 +59,7 @@ class CharacterMetricsCalculator:
         return divide_with_handling_zero_division(
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
             len(filepaths),
+            self.LOGGER,
             "calculating average character number per java file for " + str(filepaths)
         )
 
@@ -61,6 +67,7 @@ class CharacterMetricsCalculator:
     CLOSE_BRACE = '}'
 
     def __init__(self, dataset_path: str) -> None:
+        self.LOGGER.info("Started calculating character metrics")
         super().__init__()
         self.dataset_path = dataset_path
         self.alone_open_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
@@ -69,6 +76,7 @@ class CharacterMetricsCalculator:
         self.close_braces_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.character_number_for_file: Dict[str, int] = defaultdict(lambda: 0)
         self.calculate_metrics_for_file()
+        self.LOGGER.info("End calculating character metrics")
 
     def calculate_metrics_for_file(self) -> None:
         filepaths = get_absfilepaths(self.dataset_path)

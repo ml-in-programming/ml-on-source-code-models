@@ -16,17 +16,23 @@ class MyTestCase(unittest.TestCase):
     INTERFACE_NUMBER_BY_FILEPATH = {
         os.path.join(TEST_DATA_ROOT_DIR, "1_interface.java"): 1,
         os.path.join(TEST_DATA_ROOT_DIR, "2_interfaces.java"): 2,
-        os.path.join(TEST_DATA_ROOT_DIR, "2_classes.java"): 3
+        os.path.join(TEST_DATA_ROOT_DIR, "2_classes.java"): 3,
+        os.path.join(TEST_DATA_ROOT_DIR, "enum_interfaces.java"): 1,
+        os.path.join(TEST_DATA_ROOT_DIR, "generic_interfaces.java"): 7
     }
     CLASSES_NUMBER_BY_FILEPATH = {
         os.path.join(TEST_DATA_ROOT_DIR, "1_interface.java"): 1,
         os.path.join(TEST_DATA_ROOT_DIR, "2_interfaces.java"): 1,
-        os.path.join(TEST_DATA_ROOT_DIR, "2_classes.java"): 2
+        os.path.join(TEST_DATA_ROOT_DIR, "2_classes.java"): 2,
+        os.path.join(TEST_DATA_ROOT_DIR, "enum_interfaces.java"): 1,
+        os.path.join(TEST_DATA_ROOT_DIR, "generic_interfaces.java"): 4
     }
     CHARACTER_NUMBER_FOR_FILE = {
         os.path.join(TEST_DATA_ROOT_DIR, "1_interface.java"): 31,
         os.path.join(TEST_DATA_ROOT_DIR, "2_interfaces.java"): 45,
-        os.path.join(TEST_DATA_ROOT_DIR, "2_classes.java"): 79
+        os.path.join(TEST_DATA_ROOT_DIR, "2_classes.java"): 79,
+        os.path.join(TEST_DATA_ROOT_DIR, "enum_interfaces.java"): 65,
+        os.path.join(TEST_DATA_ROOT_DIR, "generic_interfaces.java"): 392
     }
     METRICS_CALCULATOR = variable_metrics_calculator = StatementsMetricsCalculator(
         FileAst.load_asts_from_files(AST_PATH), CHARACTER_NUMBER_FOR_FILE
