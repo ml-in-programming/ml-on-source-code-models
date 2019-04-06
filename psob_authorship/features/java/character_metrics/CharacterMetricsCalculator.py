@@ -14,7 +14,7 @@ class CharacterMetricsCalculator:
         return torch.tensor([
             self.percentage_of_open_braces_alone_in_a_line(filepaths),
             self.percentage_of_close_braces_alone_in_a_line(filepaths),
-            self.average_character_number_per_java_file(filepaths)
+            # self.average_character_number_per_java_file(filepaths)
             # TODO: this metric decreases significantly accuracy
         ])
 
