@@ -78,11 +78,11 @@ def get_accuracies_for_lr() -> Dict[float, float]:
                     total += labels.size(0)
                     correct += (predicted == labels).sum().item()
             accuracy = correct / total
-            accuracies_by_lr[lr] = max(accuracies_by_lr[lr], accuracy)
             if accuracies_by_lr[lr] >= accuracy:
                 current_duration += 1
             else:
                 current_duration = 0
+            accuracies_by_lr[lr] = max(accuracies_by_lr[lr], accuracy)
             if current_duration > CONFIG['early_stopping_rounds']:
                 break
             if epoch % 10 == 0:
