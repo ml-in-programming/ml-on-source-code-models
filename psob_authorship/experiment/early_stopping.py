@@ -13,14 +13,14 @@ from psob_authorship.model.Model import Model
 LABELS_FEARURES_COMMON_NAME = "../calculated_features/without_5"
 INPUT_FEATURES = torch.load(LABELS_FEARURES_COMMON_NAME + "_features.tr")
 INPUT_LABELS = torch.load(LABELS_FEARURES_COMMON_NAME + "_labels.tr")
-EPOCHS = 2000
+EPOCHS = 5000
 BATCH_SIZE = 32
 
 
-def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], int]:
+def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], List[int]]:
     logger = logging.getLogger('early_stopping')
     configure_logger_by_default(logger)
-    logger.info("START draw_test_accuracy_graph")
+    logger.info("START get_test_accuracy_by_epoch")
     skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=0)
     train_index, test_index = next(skf.split(INPUT_FEATURES, INPUT_LABELS))
 
@@ -39,7 +39,7 @@ def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], int]:
     )
     accuracies = []
     best_accuracy = -1
-    longest = -1
+    durations = []
     current_duration = 0
     for epoch in tqdm(range(EPOCHS)):
         for i, data in enumerate(trainloader, 0):
@@ -62,14 +62,16 @@ def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], int]:
         if best_accuracy >= accuracy:
             current_duration += 1
         else:
-            longest = max(longest, current_duration)
+            if current_duration != 0:
+                durations.append(current_duration)
             current_duration = 0
         best_accuracy = max(best_accuracy, accuracy)
         accuracies.append(accuracy)
         logger.info(str(epoch) + ": " + str(accuracy))
-    longest = max(longest, current_duration)
-    logger.info("END draw_test_accuracy_graph")
-    return [i for i in range(EPOCHS)], accuracies, longest
+    if current_duration != 0:
+        durations.append(current_duration)
+    logger.info("END get_test_accuracy_by_epoch")
+    return [i for i in range(EPOCHS)], accuracies, durations
 
 
 def draw_test_accuracy_by_epoch(epochs, accuracies):
@@ -81,11 +83,12 @@ def draw_test_accuracy_by_epoch(epochs, accuracies):
 
 
 def conduct_early_stopping_experiment():
-    epochs, accuracies, longest = get_test_accuracy_by_epoch()
+    epochs, accuracies, durations = get_test_accuracy_by_epoch()
     draw_test_accuracy_by_epoch(epochs, accuracies)
     coordinates = list(zip(epochs, accuracies))
     with open("../experiment_result/early_stopping_plots_data", 'w') as f:
-        f.write(str(longest) + " epochs - longest duration of not improving accuracy\n")
+        f.write("Durations of not growing accuracy: " + str(durations) + "\n")
+        f.write("Sorted durations of not growing accuracy: " + str(list(reversed(sorted(durations)))) + "\n")
         for item in coordinates:
             f.write("%s\n" % str(item))
 
