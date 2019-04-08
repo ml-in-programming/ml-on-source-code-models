@@ -13,8 +13,9 @@ from psob_authorship.model.Model import Model
 CONFIG = {
     'experiment_name': "10_fold_cross_validation",
     'number_of_authors': 40,
-    'labels_features_common_name': "../calculated_features/without_5",
-    'epochs': 10,
+    'labels_features_common_name': "../calculated_features/no_more_60_chunks",
+    'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    'epochs': 5000,
     'batch_size': 32,
     'early_stopping_rounds': 350,
     'lr': 0.02,
@@ -39,17 +40,17 @@ def run_cross_validation() -> torch.Tensor:
     loop = 0
     for train_index, test_index in CONFIG['cv'].split(INPUT_FEATURES, INPUT_LABELS):
         logger.info("New " + str([loop % 10]) + " fold. loop = " + str(loop))
-        model = Model(INPUT_FEATURES.shape[1])
+        model = Model(len(CONFIG['metrics']))
         criterion = CONFIG['criterion']()
         optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
         train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
         test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
         trainloader = torch.utils.data.DataLoader(
-            PsobDataset(train_features, train_labels),
+            PsobDataset(train_features, train_labels, CONFIG['metrics']),
             batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
         )
         testloader = torch.utils.data.DataLoader(
-            PsobDataset(test_features, test_labels),
+            PsobDataset(test_features, test_labels, CONFIG['metrics']),
             batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
         )
         best_accuracy = -1.0
@@ -82,8 +83,8 @@ def run_cross_validation() -> torch.Tensor:
             if epoch % 10 == 0:
                 logger.info("CHECKPOINT EACH 10th EPOCH" + str(epoch) + ": " + str(accuracy))
             if epoch % 100 == 0:
-                print("CHECKPOINT EACH 100th EPOCH" + str(epoch) + ": " + str(accuracy))
-                logger.info("CHECKPOINT EACH 100th EPOCH" + str(epoch) + ": " + str(accuracy))
+                print("CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": " + str(accuracy))
+                logger.info("CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": " + str(accuracy))
             logger.info(str(epoch) + ": " + str(accuracy))
 
         logger.info('Finished Training')
@@ -118,7 +119,7 @@ def conduct_10_fold_cv_experiment():
     accuracies = run_cross_validation()
     end = time.time()
     execution_time = end - start
-    with open("../experiment_result/" + CONFIG['experiment_name'], 'w') as f:
+    with open("../experiment_result/" + CONFIG['experiment_name'] + "_" + str(datetime.datetime.now()), 'w') as f:
         f.write("Execution time: " + str(datetime.timedelta(seconds=execution_time)) + "\n")
         f.write("Config: " + str(CONFIG) + "\n")
         f.write("Accuracies: \n" + str(accuracies) + "\n")

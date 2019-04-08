@@ -1,0 +1,26 @@
+This is first fold of 10 fold cv for "no more 60 chunks"
+CONFIG = {
+    'experiment_name': "10_fold_cross_validation",
+    'number_of_authors': 40,
+    'labels_features_common_name': "../calculated_features/no_more_60_chunks",
+    'epochs': 5000,
+    'batch_size': 32,
+    'early_stopping_rounds': 350,
+    'lr': 0.02,
+    'n_splits': 10,
+    'n_repeats': 2,
+    'cv': RepeatedStratifiedKFold(n_splits=10, n_repeats=2, random_state=0),
+    'scoring': "accuracy",
+    'criterion': nn.CrossEntropyLoss,
+    'optimizer': optim.SGD,
+    'momentum': 0.9,
+    'shuffle': True
+}
+CHECKPOINT EACH 100th EPOCH 0: 0.036458333333333336
+CHECKPOINT EACH 100th EPOCH 100: 0.03125
+CHECKPOINT EACH 100th EPOCH 200: 0.036458333333333336
+CHECKPOINT EACH 100th EPOCH 300: 0.03125
+[0] fold. Accuracy of the network: 6 / 192 = 3 %
+Correct answers for each author: tensor([0., 0., 0., 3., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 3., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0.])

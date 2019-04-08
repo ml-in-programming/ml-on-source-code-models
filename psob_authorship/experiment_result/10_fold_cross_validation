@@ -1,0 +1,17 @@
+Execution time: 0:01:12.428806
+Config: {'experiment_name': '10_fold_cross_validation', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/without_5', 'epochs': 10, 'batch_size': 32, 'early_stopping_rounds': 350, 'lr': 0.02, 'n_splits': 10, 'n_repeats': 2, 'cv': <sklearn.model_selection._split.RepeatedStratifiedKFold object at 0x7faef23e05c0>, 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True}
+Accuracies: 
+tensor([[0.3758, 0.3571],
+        [0.3797, 0.3101],
+        [0.4116, 0.4116],
+        [0.3689, 0.3139],
+        [0.3399, 0.4248],
+        [0.4059, 0.4455],
+        [0.4257, 0.3480],
+        [0.4360, 0.4325],
+        [0.4181, 0.4425],
+        [0.4346, 0.3922]])
+Means: tensor([0.3665, 0.3449, 0.4116, 0.3414, 0.3824, 0.4257, 0.3868, 0.4343, 0.4303,
+        0.4134])
+Stds: tensor([0.0132, 0.0492, 0.0000, 0.0389, 0.0601, 0.0280, 0.0549, 0.0024, 0.0172,
+        0.0300])
