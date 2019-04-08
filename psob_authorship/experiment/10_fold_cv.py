@@ -91,6 +91,7 @@ def run_cross_validation() -> torch.Tensor:
 
         correct = 0
         total = 0
+        labels_dist = torch.zeros(CONFIG['number_of_authors'])
         labels_correct = torch.zeros(CONFIG['number_of_authors'])
         with torch.no_grad():
             for data in testloader:
@@ -100,6 +101,7 @@ def run_cross_validation() -> torch.Tensor:
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
                 for i, label in enumerate(labels):
+                    labels_dist[label] += 1
                     labels_correct[label] += predicted[i] == labels[i]
         accuracy_info = str([loop % 10]) + ' fold. Accuracy of the network: %d / %d = %d %%' %\
             (correct, total, 100 * correct / total)
