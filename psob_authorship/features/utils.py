@@ -45,7 +45,12 @@ def divide_with_handling_zero_division(numerator, denominator, logger: logging.L
                                        zero_division_return=float(-1)):
     if denominator == 0:
         logger.warning("SUSPICIOUS ZERO DIVISION: " + log_information)
-    return zero_division_return if denominator == 0 else numerator / denominator
+        return zero_division_return
+    else:
+        result = numerator / denominator
+        if result < 0:
+            logger.warning("SUSPICIOUS METRIC BELOW ZERO: " + log_information)
+        return result
 
 
 def chunks(l, n):
