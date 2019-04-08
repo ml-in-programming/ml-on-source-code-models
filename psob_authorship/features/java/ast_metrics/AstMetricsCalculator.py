@@ -18,7 +18,7 @@ class AstMetricsCalculator:
         self.asts = FileAst.load_asts_from_files(ast_path, filenames)
         self.LOGGER.info("End loading ast to memory")
         self.variable_metrics_calculator = VariableMetricsCalculator(self.asts)
-        self.loops_metrics_calculator = StatementsMetricsCalculator(self.asts, character_number_for_file)
+        self.statements_metrics_calculator = StatementsMetricsCalculator(self.asts, character_number_for_file)
         self.LOGGER.info("End calculating ast metrics")
 
     def maximum_depth_of_an_ast(self, filepaths: Set[str]) -> torch.Tensor:
@@ -34,7 +34,7 @@ class AstMetricsCalculator:
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.cat((
             self.variable_metrics_calculator.get_metrics(filepaths),
-            self.loops_metrics_calculator.get_metrics(filepaths),
+            self.statements_metrics_calculator.get_metrics(filepaths),
             self.maximum_depth_of_an_ast(filepaths)
         ))
 

@@ -66,16 +66,18 @@ class StatementsMetricsCalculator:
 
     def percentage_of_catch_statements_when_dealing_with_exceptions(self, filepaths: Set[str]) -> float:
         """
+        TODO: Consider if account only one catch per try even if it has several catches.
+        TODO: Find out why was below zero? write tests.
         Catches are accounted with tries, that is why we need to subtract catches from tries.
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of catches statements) / (number of tries statements) * 100
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return min(divide_with_percentage_and_handling_zero_division(
             sum([self.catches_for_file[filepath] for filepath in filepaths]),
-            sum([self.tries_for_file[filepath] - self.catches_for_file[filepath] for filepath in filepaths]),
+            sum([self.tries_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
-        )
+        ), 100.0)
 
     def ratio_of_branch_statements(self, filepaths: Set[str]) -> float:
         """

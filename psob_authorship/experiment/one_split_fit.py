@@ -32,7 +32,7 @@ INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").
 
 
 def fit_model(file_to_print):
-    logger = logging.getLogger('one_split_fir')
+    logger = logging.getLogger('one_split_fit')
     configure_logger_by_default(logger)
     logger.info("START fit_model")
 
