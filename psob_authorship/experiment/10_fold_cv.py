@@ -13,7 +13,7 @@ from psob_authorship.model.Model import Model
 CONFIG = {
     'experiment_name': "10_fold_cross_validation",
     'number_of_authors': 40,
-    'labels_features_common_name': "../calculated_features/no_more_60_chunks",
+    'labels_features_common_name': "../calculated_features/split_each_file",
     'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
     'epochs': 5000,
     'batch_size': 32,

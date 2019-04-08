@@ -1,0 +1,40 @@
+This is first fold of 10 fold cv for "without 5th feature"
+CONFIG = {
+    'experiment_name': "10_fold_cross_validation",
+    'number_of_authors': 40,
+    'labels_features_common_name': "../calculated_features/split_each_file",
+    'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    'epochs': 5000,
+    'batch_size': 32,
+    'early_stopping_rounds': 350,
+    'lr': 0.02,
+    'n_splits': 10,
+    'n_repeats': 2,
+    'cv': RepeatedStratifiedKFold(n_splits=10, n_repeats=2, random_state=0),
+    'scoring': "accuracy",
+    'criterion': nn.CrossEntropyLoss,
+    'optimizer': optim.SGD,
+    'momentum': 0.9,
+    'shuffle': True
+}
+CHECKPOINT EACH 100th EPOCH 0: 0.2732919254658385
+CHECKPOINT EACH 100th EPOCH 100: 0.5341614906832298
+CHECKPOINT EACH 100th EPOCH 200: 0.546583850931677
+CHECKPOINT EACH 100th EPOCH 300: 0.5590062111801242
+CHECKPOINT EACH 100th EPOCH 400: 0.5434782608695652
+CHECKPOINT EACH 100th EPOCH 500: 0.5652173913043478
+CHECKPOINT EACH 100th EPOCH 600: 0.577639751552795
+CHECKPOINT EACH 100th EPOCH 700: 0.5683229813664596
+CHECKPOINT EACH 100th EPOCH 800: 0.5745341614906833
+CHECKPOINT EACH 100th EPOCH 900: 0.5745341614906833
+CHECKPOINT EACH 100th EPOCH 1000: 0.5745341614906833
+CHECKPOINT EACH 100th EPOCH 1100: 0.5714285714285714
+CHECKPOINT EACH 100th EPOCH 1200: 0.5559006211180124
+CHECKPOINT EACH 100th EPOCH 1300: 0.5869565217391305
+CHECKPOINT EACH 100th EPOCH 1400: 0.5838509316770186
+CHECKPOINT EACH 100th EPOCH 1500: 0.5683229813664596
+CHECKPOINT EACH 100th EPOCH 1600: 0.5683229813664596
+[0] fold. Accuracy of the network: 185 / 322 = 57 %
+Correct answers for each author: tensor([ 4., 12.,  2.,  1.,  3., 71.,  5.,  0.,  0.,  4.,  3.,  8.,  3.,  2.,
+         0.,  0.,  0.,  5.,  1.,  4.,  5.,  0.,  0.,  3.,  0.,  5.,  1.,  0.,
+         8.,  0.,  2.,  0., 20.,  0., 10.,  1.,  2.,  0.,  0.,  0.])
