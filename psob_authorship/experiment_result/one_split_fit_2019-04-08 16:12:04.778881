@@ -1,0 +1,59 @@
+CHECKPOINT EACH 100th EPOCH 0: 0.2833333333333333
+CHECKPOINT EACH 100th EPOCH 100: 0.5264705882352941
+CHECKPOINT EACH 100th EPOCH 200: 0.5411764705882353
+CHECKPOINT EACH 100th EPOCH 300: 0.5392156862745098
+CHECKPOINT EACH 100th EPOCH 400: 0.538235294117647
+CHECKPOINT EACH 100th EPOCH 500: 0.542156862745098
+CHECKPOINT EACH 100th EPOCH 600: 0.5254901960784314
+CHECKPOINT EACH 100th EPOCH 700: 0.5470588235294118
+CHECKPOINT EACH 100th EPOCH 800: 0.5392156862745098
+CHECKPOINT EACH 100th EPOCH 900: 0.5558823529411765
+CHECKPOINT EACH 100th EPOCH 1000: 0.5764705882352941
+CHECKPOINT EACH 100th EPOCH 1100: 0.5715686274509804
+CHECKPOINT EACH 100th EPOCH 1200: 0.5666666666666667
+CHECKPOINT EACH 100th EPOCH 1300: 0.5656862745098039
+On epoch 1351 training was early stopped
+Accuracy of the network: 581 / 1020 = 56 %
+Correct labels / labels for each author:
+tensor([[ 13.,  21.],
+        [ 36.,  45.],
+        [  7.,  13.],
+        [ 10.,  33.],
+        [ 13.,  31.],
+        [232., 238.],
+        [ 18.,  18.],
+        [  0.,   9.],
+        [  3.,   9.],
+        [ 10.,  19.],
+        [  4.,  16.],
+        [ 24.,  29.],
+        [  8.,   9.],
+        [  7.,  22.],
+        [  0.,   4.],
+        [  1.,  26.],
+        [  3.,  24.],
+        [ 15.,  21.],
+        [  0.,  12.],
+        [  8.,  32.],
+        [  5.,  17.],
+        [  0.,   6.],
+        [  1.,  14.],
+        [  9.,  10.],
+        [  4.,  22.],
+        [ 19.,  26.],
+        [  4.,  20.],
+        [  0.,  12.],
+        [ 22.,  32.],
+        [  1.,   7.],
+        [  0.,   8.],
+        [  0.,  14.],
+        [ 54.,  67.],
+        [  0.,   8.],
+        [ 34.,  50.],
+        [  5.,  11.],
+        [  7.,  28.],
+        [  0.,   9.],
+        [  4.,  13.],
+        [  0.,  15.]])
+Execution time: 0:07:21.377333
+Config: {'experiment_name': 'one_split_fit', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/split_each_file', 'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 350, 'lr': 0.02, 'cv': StratifiedKFold(n_splits=3, random_state=0, shuffle=False), 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True}

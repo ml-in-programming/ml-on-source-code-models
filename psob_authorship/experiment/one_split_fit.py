@@ -1,5 +1,6 @@
 import datetime
 import logging
+import os
 import time
 
 import torch
@@ -11,7 +12,7 @@ from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 
 CONFIG = {
-    'experiment_name': "10_fold_cross_validation",
+    'experiment_name': os.path.basename(__file__).split('.')[0],
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/split_each_file",
     'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
@@ -19,8 +20,7 @@ CONFIG = {
     'batch_size': 32,
     'early_stopping_rounds': 350,
     'lr': 0.02,
-    'n_splits': 10,
-    'cv': StratifiedKFold(n_splits=10, random_state=0),
+    'cv': StratifiedKFold(n_splits=3, random_state=0),
     'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
     'optimizer': optim.SGD,
@@ -106,8 +106,7 @@ def fit_model(file_to_print):
                 labels_dist[label] += 1
                 labels_correct[label] += predicted[i] == labels[i]
     print_info('Accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
-    print_info("Correct answers for each author: " + str(labels_correct))
-    print_info("Authors distribution in test: " + str(labels_dist))
+    print_info("Correct labels / labels for each author:\n" + str(torch.stack((labels_correct, labels_dist), dim=1)))
     logger.info("END run_cross_validation")
 
 
