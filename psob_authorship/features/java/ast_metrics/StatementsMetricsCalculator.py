@@ -7,7 +7,8 @@ import torch
 from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstNode import AstNode
 from psob_authorship.features.java.ast.AstVisitor import AstVisitor
-from psob_authorship.features.utils import divide_with_handling_zero_division
+from psob_authorship.features.utils import divide_with_handling_zero_division, \
+    divide_with_percentage_and_handling_zero_division
 
 
 class StatementsMetricsCalculator:
@@ -30,12 +31,12 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of for statements) / (number of all loop statements) * 100
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.fors_for_file[filepath] for filepath in filepaths]),
             sum([self.fors_for_file[filepath] + self.whiles_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of for statements to all loop statements for " + str(filepaths)
-        ) * 100
+        )
 
     def percentage_of_if_statements_to_all_conditional_statements(self, filepaths: Set[str]) -> float:
         """
@@ -43,12 +44,12 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of if statements) / (number of all conditional statements) * 100
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.ifs_for_file[filepath] for filepath in filepaths]),
             sum([self.ifs_for_file[filepath] + self.switches_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
-        ) * 100
+        )
 
     def average_number_of_methods_per_class(self, filepaths: Set[str]) -> float:
         """
@@ -69,12 +70,12 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of catches statements) / (number of tries statements) * 100
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.catches_for_file[filepath] for filepath in filepaths]),
             sum([self.tries_for_file[filepath] - self.catches_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
-        ) * 100
+        )
 
     def ratio_of_branch_statements(self, filepaths: Set[str]) -> float:
         """
@@ -116,7 +117,6 @@ class StatementsMetricsCalculator:
 
     def average_number_of_interfaces_per_class(self, filepaths: Set[str]) -> float:
         """
-        TODO: calculate all of interfaces, not only implements words
         Calculates average number of interfaces per class
         :param filepaths: paths to files for which metric should be calculated
         :return: number of implements keywords / number of classes

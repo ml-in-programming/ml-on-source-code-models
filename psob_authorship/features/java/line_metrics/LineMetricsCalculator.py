@@ -6,7 +6,8 @@ from collections import defaultdict
 import torch
 from typing import Dict, Set, List
 
-from psob_authorship.features.utils import divide_with_handling_zero_division, get_absfilepaths
+from psob_authorship.features.utils import divide_with_handling_zero_division, get_absfilepaths, \
+    divide_with_percentage_and_handling_zero_division
 
 
 class LineMetricsCalculator:
@@ -59,13 +60,13 @@ class LineMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: block comment lines metric
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.comment_lines_for_file[filepath] - self.single_line_comments_for_file[filepath]
                  for filepath in filepaths]),
             sum([self.comment_lines_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of block comments to all comment lines for " + str(filepaths)
-        ) * 100
+        )
 
     def __init__(self, dataset_path: str) -> None:
         self.LOGGER.info("Started calculating line metrics")

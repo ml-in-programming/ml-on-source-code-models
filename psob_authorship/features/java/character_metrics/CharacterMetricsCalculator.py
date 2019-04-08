@@ -4,7 +4,8 @@ from collections import defaultdict
 import torch
 from typing import Dict, Set
 
-from psob_authorship.features.utils import get_absfilepaths, divide_with_handling_zero_division
+from psob_authorship.features.utils import get_absfilepaths, divide_with_handling_zero_division, \
+    divide_with_percentage_and_handling_zero_division
 
 
 class CharacterMetricsCalculator:
@@ -27,12 +28,12 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: open braces alone in a line metric
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.alone_open_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.open_braces_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of open braces alone in a line for " + str(filepaths)
-        ) * 100
+        )
 
     def percentage_of_close_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
         """
@@ -43,12 +44,12 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: close braces alone in a line metric
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.alone_close_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.close_braces_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating percentage of close braces alone in a line for " + str(filepaths)
-        ) * 100
+        )
 
     def average_character_number_per_java_file(self, filepaths: Set[str]) -> float:
         """

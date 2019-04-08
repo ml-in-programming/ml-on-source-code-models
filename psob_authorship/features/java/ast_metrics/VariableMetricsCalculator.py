@@ -6,7 +6,8 @@ import torch
 
 from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstSpecificTokensExtractor import AstSpecificTokensExtractor
-from psob_authorship.features.utils import divide_with_handling_zero_division
+from psob_authorship.features.utils import divide_with_handling_zero_division, \
+    divide_with_percentage_and_handling_zero_division
 
 
 class VariableMetricsCalculator:
@@ -27,12 +28,12 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: variables without uppercase letters metric
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating metric percentage of variable naming without uppercase letters for " + str(filepaths)
-        ) * 100
+        )
 
     def percentage_of_variable_naming_starting_with_lowercase_letters(self, filepaths: Set[str]) -> float:
         """
@@ -40,12 +41,12 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: variables starting with lowercase letters metric
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.number_of_variables_starting_with_lowercase_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating metric percentage of variable naming starting with lowercase letters for " + str(filepaths)
-        ) * 100
+        )
 
     def average_variable_name_length(self, filepaths: Set[str]) -> float:
         """
@@ -67,12 +68,12 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: ratio of loops variables to all variables
         """
-        return divide_with_handling_zero_division(
+        return divide_with_percentage_and_handling_zero_division(
             sum([self.number_of_variables_in_for_control_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating metric preference_for_cyclic_variables for " + str(filepaths)
-        ) * 100
+        )
 
     def ratio_of_macro_variables(self, filepaths: Set[str]) -> float:
         """

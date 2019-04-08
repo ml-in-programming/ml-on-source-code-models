@@ -35,6 +35,12 @@ def get_absfilepaths(file_or_dir):
     return filenames
 
 
+def divide_with_percentage_and_handling_zero_division(numerator, denominator, logger: logging.Logger,
+                                                      log_information, zero_division_return=float(-1)):
+    result = divide_with_handling_zero_division(numerator, denominator, logger, log_information, zero_division_return)
+    return zero_division_return if result == zero_division_return else result * 100
+
+
 def divide_with_handling_zero_division(numerator, denominator, logger: logging.Logger, log_information,
                                        zero_division_return=float(-1)):
     if denominator == 0:
