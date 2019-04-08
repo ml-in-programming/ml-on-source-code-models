@@ -4,7 +4,7 @@ import subprocess
 from collections import defaultdict
 
 import torch
-from typing import Dict, Set
+from typing import Dict, Set, List
 
 from psob_authorship.features.utils import divide_with_handling_zero_division, get_absfilepaths
 
@@ -115,3 +115,11 @@ class LineMetricsCalculator:
     def count_single_line_comments(self, filepath: str) -> int:
         with open(filepath) as file:
             return sum(line.lstrip().startswith("//") for line in file)
+
+    @staticmethod
+    def get_metric_names() -> List[str]:
+        return [
+            "ratio_of_blank_lines_to_code_lines",
+            "ratio_of_comment_lines_to_code_lines",
+            "percentage_of_block_comments_to_all_comment_lines"
+        ]

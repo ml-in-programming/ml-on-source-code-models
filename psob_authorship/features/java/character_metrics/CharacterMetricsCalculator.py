@@ -92,3 +92,11 @@ class CharacterMetricsCalculator:
                 self.open_braces_for_file[filepath] += CharacterMetricsCalculator.OPEN_BRACE in line
                 self.alone_close_braces_for_file[filepath] += line.strip() == CharacterMetricsCalculator.CLOSE_BRACE
                 self.close_braces_for_file[filepath] += CharacterMetricsCalculator.CLOSE_BRACE in line
+
+    @staticmethod
+    def get_metric_names():
+        return [
+            "percentage_of_open_braces_alone_in_a_line",
+            "percentage_of_close_braces_alone_in_a_line",
+            "average_character_number_per_java_file"
+        ]

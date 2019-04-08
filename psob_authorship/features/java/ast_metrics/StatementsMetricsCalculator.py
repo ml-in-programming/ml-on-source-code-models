@@ -160,6 +160,18 @@ class StatementsMetricsCalculator:
             self.classes_for_file[filepath] = statements_visitor.classes
         self.LOGGER.info("End calculating statements metrics")
 
+    @staticmethod
+    def get_metrics_names():
+        return [
+            "percentage_of_for_statements_to_all_loop_statements",
+            "percentage_of_if_statements_to_all_conditional_statements",
+            "average_number_of_methods_per_class",
+            "percentage_of_catch_statements_when_dealing_with_exceptions",
+            "ratio_of_branch_statements",
+            "ratio_of_try_structure",
+            "average_number_of_interfaces_per_class"
+        ]
+
 
 class StatementsVisitor(AstVisitor):
     FOR = "for"

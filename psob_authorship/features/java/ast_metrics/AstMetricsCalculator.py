@@ -37,3 +37,8 @@ class AstMetricsCalculator:
             self.loops_metrics_calculator.get_metrics(filepaths),
             self.maximum_depth_of_an_ast(filepaths)
         ))
+
+    @staticmethod
+    def get_metric_names():
+        return VariableMetricsCalculator.get_metrics_names() + StatementsMetricsCalculator.get_metrics_names() + \
+               ["maximum_depth_of_an_ast"]

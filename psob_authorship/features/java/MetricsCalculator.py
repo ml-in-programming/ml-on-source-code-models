@@ -1,5 +1,5 @@
 import logging
-from typing import Set
+from typing import Set, List
 
 import torch
 
@@ -11,6 +11,10 @@ from psob_authorship.features.utils import configure_logger_by_default
 
 class MetricsCalculator:
     LOGGER = logging.getLogger('metrics_calculator')
+
+    @staticmethod
+    def get_metric_names() -> List[str]:
+        return LineMetricsCalculator.get_metric_names() + CharacterMetricsCalculator.get_metric_names() + AstMetricsCalculator.get_metric_names()
 
     def __init__(self, dataset_path: str, ast_path: str) -> None:
         configure_logger_by_default(self.LOGGER)

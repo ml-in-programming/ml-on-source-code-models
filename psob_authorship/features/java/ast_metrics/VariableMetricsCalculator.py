@@ -122,3 +122,13 @@ class VariableMetricsCalculator:
             self.number_of_variables_in_lowercase_for_file[filepath] += variable_name.islower()
             self.number_of_variables_starting_with_lowercase_for_file[filepath] += variable_name[0].islower()
             self.length_of_variables_for_file[filepath] += len(variable_name)
+
+    @staticmethod
+    def get_metrics_names():
+        return [
+            "percentage_of_variable_naming_without_uppercase_letters",
+            "percentage_of_variable_naming_starting_with_lowercase_letters",
+            "average_variable_name_length",
+            "ratio_of_macro_variables",
+            "preference_for_cyclic_variables"
+        ]
