@@ -7,7 +7,7 @@ import torch
 from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstSpecificTokensExtractor import AstSpecificTokensExtractor
 from psob_authorship.features.utils import divide_with_handling_zero_division, \
-    divide_with_percentage_and_handling_zero_division
+    divide_percentage_with_handling_zero_division, divide_nonnegative_with_handling_zero_division
 
 
 class VariableMetricsCalculator:
@@ -28,7 +28,7 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: variables without uppercase letters metric
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -41,7 +41,7 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: variables starting with lowercase letters metric
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.number_of_variables_starting_with_lowercase_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -54,7 +54,7 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: average variable name metric
         """
-        return divide_with_handling_zero_division(
+        return divide_nonnegative_with_handling_zero_division(
             sum([self.length_of_variables_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -68,7 +68,7 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: ratio of loops variables to all variables
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.number_of_variables_in_for_control_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -77,14 +77,12 @@ class VariableMetricsCalculator:
 
     def ratio_of_macro_variables(self, filepaths: Set[str]) -> float:
         """
+        TODO: maybe return -1?
         This metric is strange. There is no macros in Java. That is why it always returns 0.
         :param filepaths: paths to files for which metric should be calculated
         :return: 0
         """
         return 0
-
-    def percentage_of_for_statements_to_all_loop_statements(self, filepaths: Set[str]) -> float:
-        pass
 
     # second list is child numbers
     VARIABLE_NODE_NAMES = [["variableDeclarator", "enhancedForControl", "variableDeclaratorId"], [0, 1, 0]]

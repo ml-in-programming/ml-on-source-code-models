@@ -1,6 +1,8 @@
 import logging
 import os
 
+from typing import Tuple
+
 
 def get_log_filepath(log_filename: str) -> str:
     log_root = "../logs"
@@ -35,21 +37,36 @@ def get_absfilepaths(file_or_dir):
     return filenames
 
 
-def divide_with_percentage_and_handling_zero_division(numerator, denominator, logger: logging.Logger,
-                                                      log_information, zero_division_return=float(-1)):
-    result = divide_with_handling_zero_division(numerator, denominator, logger, log_information, zero_division_return)
+def divide_percentage_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
+                                                  log_information, zero_division_return=float(-1)):
+    result = divide_with_handling_zero_division(numerator, denominator, logger,
+                                                log_information, (0, 1), zero_division_return)
     return zero_division_return if result == zero_division_return else result * 100
 
 
+def divide_ratio_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
+                                             log_information, zero_division_return=float(-1)):
+    return divide_with_handling_zero_division(numerator, denominator, logger,
+                                              log_information, (0, 1), zero_division_return)
+
+
+def divide_nonnegative_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
+                                                   log_information, zero_division_return=float(-1)):
+    return divide_with_handling_zero_division(numerator, denominator, logger,
+                                              log_information, (0, float("inf")), zero_division_return)
+
+
 def divide_with_handling_zero_division(numerator, denominator, logger: logging.Logger, log_information,
-                                       zero_division_return=float(-1)):
+                                       expected_bounds: Tuple[float, float], zero_division_return=float(-1)):
     if denominator == 0:
         logger.warning("SUSPICIOUS ZERO DIVISION: " + log_information)
         return zero_division_return
     else:
         result = numerator / denominator
-        if result < 0:
-            logger.warning("SUSPICIOUS METRIC BELOW ZERO: " + log_information)
+        if result < expected_bounds[0] or result > expected_bounds[1]:
+            out_of_bounds_warning = "VALUE " + str(result) + ". SUSPICIOUS METRIC OUT OF BOUNDS [" + \
+                                 str(expected_bounds[0]) + "; " + str(expected_bounds[1]) + "]: "
+            logger.warning(out_of_bounds_warning + log_information)
         return result
 
 

@@ -7,7 +7,8 @@ import torch
 from typing import Dict, Set, List
 
 from psob_authorship.features.utils import divide_with_handling_zero_division, get_absfilepaths, \
-    divide_with_percentage_and_handling_zero_division
+    divide_percentage_with_handling_zero_division, divide_ratio_with_handling_zero_division, \
+    divide_nonnegative_with_handling_zero_division
 
 
 class LineMetricsCalculator:
@@ -29,7 +30,7 @@ class LineMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: blank lines metric
         """
-        return divide_with_handling_zero_division(
+        return divide_nonnegative_with_handling_zero_division(
             sum([self.blank_lines_for_file[filepath] for filepath in filepaths]),
             sum([self.code_lines_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -46,7 +47,7 @@ class LineMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: comment lines metric
         """
-        return divide_with_handling_zero_division(
+        return divide_nonnegative_with_handling_zero_division(
             sum([self.comment_lines_for_file[filepath] for filepath in filepaths]),
             sum([self.code_lines_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -60,7 +61,7 @@ class LineMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: block comment lines metric
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.comment_lines_for_file[filepath] - self.single_line_comments_for_file[filepath]
                  for filepath in filepaths]),
             sum([self.comment_lines_for_file[filepath] for filepath in filepaths]),

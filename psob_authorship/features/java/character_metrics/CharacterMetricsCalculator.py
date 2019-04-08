@@ -5,7 +5,7 @@ import torch
 from typing import Dict, Set
 
 from psob_authorship.features.utils import get_absfilepaths, divide_with_handling_zero_division, \
-    divide_with_percentage_and_handling_zero_division
+    divide_percentage_with_handling_zero_division, divide_nonnegative_with_handling_zero_division
 
 
 class CharacterMetricsCalculator:
@@ -28,7 +28,7 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: open braces alone in a line metric
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.alone_open_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.open_braces_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -44,7 +44,7 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: close braces alone in a line metric
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.alone_close_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.close_braces_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -57,7 +57,7 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: character number / len(filepaths)
         """
-        return divide_with_handling_zero_division(
+        return divide_nonnegative_with_handling_zero_division(
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
             len(filepaths),
             self.LOGGER,

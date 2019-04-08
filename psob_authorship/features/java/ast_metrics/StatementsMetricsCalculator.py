@@ -8,7 +8,8 @@ from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstNode import AstNode
 from psob_authorship.features.java.ast.AstVisitor import AstVisitor
 from psob_authorship.features.utils import divide_with_handling_zero_division, \
-    divide_with_percentage_and_handling_zero_division
+    divide_percentage_with_handling_zero_division, divide_nonnegative_with_handling_zero_division, \
+    divide_ratio_with_handling_zero_division
 
 
 class StatementsMetricsCalculator:
@@ -31,7 +32,7 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of for statements) / (number of all loop statements) * 100
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.fors_for_file[filepath] for filepath in filepaths]),
             sum([self.fors_for_file[filepath] + self.whiles_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -44,7 +45,7 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of if statements) / (number of all conditional statements) * 100
         """
-        return divide_with_percentage_and_handling_zero_division(
+        return divide_percentage_with_handling_zero_division(
             sum([self.ifs_for_file[filepath] for filepath in filepaths]),
             sum([self.ifs_for_file[filepath] + self.switches_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -57,7 +58,7 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of methods for all filepaths) / (number of classes for all filepaths)
         """
-        return divide_with_handling_zero_division(
+        return divide_nonnegative_with_handling_zero_division(
             sum([self.methods_for_file[filepath] for filepath in filepaths]),
             sum([self.classes_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -72,12 +73,14 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of catches statements) / (number of tries statements) * 100
         """
-        return min(divide_with_percentage_and_handling_zero_division(
-            sum([self.catches_for_file[filepath] for filepath in filepaths]),
-            sum([self.tries_for_file[filepath] for filepath in filepaths]),
+        catches = sum([self.catches_for_file[filepath] for filepath in filepaths])
+        tries = max(sum([self.tries_for_file[filepath] for filepath in filepaths]), catches)
+        return divide_percentage_with_handling_zero_division(
+            catches,
+            tries,
             self.LOGGER,
             "calculating percentage of if statements to all conditional statements for " + str(filepaths)
-        ), 100.0)
+        )
 
     def ratio_of_branch_statements(self, filepaths: Set[str]) -> float:
         """
@@ -93,7 +96,7 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: (number of break + number of continue) / number of characters
         """
-        return divide_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.breaks_for_file[filepath] + self.continues_for_file[filepath] for filepath in filepaths]),
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -110,7 +113,7 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: number of tries / number of characters
         """
-        return divide_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.tries_for_file[filepath] for filepath in filepaths]),
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -123,7 +126,7 @@ class StatementsMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: number of implements keywords / number of classes
         """
-        return divide_with_handling_zero_division(
+        return divide_nonnegative_with_handling_zero_division(
             sum([self.implements_for_file[filepath] for filepath in filepaths]),
             sum([self.classes_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
