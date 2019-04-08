@@ -12,13 +12,14 @@ from psob_authorship.model import Model
 from psob_authorship.model.Model import Model
 
 CONFIG = {
-    "labels_features_common_name": "../calculated_features/without_5",
-    "epochs": 5000,
-    "batch_size": 32,
-    "early_stopping_rounds": 350,
-    "cv": 3,
-    "scoring": 'accuracy',
-    "params": {
+    'labels_features_common_name': "../calculated_features/without_5",
+    'epochs': 5000,
+    'batch_size': 32,
+    'early_stopping_rounds': 350,
+    'lr': 0.02,
+    'cv': 3,
+    'scoring': "accuracy",
+    'params': {
         'optimizer__momentum': [0.85, 0.9, 0.95, 0.99],
         # 'criterion': [torch.nn.CrossEntropyLoss, torch.nn.NLLLoss, torch.nn.MSELoss]
     }
@@ -28,8 +29,8 @@ INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").
 
 
 def grid_search_hyperparameters() -> GridSearchCV:
-    net = NeuralNetClassifier(Model, optimizer=optim.SGD, optimizer__momentum=0.9,
-                              max_epochs=CONFIG['epochs'], lr=0.015,
+    net = NeuralNetClassifier(Model, optimizer=optim.SGD,
+                              max_epochs=CONFIG['epochs'], lr=CONFIG['lr'],
                               criterion=torch.nn.CrossEntropyLoss, batch_size=CONFIG['batch_size'], verbose=1,
                               callbacks=[skorch.callbacks.EarlyStopping(monitor='valid_acc',
                                                                         patience=CONFIG['early_stopping_rounds'],
