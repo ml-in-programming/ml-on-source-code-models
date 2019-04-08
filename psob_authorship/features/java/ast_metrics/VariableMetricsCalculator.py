@@ -30,7 +30,7 @@ class VariableMetricsCalculator:
         """
         return divide_percentage_with_handling_zero_division(
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
-            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating metric percentage of variable naming without uppercase letters for " + str(filepaths)
         )
@@ -43,7 +43,7 @@ class VariableMetricsCalculator:
         """
         return divide_percentage_with_handling_zero_division(
             sum([self.number_of_variables_starting_with_lowercase_for_file[filepath] for filepath in filepaths]),
-            sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
+            sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
             "calculating metric percentage of variable naming starting with lowercase letters for " + str(filepaths)
         )
