@@ -13,7 +13,7 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: added log10 to all metrics that are out of [0; 1], -100 is log10(0)",
+    'experiment_notes': "change: log10(0) = -50, a / 0 = -100",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [i for i in range(19)],

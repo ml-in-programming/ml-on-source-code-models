@@ -52,8 +52,8 @@ def divide_ratio_with_handling_zero_division(numerator, denominator, logger: log
 
 
 def divide_nonnegative_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
-                                                   log_information, take_log10=True, log_from_zero=-100.0,
-                                                   zero_division_return=float(-1)):
+                                                   log_information, take_log10=True, log_from_zero=-50.0,
+                                                   zero_division_return=-100.0):
     result = divide_with_handling_zero_division(numerator, denominator, logger,
                                                 log_information, (0, float("inf")), zero_division_return)
     if result == zero_division_return:
