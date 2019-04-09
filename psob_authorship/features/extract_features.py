@@ -97,4 +97,4 @@ def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch
 
 
 if __name__ == '__main__':
-    extract_with_zero_default_values_for_each_file()
+    extract_with_one_default_values_for_each_file()

@@ -13,7 +13,7 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: a / 0 = 0",
+    'experiment_notes': "change: a / 0 = 1 with 700 early stopping rounds",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
