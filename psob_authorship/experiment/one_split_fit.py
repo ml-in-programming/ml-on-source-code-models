@@ -13,13 +13,13 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: a / 0 = mean value, not 1",
+    'experiment_notes': "change: early stopping from 350 to 700",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
     'epochs': 5000,
     'batch_size': 32,
-    'early_stopping_rounds': 350,
+    'early_stopping_rounds': 700,
     'lr': 0.02,
     'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=True),
     'scoring': "accuracy",

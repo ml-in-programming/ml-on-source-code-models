@@ -1,0 +1,61 @@
+Config: {'experiment_name': 'one_split_fit', 'experiment_notes': 'change: early stopping from 350 to 700', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 700, 'lr': 0.02, 'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=True), 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True}
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.22981366459627328 , best 0.22981366459627328
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6490683229813664 , best 0.6490683229813664
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.6645962732919255 , best 0.6863354037267081
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.6770186335403726 , best 0.6925465838509317
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.6925465838509317 , best 0.7080745341614907
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.6987577639751553 , best 0.7142857142857143
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7018633540372671 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.6863354037267081 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7142857142857143 , best 0.7329192546583851
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.6894409937888198 , best 0.7329192546583851
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7018633540372671 , best 0.7329192546583851
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.6956521739130435 , best 0.7329192546583851
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.6987577639751553 , best 0.7329192546583851
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7049689440993789 , best 0.7329192546583851
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.6863354037267081 , best 0.7329192546583851
+On epoch 1441 training was early stopped
+Best accuracy: 0.7329192546583851
+Final accuracy of the network: 225 / 322 = 69 %
+Correct labels / labels for each author:
+tensor([[ 6.,  7.],
+        [14., 14.],
+        [ 4.,  4.],
+        [ 6., 10.],
+        [ 6., 10.],
+        [71., 72.],
+        [ 3.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 5.,  6.],
+        [ 0.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 0.,  2.],
+        [ 3.,  8.],
+        [ 6.,  8.],
+        [ 4.,  7.],
+        [ 0.,  4.],
+        [ 1., 10.],
+        [ 4.,  5.],
+        [ 1.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 2.,  7.],
+        [ 7.,  8.],
+        [ 4.,  6.],
+        [ 2.,  4.],
+        [ 5., 10.],
+        [ 2.,  2.],
+        [ 2.,  3.],
+        [ 4.,  5.],
+        [17., 21.],
+        [ 0.,  3.],
+        [11., 15.],
+        [ 3.,  4.],
+        [ 1.,  9.],
+        [ 2.,  3.],
+        [ 3.,  4.],
+        [ 2.,  5.]])
+Execution time: 0:10:12.830414
