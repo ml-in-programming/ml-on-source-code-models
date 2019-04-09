@@ -61,7 +61,8 @@ class CharacterMetricsCalculator:
             sum([self.character_number_for_file[filepath] for filepath in filepaths]),
             len(filepaths),
             self.LOGGER,
-            "calculating average character number per java file for " + str(filepaths)
+            "calculating average character number per java file for " + str(filepaths),
+            take_log10=True
         )
 
     OPEN_BRACE = '{'
