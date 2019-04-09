@@ -13,10 +13,11 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: removed SoftMax",
+    'experiment_notes': "change: added 5th feature, now all features used, but no log is applied to them, so results "
+                        "must be worse",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
-    'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    'metrics': [i for i in range(19)],
     'epochs': 5000,
     'batch_size': 32,
     'early_stopping_rounds': 350,
