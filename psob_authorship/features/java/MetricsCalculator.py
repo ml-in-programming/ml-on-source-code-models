@@ -21,14 +21,14 @@ class MetricsCalculator:
         self.LOGGER.info("Started calculating metrics")
         super().__init__()
         self.line_metrics_calculator = LineMetricsCalculator(dataset_path)
-        self.braces_metrics_calculator = CharacterMetricsCalculator(dataset_path)
+        self.character_metrics_calculator = CharacterMetricsCalculator(dataset_path)
         self.ast_metrics_calculator = \
-            AstMetricsCalculator(ast_path, self.braces_metrics_calculator.character_number_for_file)
+            AstMetricsCalculator(ast_path, self.character_metrics_calculator.character_number_for_file)
         self.LOGGER.info("End calculating metrics")
 
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.cat((
             self.line_metrics_calculator.get_metrics(filepaths),
-            self.braces_metrics_calculator.get_metrics(filepaths),
+            self.character_metrics_calculator.get_metrics(filepaths),
             self.ast_metrics_calculator.get_metrics(filepaths)
         ))

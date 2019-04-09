@@ -1,4 +1,5 @@
 import logging
+import math
 from typing import Set, Dict
 
 import torch
@@ -28,7 +29,7 @@ class AstMetricsCalculator:
         :return: files ast max depth.
         """
         return torch.tensor([
-            float(max([self.asts[filepath].depth for filepath in filepaths]))
+            math.log10(float(max([self.asts[filepath].depth for filepath in filepaths])))
         ])
 
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:

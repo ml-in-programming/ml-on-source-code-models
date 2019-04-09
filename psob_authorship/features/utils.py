@@ -1,4 +1,5 @@
 import logging
+import math
 import os
 
 from typing import Tuple
@@ -51,9 +52,15 @@ def divide_ratio_with_handling_zero_division(numerator, denominator, logger: log
 
 
 def divide_nonnegative_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
-                                                   log_information, zero_division_return=float(-1)):
-    return divide_with_handling_zero_division(numerator, denominator, logger,
-                                              log_information, (0, float("inf")), zero_division_return)
+                                                   log_information, take_log10=True, log_from_zero=-100.0,
+                                                   zero_division_return=float(-1)):
+    result = divide_with_handling_zero_division(numerator, denominator, logger,
+                                                log_information, (0, float("inf")), zero_division_return)
+    if result == zero_division_return:
+        return zero_division_return
+    if result == 0 and take_log10:
+        return log_from_zero
+    return math.log10(result) if take_log10 else result
 
 
 def divide_with_handling_zero_division(numerator, denominator, logger: logging.Logger, log_information,
