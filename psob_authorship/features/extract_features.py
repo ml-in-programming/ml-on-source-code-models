@@ -7,7 +7,7 @@ import torch
 from tqdm import tqdm
 
 from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
-from psob_authorship.features.utils import chunks
+from psob_authorship.features.utils import chunks, ZERO_DIVISION_RETURN
 
 CALCULATED_FEATURES_ROOT = "../calculated_features/"
 N = 60
@@ -61,12 +61,26 @@ def extract_for_each_file():
     save_extracted_features(filepath, features, labels, feature_names, author_names)
 
 
-def extract_with_mean_values_for_each_file():
-    fileprefix = "extracted_for_each_file"
+def extract_with_transformation(fileprefix, transformation):
     filepath = os.path.join(CALCULATED_FEATURES_ROOT, fileprefix)
     features, labels, feature_names, author_names = get_labeled_data()
-    MetricsCalculator.transform_metrics_default_values_to_mean(-1, features)
+    transformation(ZERO_DIVISION_RETURN, features)
     save_extracted_features(filepath, features, labels, feature_names, author_names)
+
+
+def extract_with_mean_default_values_for_each_file():
+    extract_with_transformation("extracted_for_each_file",
+                                MetricsCalculator.transform_metrics_default_values_to_mean)
+
+
+def extract_with_zero_default_values_for_each_file():
+    extract_with_transformation("extracted_for_each_file",
+                                MetricsCalculator.transform_metrics_default_values_to_zero)
+
+
+def extract_with_one_default_values_for_each_file():
+    extract_with_transformation("extracted_for_each_file",
+                                MetricsCalculator.transform_metrics_default_values_to_one)
 
 
 def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch.Tensor,
@@ -83,4 +97,4 @@ def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch
 
 
 if __name__ == '__main__':
-    extract_with_mean_values_for_each_file()
+    extract_with_zero_default_values_for_each_file()

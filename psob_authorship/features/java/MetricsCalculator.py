@@ -42,3 +42,16 @@ class MetricsCalculator:
             for col in range(features.shape[1]):
                 if default_value_indices[row][col] == 1:
                     features[row][col] = mean_values[col]
+
+    @staticmethod
+    def transform_metrics_default_values_to_new_value(default_value, new_value, features: torch.Tensor):
+        default_value_indices = features == default_value
+        features[default_value_indices] = new_value
+
+    @staticmethod
+    def transform_metrics_default_values_to_zero(default_value, features: torch.Tensor):
+        MetricsCalculator.transform_metrics_default_values_to_new_value(default_value, 0, features)
+
+    @staticmethod
+    def transform_metrics_default_values_to_one(default_value, features: torch.Tensor):
+        MetricsCalculator.transform_metrics_default_values_to_new_value(default_value, 1, features)
