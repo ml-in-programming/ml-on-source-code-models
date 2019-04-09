@@ -39,21 +39,21 @@ def get_absfilepaths(file_or_dir):
 
 
 def divide_percentage_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
-                                                  log_information, zero_division_return=1.0):
+                                                  log_information, zero_division_return=-1.0):
     result = divide_with_handling_zero_division(numerator, denominator, logger,
                                                 log_information, (0, 1), zero_division_return)
     return zero_division_return if result == zero_division_return else result * 100
 
 
 def divide_ratio_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
-                                             log_information, zero_division_return=1.0):
+                                             log_information, zero_division_return=-1.0):
     return divide_with_handling_zero_division(numerator, denominator, logger,
                                               log_information, (0, 1), zero_division_return)
 
 
 def divide_nonnegative_with_handling_zero_division(numerator, denominator, logger: logging.Logger,
                                                    log_information, take_log10=False, log_from_zero=-100.0,
-                                                   zero_division_return=1.0):
+                                                   zero_division_return=-1.0):
     result = divide_with_handling_zero_division(numerator, denominator, logger,
                                                 log_information, (0, float("inf")), zero_division_return)
     if result == zero_division_return:
@@ -64,7 +64,7 @@ def divide_nonnegative_with_handling_zero_division(numerator, denominator, logge
 
 
 def divide_with_handling_zero_division(numerator, denominator, logger: logging.Logger, log_information,
-                                       expected_bounds: Tuple[float, float], zero_division_return=1.0):
+                                       expected_bounds: Tuple[float, float], zero_division_return=-1.0):
     if denominator == 0:
         logger.warning("SUSPICIOUS ZERO DIVISION: " + log_information)
         return zero_division_return

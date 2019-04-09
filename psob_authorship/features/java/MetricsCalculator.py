@@ -32,3 +32,13 @@ class MetricsCalculator:
             self.character_metrics_calculator.get_metrics(filepaths),
             self.ast_metrics_calculator.get_metrics(filepaths)
         ))
+
+    @staticmethod
+    def transform_metrics_default_values_to_mean(default_value, features: torch.Tensor):
+        default_value_indices = features == default_value
+        features[default_value_indices] = 0
+        mean_values = torch.mean(features, dim=0)
+        for row in range(features.shape[0]):
+            for col in range(features.shape[1]):
+                if default_value_indices[row][col] == 1:
+                    features[row][col] = mean_values[col]

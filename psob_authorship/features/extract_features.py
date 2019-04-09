@@ -61,6 +61,14 @@ def extract_for_each_file():
     save_extracted_features(filepath, features, labels, feature_names, author_names)
 
 
+def extract_with_mean_values_for_each_file():
+    fileprefix = "extracted_for_each_file"
+    filepath = os.path.join(CALCULATED_FEATURES_ROOT, fileprefix)
+    features, labels, feature_names, author_names = get_labeled_data()
+    MetricsCalculator.transform_metrics_default_values_to_mean(-1, features)
+    save_extracted_features(filepath, features, labels, feature_names, author_names)
+
+
 def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch.Tensor,
                             feature_names: List[str], author_names: Dict[int, str]):
     print("Shape of features: " + str(features.shape))
@@ -75,4 +83,4 @@ def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch
 
 
 if __name__ == '__main__':
-    extract_for_each_file()
+    extract_with_mean_values_for_each_file()
