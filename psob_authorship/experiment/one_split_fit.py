@@ -13,9 +13,10 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: added relu into hidden layer: linear -> nonlin -> relu -> linear -> nonlin",
+    'experiment_notes': "change: returned softmax, features changed on new fixed feature tensors (percentage to ratio "
+                        "and etc)",
     'number_of_authors': 40,
-    'labels_features_common_name': "../calculated_features/split_each_file",
+    'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
     'epochs': 5000,
     'batch_size': 32,
@@ -106,19 +107,20 @@ def fit_model(file_to_print):
             for i, label in enumerate(labels):
                 labels_dist[label] += 1
                 labels_correct[label] += predicted[i] == labels[i]
-    print_info('Accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
+    print_info('Best accuracy: ' + str(max(best_accuracy, correct / total)))
+    print_info('Final accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
     print_info("Correct labels / labels for each author:\n" + str(torch.stack((labels_correct, labels_dist), dim=1)))
     logger.info("END run_cross_validation")
 
 
 def conduct_one_split_fit_experiment():
     with open("../experiment_result/" + CONFIG['experiment_name'] + "_" + str(datetime.datetime.now()), 'w') as f:
+        f.write("Config: " + str(CONFIG) + "\n")
         start = time.time()
         fit_model(f)
         end = time.time()
         execution_time = end - start
         f.write("Execution time: " + str(datetime.timedelta(seconds=execution_time)) + "\n")
-        f.write("Config: " + str(CONFIG) + "\n")
 
 
 if __name__ == '__main__':

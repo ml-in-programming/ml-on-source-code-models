@@ -12,11 +12,10 @@ class Model(nn.Module):
 
         self.nonlin = nonlin
         self.input_hidden = nn.Linear(input_dim, Model.HIDDEN_DIM, bias=True)
-        self.relu = nn.ReLU()
         self.hidden_output = nn.Linear(Model.HIDDEN_DIM, output, bias=True)
 
     def forward(self, x, **kwargs):
         x = self.nonlin(self.input_hidden(x))
-        x = self.relu(x)
         x = self.nonlin(self.hidden_output(x))
+        x = F.softmax(x, dim=-1)
         return x

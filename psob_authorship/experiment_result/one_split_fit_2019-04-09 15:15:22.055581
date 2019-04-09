@@ -1,0 +1,61 @@
+Config: {'experiment_name': 'one_split_fit', 'experiment_notes': 'change: returned softmax, features changed on new fixed feature tensors (percentage to ratio and etc)', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 350, 'lr': 0.02, 'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=True), 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True}
+CHECKPOINT EACH 100th EPOCH 0: 0.2204968944099379
+CHECKPOINT EACH 100th EPOCH 100: 0.38819875776397517
+CHECKPOINT EACH 100th EPOCH 200: 0.45652173913043476
+CHECKPOINT EACH 100th EPOCH 300: 0.4503105590062112
+CHECKPOINT EACH 100th EPOCH 400: 0.45962732919254656
+CHECKPOINT EACH 100th EPOCH 500: 0.468944099378882
+CHECKPOINT EACH 100th EPOCH 600: 0.4813664596273292
+CHECKPOINT EACH 100th EPOCH 700: 0.4813664596273292
+CHECKPOINT EACH 100th EPOCH 800: 0.4782608695652174
+CHECKPOINT EACH 100th EPOCH 900: 0.484472049689441
+CHECKPOINT EACH 100th EPOCH 1000: 0.48757763975155277
+CHECKPOINT EACH 100th EPOCH 1100: 0.4906832298136646
+CHECKPOINT EACH 100th EPOCH 1200: 0.4813664596273292
+CHECKPOINT EACH 100th EPOCH 1300: 0.4968944099378882
+CHECKPOINT EACH 100th EPOCH 1400: 0.4906832298136646
+CHECKPOINT EACH 100th EPOCH 1500: 0.4906832298136646
+On epoch 1520 training was early stopped
+Accuracy of the network: 158 / 322 = 49 %
+Correct labels / labels for each author:
+tensor([[ 4.,  7.],
+        [13., 14.],
+        [ 0.,  4.],
+        [ 7., 10.],
+        [ 0., 10.],
+        [71., 72.],
+        [ 3.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 0.,  6.],
+        [ 0.,  5.],
+        [ 5.,  9.],
+        [ 0.,  3.],
+        [ 5.,  7.],
+        [ 0.,  2.],
+        [ 0.,  8.],
+        [ 1.,  8.],
+        [ 0.,  7.],
+        [ 0.,  4.],
+        [ 5., 10.],
+        [ 0.,  5.],
+        [ 0.,  2.],
+        [ 1.,  5.],
+        [ 0.,  3.],
+        [ 0.,  7.],
+        [ 6.,  8.],
+        [ 0.,  6.],
+        [ 0.,  4.],
+        [ 8., 10.],
+        [ 0.,  2.],
+        [ 0.,  3.],
+        [ 0.,  5.],
+        [15., 21.],
+        [ 0.,  3.],
+        [13., 15.],
+        [ 0.,  4.],
+        [ 0.,  9.],
+        [ 0.,  3.],
+        [ 0.,  4.],
+        [ 1.,  5.]])
+Execution time: 0:08:47.925880
