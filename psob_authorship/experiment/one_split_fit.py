@@ -13,8 +13,7 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: returned softmax, features changed on new fixed feature tensors (percentage to ratio "
-                        "and etc)",
+    'experiment_notes': "change: removed SoftMax",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
@@ -88,7 +87,8 @@ def fit_model(file_to_print):
         if epoch % 10 == 0:
             logger.info("CHECKPOINT EACH 10th EPOCH" + str(epoch) + ": " + str(accuracy))
         if epoch % 100 == 0:
-            print_info("CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": " + str(accuracy))
+            print_info("CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": current accuracy " + str(accuracy) + " , best "
+                       + str(best_accuracy))
         logger.info(str(epoch) + ": " + str(accuracy))
 
     logger.info('Finished Training')
