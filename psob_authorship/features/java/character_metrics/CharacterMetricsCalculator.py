@@ -1,11 +1,11 @@
 import logging
 from collections import defaultdict
-
-import torch
 from typing import Dict, Set
 
-from psob_authorship.features.utils import get_absfilepaths, divide_with_handling_zero_division, \
-    divide_percentage_with_handling_zero_division, divide_nonnegative_with_handling_zero_division
+import torch
+
+from psob_authorship.features.utils import get_absfilepaths, divide_nonnegative_with_handling_zero_division, \
+    divide_ratio_with_handling_zero_division
 
 
 class CharacterMetricsCalculator:
@@ -13,13 +13,13 @@ class CharacterMetricsCalculator:
 
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
-            self.percentage_of_open_braces_alone_in_a_line(filepaths),
-            self.percentage_of_close_braces_alone_in_a_line(filepaths),
+            self.ratio_of_open_braces_alone_in_a_line(filepaths),
+            self.ratio_of_close_braces_alone_in_a_line(filepaths),
             self.average_character_number_per_java_file(filepaths)
             # TODO: this metric decreases significantly accuracy
         ])
 
-    def percentage_of_open_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
+    def ratio_of_open_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
         """
         Counts the following: (number of lines with alone open braces) / (number of lines that contain open braces) * 100
         If open brace is located in comment then it will be counted too.
@@ -28,14 +28,14 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: open braces alone in a line metric
         """
-        return divide_percentage_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.alone_open_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.open_braces_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
-            "calculating percentage of open braces alone in a line for " + str(filepaths)
+            "calculating ratio of open braces alone in a line for " + str(filepaths)
         )
 
-    def percentage_of_close_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
+    def ratio_of_close_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:
         """
         Counts the following: (number of lines with alone close braces) / (number of lines that contain close braces) * 100
         If close brace is located in comment then it will be counted too.
@@ -44,11 +44,11 @@ class CharacterMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: close braces alone in a line metric
         """
-        return divide_percentage_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.alone_close_braces_for_file[filepath] for filepath in filepaths]),
             sum([self.close_braces_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
-            "calculating percentage of close braces alone in a line for " + str(filepaths)
+            "calculating ratio of close braces alone in a line for " + str(filepaths)
         )
 
     def average_character_number_per_java_file(self, filepaths: Set[str]) -> float:
@@ -97,7 +97,7 @@ class CharacterMetricsCalculator:
     @staticmethod
     def get_metric_names():
         return [
-            "percentage_of_open_braces_alone_in_a_line",
-            "percentage_of_close_braces_alone_in_a_line",
+            "ratio_of_open_braces_alone_in_a_line",
+            "ratio_of_close_braces_alone_in_a_line",
             "average_character_number_per_java_file"
         ]

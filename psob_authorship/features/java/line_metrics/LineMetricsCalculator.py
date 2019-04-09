@@ -2,12 +2,12 @@ import logging
 import os
 import subprocess
 from collections import defaultdict
-
-import torch
 from typing import Dict, Set, List
 
-from psob_authorship.features.utils import divide_with_handling_zero_division, get_absfilepaths, \
-    divide_percentage_with_handling_zero_division, divide_ratio_with_handling_zero_division, \
+import torch
+
+from psob_authorship.features.utils import get_absfilepaths, \
+    divide_ratio_with_handling_zero_division, \
     divide_nonnegative_with_handling_zero_division
 
 
@@ -18,7 +18,7 @@ class LineMetricsCalculator:
         return torch.tensor([
             self.ratio_of_blank_lines_to_code_lines(filepaths),
             self.ratio_of_comment_lines_to_code_lines(filepaths),
-            self.percentage_of_block_comments_to_all_comment_lines(filepaths)
+            self.ratio_of_block_comments_to_all_comment_lines(filepaths)
         ])
 
     def ratio_of_blank_lines_to_code_lines(self, filepaths: Set[str]) -> float:
@@ -54,19 +54,19 @@ class LineMetricsCalculator:
             "calculating ratio of comment lines to code lines for " + str(filepaths)
         )
 
-    def percentage_of_block_comments_to_all_comment_lines(self, filepaths: Set[str]) -> float:
+    def ratio_of_block_comments_to_all_comment_lines(self, filepaths: Set[str]) -> float:
         """
         Block comment size is number of comment lines in block comment.
 
         :param filepaths: paths to files for which metric should be calculated
         :return: block comment lines metric
         """
-        return divide_percentage_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.comment_lines_for_file[filepath] - self.single_line_comments_for_file[filepath]
                  for filepath in filepaths]),
             sum([self.comment_lines_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
-            "calculating percentage of block comments to all comment lines for " + str(filepaths)
+            "calculating ratio of block comments to all comment lines for " + str(filepaths)
         )
 
     def __init__(self, dataset_path: str) -> None:
@@ -123,5 +123,5 @@ class LineMetricsCalculator:
         return [
             "ratio_of_blank_lines_to_code_lines",
             "ratio_of_comment_lines_to_code_lines",
-            "percentage_of_block_comments_to_all_comment_lines"
+            "ratio_of_block_comments_to_all_comment_lines"
         ]

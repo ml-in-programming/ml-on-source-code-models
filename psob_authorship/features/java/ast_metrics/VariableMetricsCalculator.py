@@ -6,8 +6,8 @@ import torch
 
 from psob_authorship.features.java.ast.Ast import Ast
 from psob_authorship.features.java.ast.AstSpecificTokensExtractor import AstSpecificTokensExtractor
-from psob_authorship.features.utils import divide_with_handling_zero_division, \
-    divide_percentage_with_handling_zero_division, divide_nonnegative_with_handling_zero_division
+from psob_authorship.features.utils import divide_nonnegative_with_handling_zero_division, \
+    divide_ratio_with_handling_zero_division
 
 
 class VariableMetricsCalculator:
@@ -15,37 +15,37 @@ class VariableMetricsCalculator:
 
     def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
         return torch.tensor([
-            self.percentage_of_variable_naming_without_uppercase_letters(filepaths),
-            self.percentage_of_variable_naming_starting_with_lowercase_letters(filepaths),
+            self.ratio_of_variable_naming_without_uppercase_letters(filepaths),
+            self.ratio_of_variable_naming_starting_with_lowercase_letters(filepaths),
             self.average_variable_name_length(filepaths),
             self.ratio_of_macro_variables(filepaths),
             self.preference_for_cyclic_variables(filepaths)
         ])
 
-    def percentage_of_variable_naming_without_uppercase_letters(self, filepaths: Set[str]) -> float:
+    def ratio_of_variable_naming_without_uppercase_letters(self, filepaths: Set[str]) -> float:
         """
         This metric uses ast of files so you will need to generate files stated below with PathMiner.
         :param filepaths: paths to files for which metric should be calculated
         :return: variables without uppercase letters metric
         """
-        return divide_percentage_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.number_of_variables_in_lowercase_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
-            "calculating metric percentage of variable naming without uppercase letters for " + str(filepaths)
+            "calculating metric ratio of variable naming without uppercase letters for " + str(filepaths)
         )
 
-    def percentage_of_variable_naming_starting_with_lowercase_letters(self, filepaths: Set[str]) -> float:
+    def ratio_of_variable_naming_starting_with_lowercase_letters(self, filepaths: Set[str]) -> float:
         """
         This metric uses ast of files so you will need to generate files stated below with PathMiner.
         :param filepaths: paths to files for which metric should be calculated
         :return: variables starting with lowercase letters metric
         """
-        return divide_percentage_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.number_of_variables_starting_with_lowercase_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
-            "calculating metric percentage of variable naming starting with lowercase letters for " + str(filepaths)
+            "calculating metric ratio of variable naming starting with lowercase letters for " + str(filepaths)
         )
 
     def average_variable_name_length(self, filepaths: Set[str]) -> float:
@@ -68,7 +68,7 @@ class VariableMetricsCalculator:
         :param filepaths: paths to files for which metric should be calculated
         :return: ratio of loops variables to all variables
         """
-        return divide_percentage_with_handling_zero_division(
+        return divide_ratio_with_handling_zero_division(
             sum([self.number_of_variables_in_for_control_for_file[filepath] for filepath in filepaths]),
             sum([self.number_of_variables_for_file[filepath] for filepath in filepaths]),
             self.LOGGER,
@@ -125,8 +125,8 @@ class VariableMetricsCalculator:
     @staticmethod
     def get_metrics_names():
         return [
-            "percentage_of_variable_naming_without_uppercase_letters",
-            "percentage_of_variable_naming_starting_with_lowercase_letters",
+            "ratio_of_variable_naming_without_uppercase_letters",
+            "ratio_of_variable_naming_starting_with_lowercase_letters",
             "average_variable_name_length",
             "ratio_of_macro_variables",
             "preference_for_cyclic_variables"
