@@ -4,11 +4,12 @@ import os
 import time
 
 import torch
+from sklearn import preprocessing
 from sklearn.model_selection import StratifiedKFold
 from torch import optim, nn
 
 from psob_authorship.features.PsobDataset import PsobDataset
-from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
+from psob_authorship.features.Transformers import Transformers
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 
@@ -49,8 +50,11 @@ def fit_model(file_to_print):
     optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
     train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
     test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
-    mean_values = MetricsCalculator.transform_metrics_zero_division_to_mean(torch.from_numpy(train_features))
-    MetricsCalculator.set_mean_to_zero_division(mean_values, torch.from_numpy(test_features))
+    mean_values = Transformers.transform_metrics_zero_division_to_mean(torch.from_numpy(train_features))
+    Transformers.set_mean_to_zero_division(mean_values, torch.from_numpy(test_features))
+    scaler = preprocessing.StandardScaler().fit(train_features)
+    train_features = scaler.transform(train_features)
+    test_features = scaler.transform(test_features)
     trainloader = torch.utils.data.DataLoader(
         PsobDataset(train_features, train_labels, CONFIG['metrics']),
         batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2

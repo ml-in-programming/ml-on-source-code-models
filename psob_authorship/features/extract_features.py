@@ -1,13 +1,13 @@
 import os
 import random
-
 from typing import Tuple, Dict, List
 
 import torch
 from tqdm import tqdm
 
+from psob_authorship.features.Transformers import Transformers
 from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
-from psob_authorship.features.utils import chunks, ZERO_DIVISION_RETURN
+from psob_authorship.features.utils import chunks
 
 CALCULATED_FEATURES_ROOT = "../calculated_features/"
 N = 60
@@ -70,12 +70,12 @@ def extract_with_transformation(fileprefix, transformation):
 
 def extract_with_zero_default_values_for_each_file():
     extract_with_transformation("extracted_for_each_file",
-                                MetricsCalculator.transform_metrics_zero_division_to_zero)
+                                Transformers.transform_metrics_zero_division_to_zero)
 
 
 def extract_with_one_default_values_for_each_file():
     extract_with_transformation("extracted_for_each_file",
-                                MetricsCalculator.transform_metrics_zero_division_to_one)
+                                Transformers.transform_metrics_zero_division_to_one)
 
 
 def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch.Tensor,
