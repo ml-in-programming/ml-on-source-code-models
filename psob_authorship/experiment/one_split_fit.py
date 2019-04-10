@@ -14,10 +14,10 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: with macro vars metric",
+    'experiment_notes': "change: SGD -> Adam",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
-    'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], # 9 is macro
+    'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18],  # 9 is macro
     'epochs': 5000,
     'batch_size': 32,
     'early_stopping_rounds': 700,
@@ -25,7 +25,7 @@ CONFIG = {
     'cv': StratifiedKFold(n_splits=10, random_state=1, shuffle=True),
     'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
-    'optimizer': optim.SGD,
+    'optimizer': optim.Adam,
     'momentum': 0.9,
     'shuffle': False
 }
@@ -46,7 +46,7 @@ def fit_model(file_to_print):
     train_index, test_index = next(CONFIG['cv'].split(INPUT_FEATURES, INPUT_LABELS))
     model = Model(len(CONFIG['metrics']))
     criterion = CONFIG['criterion']()
-    optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
+    optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'])
     train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
     test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
     scaler = preprocessing.StandardScaler().fit(train_features)
