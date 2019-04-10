@@ -16,7 +16,6 @@ class CharacterMetricsCalculator:
             self.ratio_of_open_braces_alone_in_a_line(filepaths),
             self.ratio_of_close_braces_alone_in_a_line(filepaths),
             self.average_character_number_per_java_file(filepaths)
-            # TODO: this metric decreases significantly accuracy
         ])
 
     def ratio_of_open_braces_alone_in_a_line(self, filepaths: Set[str]) -> float:

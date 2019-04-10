@@ -9,13 +9,12 @@ from sklearn.model_selection import StratifiedKFold
 from torch import optim, nn
 
 from psob_authorship.features.PsobDataset import PsobDataset
-from psob_authorship.features.Transformers import Transformers
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: a / 0 = mean, but mean is calculated only for train",
+    'experiment_notes': "change: a / 0 = -1 and all features are normalized",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
@@ -23,12 +22,12 @@ CONFIG = {
     'batch_size': 32,
     'early_stopping_rounds': 700,
     'lr': 0.02,
-    'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=True),
+    'cv': StratifiedKFold(n_splits=10, random_state=1, shuffle=True),
     'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
     'optimizer': optim.SGD,
     'momentum': 0.9,
-    'shuffle': True
+    'shuffle': False
 }
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
@@ -50,8 +49,6 @@ def fit_model(file_to_print):
     optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
     train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
     test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
-    mean_values = Transformers.transform_metrics_zero_division_to_mean(torch.from_numpy(train_features))
-    Transformers.set_mean_to_zero_division(mean_values, torch.from_numpy(test_features))
     scaler = preprocessing.StandardScaler().fit(train_features)
     train_features = scaler.transform(train_features)
     test_features = scaler.transform(test_features)
