@@ -1,0 +1,72 @@
+Config: {'experiment_name': 'one_split_fit', 'experiment_notes': 'change: a / 0 = mean, but mean is calculated only for train', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 700, 'lr': 0.02, 'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=True), 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True}
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.2236024844720497 , best 0.2236024844720497
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.593167701863354 , best 0.6428571428571429
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.6055900621118012 , best 0.6521739130434783
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.6242236024844721 , best 0.6583850931677019
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.6273291925465838 , best 0.6583850931677019
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.6428571428571429 , best 0.6770186335403726
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.6645962732919255 , best 0.6770186335403726
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.6677018633540373 , best 0.6770186335403726
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.6521739130434783 , best 0.6863354037267081
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.6770186335403726 , best 0.6925465838509317
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.6956521739130435 , best 0.6956521739130435
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.6863354037267081 , best 0.7111801242236024
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7080745341614907 , best 0.7111801242236024
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.6987577639751553 , best 0.717391304347826
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.6987577639751553 , best 0.717391304347826
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7049689440993789 , best 0.717391304347826
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7049689440993789 , best 0.7204968944099379
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7111801242236024 , best 0.7204968944099379
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7080745341614907 , best 0.7204968944099379
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.6894409937888198 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7049689440993789 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7049689440993789 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 2200: current accuracy 0.6987577639751553 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 2300: current accuracy 0.7018633540372671 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 2400: current accuracy 0.7049689440993789 , best 0.7236024844720497
+CHECKPOINT EACH 100th EPOCH 2500: current accuracy 0.7049689440993789 , best 0.7236024844720497
+On epoch 2542 training was early stopped
+Best accuracy: 0.7236024844720497
+Final accuracy of the network: 228 / 322 = 70 %
+Correct labels / labels for each author:
+tensor([[ 7.,  7.],
+        [14., 14.],
+        [ 3.,  4.],
+        [ 6., 10.],
+        [ 8., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 4.,  6.],
+        [ 2.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 0.,  2.],
+        [ 0.,  8.],
+        [ 5.,  8.],
+        [ 5.,  7.],
+        [ 1.,  4.],
+        [ 4., 10.],
+        [ 1.,  5.],
+        [ 0.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 4.,  7.],
+        [ 7.,  8.],
+        [ 2.,  6.],
+        [ 2.,  4.],
+        [ 8., 10.],
+        [ 2.,  2.],
+        [ 2.,  3.],
+        [ 4.,  5.],
+        [15., 21.],
+        [ 2.,  3.],
+        [ 9., 15.],
+        [ 2.,  4.],
+        [ 2.,  9.],
+        [ 0.,  3.],
+        [ 4.,  4.],
+        [ 2.,  5.]])
+Execution time: 0:14:38.019887

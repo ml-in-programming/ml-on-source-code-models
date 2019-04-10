@@ -1,4 +1,6 @@
+import datetime
 import logging
+import os
 from typing import Tuple, List
 
 import torch
@@ -10,38 +12,51 @@ from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 
-LABELS_FEARURES_COMMON_NAME = "../calculated_features/without_5"
-INPUT_FEATURES = torch.load(LABELS_FEARURES_COMMON_NAME + "_features.tr")
-INPUT_LABELS = torch.load(LABELS_FEARURES_COMMON_NAME + "_labels.tr")
-EPOCHS = 5000
-BATCH_SIZE = 32
+CONFIG = {
+    'experiment_name': os.path.basename(__file__).split('.')[0],
+    'experiment_notes': "change: a / 0 = 1 with 700 early stopping rounds",
+    'number_of_authors': 40,
+    'labels_features_common_name': "../calculated_features/extracted_for_each_file",
+    'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    'epochs': 5000,
+    'batch_size': 32,
+    'lr': 0.01,
+    'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=True),
+    'scoring': "accuracy",
+    'criterion': nn.CrossEntropyLoss,
+    'optimizer': optim.SGD,
+    'momentum': 0.9,
+    'shuffle': True,
+    'timestamp': datetime.datetime.now()
+}
+INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
+INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
 
 
 def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], List[int]]:
     logger = logging.getLogger('early_stopping')
     configure_logger_by_default(logger)
     logger.info("START get_test_accuracy_by_epoch")
-    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=0)
-    train_index, test_index = next(skf.split(INPUT_FEATURES, INPUT_LABELS))
+    train_index, test_index = next(CONFIG['cv'].split(INPUT_FEATURES, INPUT_LABELS))
 
     model = Model(INPUT_FEATURES.shape[1])
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
+    criterion = CONFIG['criterion']
+    optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
     train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
     test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
     trainloader = torch.utils.data.DataLoader(
         PsobDataset(train_features, train_labels),
-        batch_size=BATCH_SIZE, shuffle=True, num_workers=2
+        batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
     )
     testloader = torch.utils.data.DataLoader(
         PsobDataset(test_features, test_labels),
-        batch_size=BATCH_SIZE, shuffle=False, num_workers=2
+        batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
     )
     accuracies = []
     best_accuracy = -1
     durations = []
     current_duration = 0
-    for epoch in tqdm(range(EPOCHS)):
+    for epoch in tqdm(range(CONFIG['epochs'])):
         for i, data in enumerate(trainloader, 0):
             inputs, labels = data
             optimizer.zero_grad()
@@ -71,7 +86,7 @@ def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], List[int]]:
     if current_duration != 0:
         durations.append(current_duration)
     logger.info("END get_test_accuracy_by_epoch")
-    return [i for i in range(EPOCHS)], accuracies, durations
+    return [i for i in range(CONFIG['epochs'])], accuracies, durations
 
 
 def draw_test_accuracy_by_epoch(epochs, accuracies):
@@ -86,7 +101,8 @@ def conduct_early_stopping_experiment():
     epochs, accuracies, durations = get_test_accuracy_by_epoch()
     draw_test_accuracy_by_epoch(epochs, accuracies)
     coordinates = list(zip(epochs, accuracies))
-    with open("../experiment_result/early_stopping_plots_data", 'w') as f:
+    filepath = "../experiment_result/early_stopping_plots_data"
+    with open(filepath, 'w') as f:
         f.write("Durations of not growing accuracy: " + str(durations) + "\n")
         f.write("Sorted durations of not growing accuracy: " + str(list(reversed(sorted(durations)))) + "\n")
         for item in coordinates:

@@ -8,12 +8,13 @@ from sklearn.model_selection import StratifiedKFold
 from torch import optim, nn
 
 from psob_authorship.features.PsobDataset import PsobDataset
+from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "change: a / 0 = 1 with 700 early stopping rounds",
+    'experiment_notes': "change: a / 0 = mean, but mean is calculated only for train",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
@@ -48,6 +49,8 @@ def fit_model(file_to_print):
     optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
     train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
     test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
+    mean_values = MetricsCalculator.transform_metrics_zero_division_to_mean(torch.from_numpy(train_features))
+    MetricsCalculator.set_mean_to_zero_division(mean_values, torch.from_numpy(test_features))
     trainloader = torch.utils.data.DataLoader(
         PsobDataset(train_features, train_labels, CONFIG['metrics']),
         batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2

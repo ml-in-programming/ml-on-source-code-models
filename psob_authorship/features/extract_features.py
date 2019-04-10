@@ -64,23 +64,18 @@ def extract_for_each_file():
 def extract_with_transformation(fileprefix, transformation):
     filepath = os.path.join(CALCULATED_FEATURES_ROOT, fileprefix)
     features, labels, feature_names, author_names = get_labeled_data()
-    transformation(ZERO_DIVISION_RETURN, features)
+    transformation(features)
     save_extracted_features(filepath, features, labels, feature_names, author_names)
-
-
-def extract_with_mean_default_values_for_each_file():
-    extract_with_transformation("extracted_for_each_file",
-                                MetricsCalculator.transform_metrics_default_values_to_mean)
 
 
 def extract_with_zero_default_values_for_each_file():
     extract_with_transformation("extracted_for_each_file",
-                                MetricsCalculator.transform_metrics_default_values_to_zero)
+                                MetricsCalculator.transform_metrics_zero_division_to_zero)
 
 
 def extract_with_one_default_values_for_each_file():
     extract_with_transformation("extracted_for_each_file",
-                                MetricsCalculator.transform_metrics_default_values_to_one)
+                                MetricsCalculator.transform_metrics_zero_division_to_one)
 
 
 def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch.Tensor,
@@ -97,4 +92,4 @@ def save_extracted_features(filepath: str, features: torch.Tensor, labels: torch
 
 
 if __name__ == '__main__':
-    extract_with_one_default_values_for_each_file()
+    extract_for_each_file()
