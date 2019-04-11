@@ -9,6 +9,7 @@ from skorch import NeuralNetClassifier
 from torch import nn
 from typing import Tuple
 
+from psob_authorship.experiment.utils import make_experiment_reproducible
 from psob_authorship.model import Model
 from psob_authorship.model.Model import Model
 
@@ -22,6 +23,7 @@ CONFIG = {
     'scoring': 'accuracy',
     'criterion': torch.nn.CrossEntropyLoss,
     'momentum': 0.9,
+    'random_state': 4562,
     'params': {
         'lr': [0.025]
         # 'lr': [0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.3]
@@ -29,6 +31,7 @@ CONFIG = {
 }
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
+make_experiment_reproducible(CONFIG['random_state'])
 
 
 def find_best_learning_rate() -> Tuple[float, float]:

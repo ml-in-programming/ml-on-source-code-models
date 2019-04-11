@@ -10,6 +10,7 @@ from sklearn.model_selection import StratifiedKFold
 from torch import nn
 from tqdm import tqdm
 
+from psob_authorship.experiment.utils import make_experiment_reproducible
 from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model import Model
@@ -21,19 +22,21 @@ CONFIG = {
     'epochs': 5000,
     'batch_size': 32,
     'early_stopping_rounds': 350,
-    'cv': 10,
+    'n_splits': 10,
     'scoring': 'accuracy',
     'criterion': torch.nn.CrossEntropyLoss,
     'optimizer': optim.SGD,
     'momentum': 0.9,
+    'random_state': 4562,
     'shuffle': True,
-    'random_state': 0,
     'params': {
         'lr': [0.001, 0.005, 0.01, 0.015, 0.02, 0.025]
     }
 }
+CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['cv'], shuffle=True, random_state=CONFIG['random_state'])
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
+make_experiment_reproducible(CONFIG['random_state'])
 
 
 def get_accuracies_for_lr() -> Dict[float, float]:
@@ -43,7 +46,7 @@ def get_accuracies_for_lr() -> Dict[float, float]:
     accuracies_by_lr = defaultdict(lambda: -1.0)
     for lr in CONFIG['params']['lr']:
         logger.info("lr = " + str(lr))
-        skf = StratifiedKFold(n_splits=CONFIG['cv'], shuffle=CONFIG['shuffle'], random_state=CONFIG['random_state'])
+        skf = CONFIG['cv']
         train_index, test_index = next(skf.split(INPUT_FEATURES, INPUT_LABELS))
 
         model = Model(INPUT_FEATURES.shape[1])
@@ -53,11 +56,11 @@ def get_accuracies_for_lr() -> Dict[float, float]:
         test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
         trainloader = torch.utils.data.DataLoader(
             PsobDataset(train_features, train_labels),
-            batch_size=CONFIG['batch_size'], shuffle=True, num_workers=2
+            batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
         )
         testloader = torch.utils.data.DataLoader(
             PsobDataset(test_features, test_labels),
-            batch_size=CONFIG['batch_size'], shuffle=False, num_workers=2
+            batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
         )
         current_duration = 0
         for epoch in tqdm(range(CONFIG['epochs'])):

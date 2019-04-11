@@ -7,6 +7,7 @@ from sklearn import preprocessing
 from sklearn.model_selection import RepeatedStratifiedKFold, StratifiedKFold
 from torch import optim, nn
 
+from psob_authorship.experiment.utils import make_experiment_reproducible
 from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
@@ -31,11 +32,13 @@ CONFIG = {
     'shuffle': True,
     'device': torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 }
-CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True) if CONFIG['n_repeats'] == 1 else\
-    RepeatedStratifiedKFold(n_splits=CONFIG['n_splits'],
-                            n_repeats=CONFIG['n_repeats'], random_state=CONFIG['random_state'])
+CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True, random_state=CONFIG['random_state']) \
+    if CONFIG['n_repeats'] == 1 else RepeatedStratifiedKFold(n_splits=CONFIG['n_splits'],
+                                                             n_repeats=CONFIG['n_repeats'],
+                                                             random_state=CONFIG['random_state'])
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
+make_experiment_reproducible(CONFIG['random_state'])
 
 
 def run_cross_validation(file_to_print) -> torch.Tensor:

@@ -9,6 +9,7 @@ from skorch import NeuralNetClassifier
 from skorch.dataset import CVSplit
 from torch import nn
 
+from psob_authorship.experiment.utils import make_experiment_reproducible
 from psob_authorship.model import Model
 from psob_authorship.model.Model import Model
 
@@ -19,7 +20,7 @@ CONFIG = {
     'early_stopping_rounds': 350,
     'lr': 0.02,
     'n_splits': 10,
-    'cv': StratifiedKFold(n_splits=10),
+    'random_state': 4562,
     'scoring': "accuracy",
     'params': {
         'optimizer__momentum': [0.9],
@@ -28,6 +29,8 @@ CONFIG = {
 }
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
+CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], random_state=CONFIG['random_state'], shuffle=True)
+make_experiment_reproducible(CONFIG['random_state'])
 
 
 def grid_search_hyperparameters() -> GridSearchCV:

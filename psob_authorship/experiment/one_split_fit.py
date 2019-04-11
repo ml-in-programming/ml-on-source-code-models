@@ -8,6 +8,7 @@ from sklearn import preprocessing
 from sklearn.model_selection import StratifiedKFold
 from torch import optim, nn
 
+from psob_authorship.experiment.utils import make_experiment_reproducible
 from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
@@ -23,15 +24,18 @@ CONFIG = {
     'batch_size': 32,
     'early_stopping_rounds': 700,
     'lr': 0.02,
-    'cv': StratifiedKFold(n_splits=10, random_state=1, shuffle=True),
+    'n_splits': 10,
+    'random_state': 4562,
     'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
     'optimizer': optim.SGD,
     'momentum': 0.9,
-    'shuffle': False
+    'shuffle': True
 }
+CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], random_state=CONFIG['random_state'], shuffle=True)
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
+make_experiment_reproducible(CONFIG['random_state'])
 
 
 def fit_model(file_to_print):
