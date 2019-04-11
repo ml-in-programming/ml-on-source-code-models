@@ -22,11 +22,11 @@ CONFIG = {
     'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18],
     'epochs': 10000,
     'batch_size': 32,
-    'lr': 0.01,
+    'lr': 0.001,
     'cv': StratifiedKFold(n_splits=10, random_state=1, shuffle=True),
     'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
-    'optimizer': optim.SGD,
+    'optimizer': optim.Adam,
     'momentum': 0.9,
     'shuffle': False
 }
@@ -42,7 +42,7 @@ def get_test_accuracy_by_epoch() -> Tuple[List[int], List[float], List[int]]:
 
     model = Model(INPUT_FEATURES.shape[1])
     criterion = CONFIG['criterion']()
-    optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
+    optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'])
     train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
     test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
     scaler = preprocessing.StandardScaler().fit(train_features)
