@@ -28,7 +28,8 @@ CONFIG = {
     'criterion': nn.CrossEntropyLoss,
     'optimizer': optim.SGD,
     'momentum': 0.9,
-    'shuffle': True
+    'shuffle': True,
+    'device': torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True) if CONFIG['n_repeats'] == 1 else\
     RepeatedStratifiedKFold(n_splits=CONFIG['n_splits'],
@@ -57,7 +58,7 @@ def run_cross_validation(file_to_print) -> torch.Tensor:
             repeat_number += 1
 
         print_info("New " + str(fold_number) + " fold. repeat = " + str(repeat_number))
-        model = Model(len(CONFIG['metrics']))
+        model = Model(len(CONFIG['metrics'])).to(CONFIG['device'])
         criterion = CONFIG['criterion']()
         optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
         train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
@@ -81,6 +82,8 @@ def run_cross_validation(file_to_print) -> torch.Tensor:
         for epoch in range(CONFIG['epochs']):
             for i, data in enumerate(trainloader, 0):
                 inputs, labels = data
+                inputs = inputs.to(CONFIG['device'])
+                labels = labels.to(CONFIG['device'])
                 optimizer.zero_grad()
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
@@ -91,6 +94,8 @@ def run_cross_validation(file_to_print) -> torch.Tensor:
             with torch.no_grad():
                 for data in testloader:
                     features, labels = data
+                    features = features.to(CONFIG['device'])
+                    labels = labels.to(CONFIG['device'])
                     outputs = model(features)
                     _, predicted = torch.max(outputs.data, 1)
                     total += labels.size(0)
@@ -119,6 +124,8 @@ def run_cross_validation(file_to_print) -> torch.Tensor:
         with torch.no_grad():
             for data in testloader:
                 features, labels = data
+                features = features.to(CONFIG['device'])
+                labels = labels.to(CONFIG['device'])
                 outputs = model(features)
                 _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
