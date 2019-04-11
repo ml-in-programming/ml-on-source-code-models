@@ -1,0 +1,735 @@
+Config: {'experiment_name': '10_fold_cross_validation', 'experiment_notes': '10 fold cv for SGD', 'number_of_authors': 40, 'labels_features_common_name': '/content/extracted_for_each_file', 'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 10000, 'batch_size': 32, 'early_stopping_rounds': 1500, 'lr': 0.02, 'n_splits': 10, 'n_repeats': 1, 'random_state': 4562, 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True, 'device': device(type='cuda', index=0), 'cv': StratifiedKFold(n_splits=10, random_state=None, shuffle=True)}
+New 0 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.41304347826086957 , best 0.41304347826086957
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7204968944099379 , best 0.7267080745341615
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7484472049689441 , best 0.7484472049689441
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7453416149068323 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7453416149068323 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7391304347826086 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7329192546583851 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7298136645962733 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7298136645962733 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7298136645962733 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7360248447204969 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7360248447204969 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7329192546583851 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7329192546583851 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7298136645962733 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7267080745341615 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7267080745341615 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7267080745341615 , best 0.7515527950310559
+On epoch 1706 training was early stopped
+Finished training for 0 fold, repeat 0
+Best accuracy: 0.7515527950310559
+Accuracy of the last validation of the network: 234 / 322 = 72 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  7.],
+        [14., 14.],
+        [ 4.,  4.],
+        [ 3., 10.],
+        [ 7., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 2.,  3.],
+        [ 6.,  6.],
+        [ 4.,  5.],
+        [ 7.,  9.],
+        [ 2.,  3.],
+        [ 7.,  7.],
+        [ 0.,  2.],
+        [ 3.,  8.],
+        [ 2.,  8.],
+        [ 5.,  7.],
+        [ 1.,  4.],
+        [ 2., 10.],
+        [ 4.,  5.],
+        [ 1.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 3.,  7.],
+        [ 6.,  8.],
+        [ 5.,  6.],
+        [ 1.,  4.],
+        [ 6., 10.],
+        [ 2.,  2.],
+        [ 2.,  3.],
+        [ 3.,  5.],
+        [17., 21.],
+        [ 2.,  3.],
+        [13., 15.],
+        [ 3.,  4.],
+        [ 0.,  9.],
+        [ 1.,  3.],
+        [ 3.,  4.],
+        [ 3.,  5.]])
+New 1 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.43354430379746833 , best 0.43354430379746833
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6772151898734177 , best 0.6867088607594937
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.6835443037974683 , best 0.7025316455696202
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.6867088607594937 , best 0.7025316455696202
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.689873417721519 , best 0.7025316455696202
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.6993670886075949 , best 0.7025316455696202
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7056962025316456 , best 0.7056962025316456
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7120253164556962 , best 0.7151898734177216
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7151898734177216 , best 0.7183544303797469
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7120253164556962 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7151898734177216 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7120253164556962 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7088607594936709 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7120253164556962 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7151898734177216 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7151898734177216 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 2200: current accuracy 0.7183544303797469 , best 0.7215189873417721
+CHECKPOINT EACH 100th EPOCH 2300: current accuracy 0.7183544303797469 , best 0.7215189873417721
+On epoch 2393 training was early stopped
+Finished training for 1 fold, repeat 0
+Best accuracy: 0.7215189873417721
+Accuracy of the last validation of the network: 228 / 316 = 72 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  7.],
+        [11., 14.],
+        [ 3.,  4.],
+        [ 2., 10.],
+        [ 2.,  9.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 1.,  3.],
+        [ 6.,  6.],
+        [ 2.,  5.],
+        [ 8.,  9.],
+        [ 2.,  3.],
+        [ 4.,  7.],
+        [ 0.,  1.],
+        [ 1.,  8.],
+        [ 6.,  7.],
+        [ 6.,  7.],
+        [ 0.,  4.],
+        [ 3., 10.],
+        [ 5.,  5.],
+        [ 2.,  2.],
+        [ 3.,  5.],
+        [ 2.,  3.],
+        [ 5.,  7.],
+        [ 6.,  8.],
+        [ 4.,  6.],
+        [ 2.,  4.],
+        [ 8., 10.],
+        [ 1.,  2.],
+        [ 2.,  3.],
+        [ 3.,  4.],
+        [16., 20.],
+        [ 2.,  3.],
+        [14., 15.],
+        [ 2.,  3.],
+        [ 2.,  9.],
+        [ 1.,  3.],
+        [ 3.,  4.],
+        [ 2.,  5.]])
+New 2 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.42443729903536975 , best 0.42443729903536975
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7170418006430869 , best 0.7170418006430869
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7395498392282959 , best 0.7427652733118971
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7427652733118971 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7331189710610932 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.729903536977492 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.729903536977492 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7234726688102894 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7266881028938906 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.729903536977492 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7331189710610932 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7363344051446945 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7395498392282959 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7331189710610932 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7331189710610932 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7363344051446945 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7331189710610932 , best 0.7491961414790996
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7363344051446945 , best 0.7491961414790996
+On epoch 1730 training was early stopped
+Finished training for 2 fold, repeat 0
+Best accuracy: 0.7491961414790996
+Accuracy of the last validation of the network: 229 / 311 = 73 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  7.],
+        [12., 14.],
+        [ 4.,  4.],
+        [ 6., 10.],
+        [ 3.,  9.],
+        [71., 71.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 1.,  3.],
+        [ 6.,  6.],
+        [ 4.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 4.,  7.],
+        [ 0.,  1.],
+        [ 2.,  8.],
+        [ 6.,  7.],
+        [ 5.,  6.],
+        [ 0.,  4.],
+        [ 3., 10.],
+        [ 3.,  5.],
+        [ 0.,  2.],
+        [ 0.,  4.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 5.,  8.],
+        [ 3.,  6.],
+        [ 1.,  4.],
+        [ 8., 10.],
+        [ 1.,  2.],
+        [ 3.,  3.],
+        [ 3.,  4.],
+        [17., 20.],
+        [ 1.,  2.],
+        [10., 15.],
+        [ 2.,  3.],
+        [ 4.,  8.],
+        [ 2.,  3.],
+        [ 2.,  4.],
+        [ 3.,  5.]])
+New 3 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.49514563106796117 , best 0.49514563106796117
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7184466019417476 , best 0.7281553398058253
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7443365695792881 , best 0.7572815533980582
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7605177993527508 , best 0.7669902912621359
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7572815533980582 , best 0.7669902912621359
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7702265372168284 , best 0.7702265372168284
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7766990291262136 , best 0.7766990291262136
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7734627831715211 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7734627831715211 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7702265372168284 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7734627831715211 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7766990291262136 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7734627831715211 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7766990291262136 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7766990291262136 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7799352750809061 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7734627831715211 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7702265372168284 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7766990291262136 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7766990291262136 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7766990291262136 , best 0.7799352750809061
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7766990291262136 , best 0.7799352750809061
+On epoch 2106 training was early stopped
+Finished training for 3 fold, repeat 0
+Best accuracy: 0.7799352750809061
+Accuracy of the last validation of the network: 240 / 309 = 77 %
+Correct labels / labels for each author of last validation:
+tensor([[ 4.,  6.],
+        [12., 13.],
+        [ 4.,  4.],
+        [ 4., 10.],
+        [ 7.,  9.],
+        [71., 71.],
+        [ 5.,  6.],
+        [ 2.,  3.],
+        [ 2.,  3.],
+        [ 6.,  6.],
+        [ 4.,  5.],
+        [ 8.,  9.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 0.,  1.],
+        [ 1.,  8.],
+        [ 7.,  7.],
+        [ 4.,  6.],
+        [ 2.,  4.],
+        [ 4., 10.],
+        [ 3.,  5.],
+        [ 2.,  2.],
+        [ 2.,  4.],
+        [ 3.,  3.],
+        [ 4.,  7.],
+        [ 8.,  8.],
+        [ 5.,  6.],
+        [ 2.,  4.],
+        [ 9., 10.],
+        [ 2.,  2.],
+        [ 1.,  3.],
+        [ 4.,  4.],
+        [18., 20.],
+        [ 2.,  2.],
+        [12., 15.],
+        [ 2.,  3.],
+        [ 1.,  8.],
+        [ 1.,  3.],
+        [ 2.,  4.],
+        [ 1.,  5.]])
+New 4 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.43790849673202614 , best 0.43790849673202614
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6895424836601307 , best 0.6895424836601307
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7124183006535948 , best 0.7189542483660131
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7189542483660131 , best 0.7222222222222222
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7254901960784313 , best 0.7287581699346405
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7189542483660131 , best 0.7320261437908496
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7254901960784313 , best 0.7320261437908496
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7222222222222222 , best 0.7320261437908496
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7254901960784313 , best 0.7320261437908496
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.738562091503268 , best 0.7418300653594772
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7516339869281046 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7483660130718954 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7450980392156863 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.738562091503268 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7352941176470589 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7320261437908496 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7320261437908496 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.738562091503268 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7418300653594772 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7418300653594772 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7418300653594772 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7483660130718954 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 2200: current accuracy 0.7483660130718954 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 2300: current accuracy 0.7483660130718954 , best 0.7516339869281046
+CHECKPOINT EACH 100th EPOCH 2400: current accuracy 0.7483660130718954 , best 0.7516339869281046
+On epoch 2494 training was early stopped
+Finished training for 4 fold, repeat 0
+Best accuracy: 0.7516339869281046
+Accuracy of the last validation of the network: 229 / 306 = 74 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  6.],
+        [13., 13.],
+        [ 4.,  4.],
+        [ 9., 10.],
+        [ 2.,  9.],
+        [69., 71.],
+        [ 5.,  5.],
+        [ 2.,  3.],
+        [ 1.,  3.],
+        [ 6.,  6.],
+        [ 2.,  5.],
+        [ 8.,  9.],
+        [ 2.,  3.],
+        [ 7.,  7.],
+        [ 1.,  1.],
+        [ 5.,  8.],
+        [ 4.,  7.],
+        [ 4.,  6.],
+        [ 1.,  4.],
+        [ 5., 10.],
+        [ 2.,  5.],
+        [ 1.,  2.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 4.,  8.],
+        [ 2.,  6.],
+        [ 0.,  4.],
+        [ 4., 10.],
+        [ 2.,  2.],
+        [ 2.,  2.],
+        [ 3.,  4.],
+        [20., 20.],
+        [ 1.,  2.],
+        [12., 15.],
+        [ 2.,  3.],
+        [ 3.,  8.],
+        [ 1.,  3.],
+        [ 3.,  4.],
+        [ 1.,  4.]])
+New 5 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4389438943894389 , best 0.4389438943894389
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7260726072607261 , best 0.7260726072607261
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7392739273927392 , best 0.7458745874587459
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7392739273927392 , best 0.7491749174917491
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7524752475247525 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7491749174917491 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7458745874587459 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7458745874587459 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7425742574257426 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7458745874587459 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7425742574257426 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7425742574257426 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7491749174917491 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7458745874587459 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7557755775577558 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7557755775577558 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7557755775577558 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7557755775577558 , best 0.759075907590759
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7524752475247525 , best 0.759075907590759
+On epoch 1854 training was early stopped
+Finished training for 5 fold, repeat 0
+Best accuracy: 0.759075907590759
+Accuracy of the last validation of the network: 229 / 303 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 3.,  6.],
+        [13., 13.],
+        [ 4.,  4.],
+        [ 3., 10.],
+        [ 5.,  9.],
+        [71., 71.],
+        [ 5.,  5.],
+        [ 2.,  3.],
+        [ 0.,  2.],
+        [ 6.,  6.],
+        [ 0.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 1.,  1.],
+        [ 1.,  8.],
+        [ 5.,  7.],
+        [ 3.,  6.],
+        [ 1.,  4.],
+        [ 7.,  9.],
+        [ 3.,  5.],
+        [ 1.,  2.],
+        [ 0.,  4.],
+        [ 3.,  3.],
+        [ 6.,  6.],
+        [ 6.,  8.],
+        [ 6.,  6.],
+        [ 2.,  4.],
+        [ 9., 10.],
+        [ 1.,  2.],
+        [ 2.,  2.],
+        [ 4.,  4.],
+        [19., 20.],
+        [ 1.,  2.],
+        [12., 15.],
+        [ 1.,  3.],
+        [ 1.,  8.],
+        [ 0.,  3.],
+        [ 2.,  4.],
+        [ 2.,  4.]])
+New 6 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4594594594594595 , best 0.4594594594594595
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6925675675675675 , best 0.6993243243243243
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.722972972972973 , best 0.7297297297297297
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7398648648648649 , best 0.7466216216216216
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.75 , best 0.7567567567567568
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.75 , best 0.7567567567567568
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7567567567567568 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7466216216216216 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7466216216216216 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7466216216216216 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.75 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.75 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.75 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7466216216216216 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7466216216216216 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.75 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.75 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7533783783783784 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7533783783783784 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.75 , best 0.7601351351351351
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.75 , best 0.7601351351351351
+On epoch 2025 training was early stopped
+Finished training for 6 fold, repeat 0
+Best accuracy: 0.7601351351351351
+Accuracy of the last validation of the network: 222 / 296 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  6.],
+        [13., 13.],
+        [ 4.,  4.],
+        [ 4., 10.],
+        [ 5.,  9.],
+        [71., 71.],
+        [ 5.,  5.],
+        [ 2.,  3.],
+        [ 0.,  2.],
+        [ 5.,  5.],
+        [ 1.,  4.],
+        [ 8.,  8.],
+        [ 3.,  3.],
+        [ 6.,  6.],
+        [ 0.,  1.],
+        [ 2.,  8.],
+        [ 4.,  7.],
+        [ 5.,  6.],
+        [ 1.,  3.],
+        [ 4.,  9.],
+        [ 2.,  5.],
+        [ 2.,  2.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 4.,  6.],
+        [ 6.,  8.],
+        [ 4.,  6.],
+        [ 1.,  3.],
+        [ 8.,  9.],
+        [ 1.,  2.],
+        [ 1.,  2.],
+        [ 1.,  4.],
+        [16., 20.],
+        [ 0.,  2.],
+        [12., 15.],
+        [ 1.,  3.],
+        [ 3.,  8.],
+        [ 3.,  3.],
+        [ 3.,  4.],
+        [ 1.,  4.]])
+New 7 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.43944636678200694 , best 0.43944636678200694
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7024221453287197 , best 0.7024221453287197
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7231833910034602 , best 0.7301038062283737
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7162629757785467 , best 0.7301038062283737
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.726643598615917 , best 0.7301038062283737
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7301038062283737 , best 0.7370242214532872
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7370242214532872 , best 0.7370242214532872
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.740484429065744 , best 0.7439446366782007
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.740484429065744 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7439446366782007 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7439446366782007 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7439446366782007 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7439446366782007 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7474048442906575 , best 0.7508650519031141
+CHECKPOINT EACH 100th EPOCH 2200: current accuracy 0.7508650519031141 , best 0.754325259515571
+CHECKPOINT EACH 100th EPOCH 2300: current accuracy 0.7508650519031141 , best 0.754325259515571
+CHECKPOINT EACH 100th EPOCH 2400: current accuracy 0.7508650519031141 , best 0.754325259515571
+CHECKPOINT EACH 100th EPOCH 2500: current accuracy 0.754325259515571 , best 0.754325259515571
+CHECKPOINT EACH 100th EPOCH 2600: current accuracy 0.7577854671280276 , best 0.7577854671280276
+CHECKPOINT EACH 100th EPOCH 2700: current accuracy 0.7577854671280276 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 2800: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 2900: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3000: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3100: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3200: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3300: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3400: current accuracy 0.754325259515571 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3500: current accuracy 0.7508650519031141 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3600: current accuracy 0.7474048442906575 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3700: current accuracy 0.7439446366782007 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3800: current accuracy 0.7474048442906575 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 3900: current accuracy 0.7439446366782007 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 4000: current accuracy 0.740484429065744 , best 0.7612456747404844
+CHECKPOINT EACH 100th EPOCH 4100: current accuracy 0.740484429065744 , best 0.7612456747404844
+On epoch 4153 training was early stopped
+Finished training for 7 fold, repeat 0
+Best accuracy: 0.7612456747404844
+Accuracy of the last validation of the network: 214 / 289 = 74 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  6.],
+        [11., 13.],
+        [ 4.,  4.],
+        [ 7.,  9.],
+        [ 4.,  9.],
+        [71., 71.],
+        [ 5.,  5.],
+        [ 0.,  2.],
+        [ 0.,  2.],
+        [ 5.,  5.],
+        [ 3.,  4.],
+        [ 4.,  8.],
+        [ 2.,  2.],
+        [ 3.,  6.],
+        [ 0.,  1.],
+        [ 2.,  7.],
+        [ 4.,  7.],
+        [ 5.,  6.],
+        [ 0.,  3.],
+        [ 2.,  9.],
+        [ 4.,  5.],
+        [ 1.,  1.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 4.,  6.],
+        [ 4.,  7.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 7.,  9.],
+        [ 1.,  2.],
+        [ 1.,  2.],
+        [ 2.,  4.],
+        [18., 20.],
+        [ 1.,  2.],
+        [11., 15.],
+        [ 2.,  3.],
+        [ 2.,  8.],
+        [ 2.,  2.],
+        [ 4.,  4.],
+        [ 2.,  4.]])
+New 8 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4564459930313589 , best 0.4564459930313589
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7317073170731707 , best 0.7386759581881533
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7560975609756098 , best 0.7665505226480837
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7560975609756098 , best 0.7735191637630662
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.759581881533101 , best 0.7735191637630662
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7560975609756098 , best 0.7735191637630662
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7700348432055749 , best 0.7735191637630662
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7700348432055749 , best 0.7735191637630662
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7735191637630662 , best 0.7735191637630662
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7735191637630662 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7700348432055749 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7665505226480837 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7665505226480837 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.759581881533101 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7630662020905923 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7630662020905923 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7665505226480837 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7665505226480837 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7700348432055749 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7700348432055749 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7700348432055749 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7735191637630662 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 2200: current accuracy 0.7770034843205574 , best 0.7770034843205574
+CHECKPOINT EACH 100th EPOCH 2300: current accuracy 0.7874564459930313 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 2400: current accuracy 0.7839721254355401 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 2500: current accuracy 0.7839721254355401 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 2600: current accuracy 0.7839721254355401 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 2700: current accuracy 0.7839721254355401 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 2800: current accuracy 0.7804878048780488 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 2900: current accuracy 0.7770034843205574 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3000: current accuracy 0.7770034843205574 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3100: current accuracy 0.7770034843205574 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3200: current accuracy 0.7770034843205574 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3300: current accuracy 0.7770034843205574 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3400: current accuracy 0.7804878048780488 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3500: current accuracy 0.7770034843205574 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3600: current accuracy 0.7735191637630662 , best 0.7874564459930313
+CHECKPOINT EACH 100th EPOCH 3700: current accuracy 0.7700348432055749 , best 0.7874564459930313
+On epoch 3733 training was early stopped
+Finished training for 8 fold, repeat 0
+Best accuracy: 0.7874564459930313
+Accuracy of the last validation of the network: 222 / 287 = 77 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  6.],
+        [13., 13.],
+        [ 4.,  4.],
+        [ 6.,  9.],
+        [ 5.,  9.],
+        [71., 71.],
+        [ 5.,  5.],
+        [ 0.,  2.],
+        [ 0.,  2.],
+        [ 4.,  5.],
+        [ 3.,  4.],
+        [ 7.,  8.],
+        [ 2.,  2.],
+        [ 4.,  6.],
+        [ 0.,  1.],
+        [ 1.,  7.],
+        [ 5.,  7.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 3.,  9.],
+        [ 4.,  5.],
+        [ 0.,  1.],
+        [ 3.,  4.],
+        [ 2.,  2.],
+        [ 6.,  6.],
+        [ 4.,  7.],
+        [ 4.,  6.],
+        [ 0.,  3.],
+        [ 8.,  9.],
+        [ 2.,  2.],
+        [ 2.,  2.],
+        [ 3.,  4.],
+        [17., 20.],
+        [ 1.,  2.],
+        [11., 15.],
+        [ 2.,  3.],
+        [ 3.,  8.],
+        [ 1.,  2.],
+        [ 2.,  3.],
+        [ 1.,  4.]])
+New 9 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.45229681978798586 , best 0.45229681978798586
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6749116607773852 , best 0.6749116607773852
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7243816254416962 , best 0.7314487632508834
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7173144876325088 , best 0.7314487632508834
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7173144876325088 , best 0.7314487632508834
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7314487632508834 , best 0.7314487632508834
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7385159010600707 , best 0.7420494699646644
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7526501766784452 , best 0.7561837455830389
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7561837455830389 , best 0.7597173144876325
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7561837455830389 , best 0.7597173144876325
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7667844522968198 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7667844522968198 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7667844522968198 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7703180212014135 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7703180212014135 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7703180212014135 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7703180212014135 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7667844522968198 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7667844522968198 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7667844522968198 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7632508833922261 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 2100: current accuracy 0.7632508833922261 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 2200: current accuracy 0.7632508833922261 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 2300: current accuracy 0.7632508833922261 , best 0.7703180212014135
+CHECKPOINT EACH 100th EPOCH 2400: current accuracy 0.7667844522968198 , best 0.7703180212014135
+On epoch 2437 training was early stopped
+Finished training for 9 fold, repeat 0
+Best accuracy: 0.7703180212014135
+Accuracy of the last validation of the network: 217 / 283 = 76 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  6.],
+        [13., 13.],
+        [ 2.,  3.],
+        [ 4.,  9.],
+        [ 6.,  9.],
+        [70., 71.],
+        [ 5.,  5.],
+        [ 1.,  2.],
+        [ 1.,  2.],
+        [ 4.,  5.],
+        [ 1.,  4.],
+        [ 8.,  8.],
+        [ 2.,  2.],
+        [ 2.,  6.],
+        [ 0.,  1.],
+        [ 3.,  7.],
+        [ 5.,  7.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 3.,  9.],
+        [ 4.,  4.],
+        [ 0.,  1.],
+        [ 3.,  4.],
+        [ 2.,  2.],
+        [ 6.,  6.],
+        [ 5.,  7.],
+        [ 3.,  6.],
+        [ 2.,  3.],
+        [ 8.,  9.],
+        [ 0.,  1.],
+        [ 2.,  2.],
+        [ 3.,  4.],
+        [18., 20.],
+        [ 0.,  2.],
+        [10., 14.],
+        [ 1.,  3.],
+        [ 3.,  8.],
+        [ 2.,  2.],
+        [ 2.,  3.],
+        [ 1.,  4.]])
+Execution time: 3:36:53.532778
+Accuracies: 
+tensor([[0.7516],
+        [0.7215],
+        [0.7492],
+        [0.7799],
+        [0.7516],
+        [0.7591],
+        [0.7601],
+        [0.7612],
+        [0.7875],
+        [0.7703]])
+Mean of all accuracies: tensor(0.7592)
+Std of all accuracies: tensor(0.0173)
+Std unbiased of all accuracies (Bessel's correction): tensor(0.0182)
+Means: tensor([0.7516, 0.7215, 0.7492, 0.7799, 0.7516, 0.7591, 0.7601, 0.7612, 0.7875,
+        0.7703])
+Stds: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+Stds unbiased (Bessel's correction): tensor([nan, nan, nan, nan, nan, nan, nan, nan, nan, nan])
+Mean of means: tensor(0.7592)
+Std of means: tensor(0.0173)
+Std of means (Bessel's correction): tensor(0.0182)
