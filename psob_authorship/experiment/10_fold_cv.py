@@ -3,7 +3,8 @@ import logging
 import time
 
 import torch
-from sklearn.model_selection import RepeatedStratifiedKFold
+from sklearn import preprocessing
+from sklearn.model_selection import RepeatedStratifiedKFold, StratifiedKFold
 from torch import optim, nn
 
 from psob_authorship.features.PsobDataset import PsobDataset
@@ -12,39 +13,60 @@ from psob_authorship.model.Model import Model
 
 CONFIG = {
     'experiment_name': "10_fold_cross_validation",
+    'experiment_notes': "10 fold cv for SGD",
     'number_of_authors': 40,
-    'labels_features_common_name': "../calculated_features/split_each_file",
-    'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-    'epochs': 5000,
+    'labels_features_common_name': "../calculated_features/extracted_for_each_file",
+    'metrics': [i for i in range(19)],
+    'epochs': 10000,
     'batch_size': 32,
-    'early_stopping_rounds': 350,
+    'early_stopping_rounds': 1500,
     'lr': 0.02,
     'n_splits': 10,
-    'n_repeats': 2,
-    'cv': RepeatedStratifiedKFold(n_splits=10, n_repeats=2, random_state=0),
+    'n_repeats': 1,
+    'random_state': 4562,
     'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
     'optimizer': optim.SGD,
     'momentum': 0.9,
     'shuffle': True
 }
+CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True) if CONFIG['n_repeats'] == 1 else\
+    RepeatedStratifiedKFold(n_splits=CONFIG['n_splits'],
+                            n_repeats=CONFIG['n_repeats'], random_state=CONFIG['random_state'])
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
 INPUT_LABELS = torch.load(CONFIG['labels_features_common_name'] + "_labels.tr").numpy()
 
 
-def run_cross_validation() -> torch.Tensor:
+def run_cross_validation(file_to_print) -> torch.Tensor:
     logger = logging.getLogger('10_fold_cv')
     configure_logger_by_default(logger)
     logger.info("START run_cross_validation")
+
+    def print_info(info):
+        logger.info(info)
+        print(info)
+        file_to_print.write(info + "\n")
+
     accuracies = torch.zeros((CONFIG['n_splits'], CONFIG['n_repeats']))
-    loop = 0
+    fold_number = -1
+    repeat_number = -1
     for train_index, test_index in CONFIG['cv'].split(INPUT_FEATURES, INPUT_LABELS):
-        logger.info("New " + str([loop % 10]) + " fold. loop = " + str(loop))
+        fold_number += 1
+        if fold_number % CONFIG['n_splits'] == 0:
+            fold_number = 0
+            repeat_number += 1
+
+        print_info("New " + str(fold_number) + " fold. repeat = " + str(repeat_number))
         model = Model(len(CONFIG['metrics']))
         criterion = CONFIG['criterion']()
         optimizer = CONFIG['optimizer'](model.parameters(), lr=CONFIG['lr'], momentum=CONFIG['momentum'])
         train_features, train_labels = INPUT_FEATURES[train_index], INPUT_LABELS[train_index]
         test_features, test_labels = INPUT_FEATURES[test_index], INPUT_LABELS[test_index]
+
+        scaler = preprocessing.StandardScaler().fit(train_features)
+        train_features = scaler.transform(train_features)
+        test_features = scaler.transform(test_features)
+
         trainloader = torch.utils.data.DataLoader(
             PsobDataset(train_features, train_labels, CONFIG['metrics']),
             batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
@@ -53,6 +75,7 @@ def run_cross_validation() -> torch.Tensor:
             PsobDataset(test_features, test_labels, CONFIG['metrics']),
             batch_size=CONFIG['batch_size'], shuffle=CONFIG['shuffle'], num_workers=2
         )
+
         best_accuracy = -1.0
         current_duration = 0
         for epoch in range(CONFIG['epochs']):
@@ -79,15 +102,15 @@ def run_cross_validation() -> torch.Tensor:
                 current_duration = 0
             best_accuracy = max(best_accuracy, accuracy)
             if current_duration > CONFIG['early_stopping_rounds']:
+                print_info("On epoch " + str(epoch) + " training was early stopped")
                 break
             if epoch % 10 == 0:
                 logger.info("CHECKPOINT EACH 10th EPOCH" + str(epoch) + ": " + str(accuracy))
             if epoch % 100 == 0:
-                print("CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": " + str(accuracy))
-                logger.info("CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": " + str(accuracy))
+                print_info(
+                    "CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": current accuracy " + str(accuracy) + " , best "
+                    + str(best_accuracy))
             logger.info(str(epoch) + ": " + str(accuracy))
-
-        logger.info('Finished Training')
 
         correct = 0
         total = 0
@@ -103,30 +126,41 @@ def run_cross_validation() -> torch.Tensor:
                 for i, label in enumerate(labels):
                     labels_dist[label] += 1
                     labels_correct[label] += predicted[i] == labels[i]
-        accuracy_info = str([loop % 10]) + ' fold. Accuracy of the network: %d / %d = %d %%' %\
-            (correct, total, 100 * correct / total)
-        logger.info(accuracy_info)
-        print(accuracy_info)
-        labels_info = "Correct answers for each author: " + str(labels_correct)
-        logger.info(labels_info)
-        print(labels_info)
-        accuracies[loop % 10][int(loop / 10)] = correct / total
-        loop += 1
+        print_info('Finished training for ' + str(fold_number) + ' fold, repeat ' + str(repeat_number))
+        print_info('Best accuracy: ' + str(max(best_accuracy, correct / total)))
+        print_info('Accuracy of the last validation of the network: %d / %d = %d %%' %
+                   (correct, total, 100 * correct / total))
+        print_info("Correct labels / labels for each author of last validation:\n" +
+                   str(torch.stack((labels_correct, labels_dist), dim=1)))
+        accuracies[fold_number][repeat_number] = best_accuracy
     logger.info("END run_cross_validation")
     return accuracies
 
 
 def conduct_10_fold_cv_experiment():
-    start = time.time()
-    accuracies = run_cross_validation()
-    end = time.time()
-    execution_time = end - start
     with open("../experiment_result/" + CONFIG['experiment_name'] + "_" + str(datetime.datetime.now()), 'w') as f:
-        f.write("Execution time: " + str(datetime.timedelta(seconds=execution_time)) + "\n")
         f.write("Config: " + str(CONFIG) + "\n")
+
+        start = time.time()
+        accuracies = run_cross_validation(f)
+        end = time.time()
+        execution_time = end - start
+
+        f.write("Execution time: " + str(datetime.timedelta(seconds=execution_time)) + "\n")
         f.write("Accuracies: \n" + str(accuracies) + "\n")
-        f.write("Means: " + str(torch.mean(accuracies, 1)) + "\n")
-        f.write("Stds: " + str(torch.std(accuracies, 1)))
+
+        f.write("Mean of all accuracies: " + str(torch.mean(accuracies)) + "\n")
+        f.write("Std of all accuracies: " + str(torch.std(accuracies, unbiased=False)) + "\n")
+        f.write("Std unbiased of all accuracies (Bessel's correction): " + str(torch.std(accuracies)) + "\n")
+
+        means = torch.mean(accuracies, 1)
+        f.write("Means: " + str(means) + "\n")
+        f.write("Stds: " + str(torch.std(accuracies, 1, unbiased=False)) + "\n")
+        f.write("Stds unbiased (Bessel's correction): " + str(torch.std(accuracies, 1)) + "\n")
+
+        f.write("Mean of means: " + str(torch.mean(means)) + "\n")
+        f.write("Std of means: " + str(torch.std(means, unbiased=False)) + "\n")
+        f.write("Std of means (Bessel's correction): " + str(torch.std(means)) + "\n")
 
 
 if __name__ == '__main__':

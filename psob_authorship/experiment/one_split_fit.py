@@ -115,7 +115,7 @@ def fit_model(file_to_print):
     print_info('Best accuracy: ' + str(max(best_accuracy, correct / total)))
     print_info('Final accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
     print_info("Correct labels / labels for each author:\n" + str(torch.stack((labels_correct, labels_dist), dim=1)))
-    logger.info("END run_cross_validation")
+    logger.info("END fit_model")
 
 
 def conduct_one_split_fit_experiment():
