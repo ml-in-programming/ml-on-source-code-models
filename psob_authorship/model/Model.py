@@ -1,7 +1,6 @@
 import torch
 
 from torch import nn
-import torch.nn.functional as F
 
 
 class Model(nn.Module):
@@ -16,5 +15,5 @@ class Model(nn.Module):
 
     def forward(self, x, **kwargs):
         x = self.nonlin(self.input_hidden(x))
-        x = self.nonlin(self.hidden_output(x))
+        x = self.hidden_output(x)
         return x

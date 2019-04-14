@@ -529,7 +529,7 @@ tensor([[ 5.,  6.],
         [ 3.,  3.],
         [ 2.,  4.]])
 Execution time: 0:35:06.291700
-Accuracies:
+Accuracies: 
 tensor([[0.7981],
         [0.7848],
         [0.7685],
