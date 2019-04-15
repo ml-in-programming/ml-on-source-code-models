@@ -1,4 +1,4 @@
-#  Reproduction of psob_authorship article.
+# Reproduction of psob_authorship article.
 
 Features module uses cloc (https://github.com/AlDanial/cloc) to calculate line metrics.
 That is why it must be installed. Please see github for installation guides.
