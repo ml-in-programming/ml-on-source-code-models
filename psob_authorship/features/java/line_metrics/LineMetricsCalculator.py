@@ -69,7 +69,8 @@ class LineMetricsCalculator:
             "calculating ratio of block comments to all comment lines for " + str(filepaths)
         )
 
-    def __init__(self, dataset_path: str) -> None:
+    def __init__(self, language_config: Dict[str, str], dataset_path: str) -> None:
+        self.language_config = language_config
         self.LOGGER.info("Started calculating line metrics")
         super().__init__()
         self.dataset_path = dataset_path
@@ -84,7 +85,7 @@ class LineMetricsCalculator:
         self.count_single_line_comments_for_file()
         cloc_output = self.get_cloc_output()
         for cloc_file_output in cloc_output.splitlines():
-            if not cloc_file_output.startswith("Java"):
+            if not cloc_file_output.startswith(self.language_config['language_name']):
                 continue
             splitted = cloc_file_output.split(',')
             filepath = os.path.abspath(splitted[1])
