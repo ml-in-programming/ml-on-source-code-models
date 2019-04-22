@@ -14,7 +14,7 @@ class PSO:
         self.options = options
         self.n_particles = n_particles
 
-    def optimize(self, train_features: torch.Tensor, train_labels: torch.Tensor, iters: int):
+    def optimize(self, train_features: torch.Tensor, train_labels: torch.Tensor, iters: int, bounds):
         def f_to_optimize(particles):
             losses = []
             for particle in particles:
@@ -26,7 +26,7 @@ class PSO:
             return np.array(losses)
 
         optimizer = ps.single.GlobalBestPSO(n_particles=self.n_particles, dimensions=self.model.dimensions,
-                                            options=self.options)
+                                            options=self.options, bounds=bounds)
 
         loss, best_params = optimizer.optimize(f_to_optimize, iters=iters)
         self.set_model_weights(best_params)

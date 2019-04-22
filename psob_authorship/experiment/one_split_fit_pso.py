@@ -3,6 +3,7 @@ import logging
 import os
 import time
 
+import numpy as np
 import torch
 from sklearn import preprocessing
 from sklearn.model_selection import StratifiedKFold
@@ -16,22 +17,19 @@ from psob_authorship.pso.PSO import PSO
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "first try of PSO",
+    'experiment_notes': "c1, c2 -> 1.49, max velocity range",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],  # 9 is macro
-    'epochs': 5000,
     'early_stopping_rounds': 700,
-    'lr': 0.02,
     'n_splits': 10,
     'random_state': 4562,
-    'scoring': "accuracy",
     'criterion': nn.CrossEntropyLoss,
-    'pso_options': {'c1': 0.5, 'c2': 0.3, 'w': 0.9},
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': 0.4},
+    'pso_velocity_range': (0, 1),
     'n_particles': 100,
     'pso_iters': 400,
     'optimizer': PSO,
-    'momentum': 0.9,
     'shuffle': True
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], random_state=CONFIG['random_state'], shuffle=True)
@@ -66,7 +64,9 @@ def fit_model(file_to_print):
     test_features = torch.from_numpy(test_features)
     test_labels = torch.from_numpy(test_labels)
     best_accuracy = -1.0
-    loss, _ = optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'])
+    pso_bounds = (np.full((model.dimensions,), CONFIG['pso_velocity_range'][0]),
+                  np.full((model.dimensions,), CONFIG['pso_velocity_range'][1]))
+    loss, _ = optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'], pso_bounds)
     print_info("Loss after PSO optimizing = " + str(loss))
     correct = 0
     total = 0
