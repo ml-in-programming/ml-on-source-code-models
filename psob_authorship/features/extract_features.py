@@ -14,7 +14,7 @@ from psob_authorship.features.utils import chunks
 CALCULATED_FEATURES_ROOT = "../calculated_features/"
 N = 60
 
-# Config variables to set up to set up
+# Config variables to set up, change JAVA_CONFIG to CPP_CONFIG for example
 LANGUAGE_CONFIG = JAVA_CONFIG
 DEFAULT_DATASET_PATH = os.path.abspath("../dataset")
 DEFAULT_AST_PATH = os.path.abspath("../asts")
