@@ -12,14 +12,15 @@ from psob_authorship.features.java.ast_metrics.VariableMetricsCalculator import 
 class AstMetricsCalculator:
     LOGGER = logging.getLogger('metrics_calculator')
 
-    def __init__(self, ast_path, character_number_for_file: Dict[str, int], filenames=None) -> None:
+    def __init__(self, language_config, ast_path, character_number_for_file: Dict[str, int], filenames=None) -> None:
         self.LOGGER.info("Started calculating ast metrics")
         super().__init__()
         self.LOGGER.info("Started loading ast to memory")
         self.asts = FileAst.load_asts_from_files(ast_path, filenames)
         self.LOGGER.info("End loading ast to memory")
-        self.variable_metrics_calculator = VariableMetricsCalculator(self.asts)
-        self.statements_metrics_calculator = StatementsMetricsCalculator(self.asts, character_number_for_file)
+        self.variable_metrics_calculator = VariableMetricsCalculator(language_config, self.asts)
+        self.statements_metrics_calculator = StatementsMetricsCalculator(language_config, self.asts,
+                                                                         character_number_for_file)
         self.LOGGER.info("End calculating ast metrics")
 
     def maximum_depth_of_an_ast(self, filepaths: Set[str]) -> torch.Tensor:

@@ -7,16 +7,21 @@ from tqdm import tqdm
 
 from psob_authorship.features.Transformers import Transformers
 from psob_authorship.features.java.MetricsCalculator import MetricsCalculator
+from psob_authorship.features.language_configs.Cpp import CPP_CONFIG
 from psob_authorship.features.language_configs.Java import JAVA_CONFIG
 from psob_authorship.features.utils import chunks
 
 CALCULATED_FEATURES_ROOT = "../calculated_features/"
 N = 60
+
+# Config variables to set up to set up
 LANGUAGE_CONFIG = JAVA_CONFIG
+DEFAULT_DATASET_PATH = os.path.abspath("../dataset")
+DEFAULT_AST_PATH = os.path.abspath("../asts")
 
 
-def get_labeled_data(author_max_files=None, split=None, dataset_path=os.path.abspath("../dataset"),
-                     ast_path=os.path.abspath("../asts")) -> Tuple[torch.Tensor, torch.Tensor, List[str], Dict[int, str]]:
+def get_labeled_data(author_max_files=None, split=None, dataset_path=DEFAULT_DATASET_PATH,
+                     ast_path=DEFAULT_AST_PATH) -> Tuple[torch.Tensor, torch.Tensor, List[str], Dict[int, str]]:
     metrics_calculator = MetricsCalculator(LANGUAGE_CONFIG, dataset_path, ast_path)
     features = []
     labels = []

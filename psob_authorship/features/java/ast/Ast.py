@@ -8,7 +8,7 @@ from psob_authorship.features.java.ast.AstVisitor import AstVisitor
 
 def load_tokens(path_to_ast_data):
     with open(os.path.join(path_to_ast_data, "tokens.csv")) as file:
-        return {line.split(',')[0]: line.split(',')[1].rstrip("\n") for line in file}
+        return {line.split(',')[0]: line.split(',')[1].rstrip("\n") for line in file if ',' in line}
 
 
 def load_asts(filenames, path_to_ast_data):

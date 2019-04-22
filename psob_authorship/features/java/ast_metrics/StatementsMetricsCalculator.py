@@ -132,9 +132,10 @@ class StatementsMetricsCalculator:
             "calculating average_number_of_interfaces_per_class metric for " + str(filepaths)
         )
 
-    def __init__(self, asts: Dict[str, Ast], character_number_for_file: Dict[str, int]) -> None:
+    def __init__(self, language_config: Dict[str, str], asts: Dict[str, Ast], character_number_for_file: Dict[str, int]) -> None:
         self.LOGGER.info("Started calculating statements metrics")
         super().__init__()
+        self.language_config = language_config
         self.character_number_for_file = character_number_for_file
         self.fors_for_file = defaultdict(lambda: 0)
         self.whiles_for_file = defaultdict(lambda: 0)
@@ -149,7 +150,7 @@ class StatementsMetricsCalculator:
         self.classes_for_file = defaultdict(lambda: 0)
         for filepath, ast in asts.items():
             self.LOGGER.info("Started calculating metrics for " + filepath)
-            statements_visitor = StatementsVisitor()
+            statements_visitor = StatementsVisitor(language_config)
             ast.accept(statements_visitor)
             self.fors_for_file[filepath] = statements_visitor.fors
             self.whiles_for_file[filepath] = statements_visitor.whiles
@@ -187,15 +188,10 @@ class StatementsVisitor(AstVisitor):
     BREAK = "break"
     CONTINUE = "continue"
     IMPLEMENTS = "implements"
-    TYPE_LIST = "typeList"
-    TERMINAL = "Terminal"
-    CLASS_OR_INTERFACE_TYPE = "classOrInterfaceType"
-    METHOD = "methodDeclaration"
-    CLASS = "classDeclaration"
-    ENUM = "enumDeclaration"
 
-    def __init__(self) -> None:
+    def __init__(self, language_config: Dict[str, str]) -> None:
         super().__init__()
+        self.language_config = language_config
         self.fors = 0
         self.whiles = 0
         self.ifs = 0
@@ -211,9 +207,10 @@ class StatementsVisitor(AstVisitor):
 
     def visit(self, node: AstNode):
         if self.visited_implements:
-            if node.node_name == self.TYPE_LIST:
+            if node.node_name == self.language_config['TYPE_LIST']:
                 self.implements += (len(node.children) + 1) / 2
-            elif node.node_name == self.TERMINAL or node.node_name == self.CLASS_OR_INTERFACE_TYPE:
+            elif node.node_name == self.language_config['TERMINAL'] or \
+                    node.node_name == self.language_config['CLASS_OR_INTERFACE_TYPE']:
                 self.implements += 1
             else:
                 error_message = "visitor visited implements statement " \
@@ -239,8 +236,9 @@ class StatementsVisitor(AstVisitor):
             self.continues += 1
         elif node.token_name == StatementsVisitor.IMPLEMENTS:
             self.visited_implements = True
-        if node.node_name == StatementsVisitor.METHOD:
+        if node.node_name == self.language_config['METHOD']:
             self.methods += 1
-        elif node.node_name == StatementsVisitor.CLASS or node.node_name == StatementsVisitor.ENUM:
+        elif node.node_name == self.language_config['CLASS'] or \
+                node.node_name == self.language_config['ENUM']:
             self.classes += 1
         super().visit(node)

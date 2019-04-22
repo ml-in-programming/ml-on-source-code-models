@@ -84,22 +84,18 @@ class VariableMetricsCalculator:
         """
         return 0
 
-    # second list is child numbers
-    VARIABLE_NODE_NAMES = [["variableDeclarator", "enhancedForControl", "variableDeclaratorId"], [0, 1, 0]]
+    def get_variable_names_for_file(self, asts: Dict[str, Ast]) -> Dict[str, List[Tuple[str, bool]]]:
+        return {filepath: self.get_variable_names(ast, filepath) for filepath, ast in asts.items()}
 
-    @staticmethod
-    def get_variable_names_for_file(asts: Dict[str, Ast]) -> Dict[str, List[Tuple[str, bool]]]:
-        return {filepath: VariableMetricsCalculator.get_variable_names(ast, filepath) for filepath, ast in asts.items()}
-
-    @staticmethod
-    def get_variable_names(ast: Ast, filepath: str) -> List[Tuple[str, bool]]:
+    def get_variable_names(self, ast: Ast, filepath: str) -> List[Tuple[str, bool]]:
         VariableMetricsCalculator.LOGGER.info("Started visitor for extracting variable names from " + filepath)
-        return AstSpecificTokensExtractor(ast).extract_tokens_by_nodes(VariableMetricsCalculator.VARIABLE_NODE_NAMES)
+        return AstSpecificTokensExtractor(ast).extract_tokens_by_nodes(self.language_config['VARIABLE_NODE_NAMES'])
 
-    def __init__(self, asts: Dict[str, Ast]) -> None:
+    def __init__(self, language_config, asts: Dict[str, Ast]) -> None:
         self.LOGGER.info("Started calculating variable metrics")
         super().__init__()
         self.LOGGER.info("Started extracting variable names from ast")
+        self.language_config = language_config
         self.variable_names_for_file = self.get_variable_names_for_file(asts)
         self.LOGGER.info("End extracting variable names from ast")
         self.number_of_variables_in_lowercase_for_file: Dict[str, int] = defaultdict(lambda: 0)

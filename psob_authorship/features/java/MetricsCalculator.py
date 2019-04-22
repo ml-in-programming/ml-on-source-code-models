@@ -33,11 +33,10 @@ class MetricsCalculator:
         "maximum_depth_of_an_ast"
     ]
 
-    @staticmethod
-    def get_metric_names() -> List[str]:
-        return LineMetricsCalculator.get_metric_names() + CharacterMetricsCalculator.get_metric_names() + AstMetricsCalculator.get_metric_names()
+    def get_metric_names(self) -> List[str]:
+        return self.language_config['metrics']
 
-    def __init__(self, language_config: Dict[str, str], dataset_path: str, ast_path: str) -> None:
+    def __init__(self, language_config, dataset_path: str, ast_path: str) -> None:
         configure_logger_by_default(self.LOGGER)
         self.LOGGER.info("Started calculating metrics")
         super().__init__()
@@ -45,7 +44,7 @@ class MetricsCalculator:
         self.line_metrics_calculator = LineMetricsCalculator(language_config, dataset_path)
         self.character_metrics_calculator = CharacterMetricsCalculator(dataset_path)
         self.ast_metrics_calculator = \
-            AstMetricsCalculator(ast_path, self.character_metrics_calculator.character_number_for_file)
+            AstMetricsCalculator(language_config, ast_path, self.character_metrics_calculator.character_number_for_file)
         self.LOGGER.info("End calculating metrics")
         self.metrics_functions = {
             "ratio_of_blank_lines_to_code_lines":
@@ -88,7 +87,6 @@ class MetricsCalculator:
                 self.ast_metrics_calculator.maximum_depth_of_an_ast
         }
 
-    def get_metrics(self, filepaths: Set[str], metrics=None) -> torch.Tensor:
-        if metrics is None:
-            metrics = self.language_config['metrics']
+    def get_metrics(self, filepaths: Set[str]) -> torch.Tensor:
+        metrics = self.language_config['metrics']
         return torch.tensor([self.metrics_functions[metric](filepaths) for metric in metrics])
