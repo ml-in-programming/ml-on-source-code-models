@@ -25,10 +25,10 @@ CONFIG = {
     'n_splits': 10,
     'random_state': 4562,
     'criterion': nn.CrossEntropyLoss,
-    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': 0.4},
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9)},
     'pso_velocity_range': (0, 1),
     'n_particles': 100,
-    'pso_iters': 400,
+    'pso_iters': 1000,
     'optimizer': PSO,
     'shuffle': True
 }
@@ -63,9 +63,7 @@ def fit_model(file_to_print):
     train_labels = torch.from_numpy(train_labels)
     test_features = torch.from_numpy(test_features)
     test_labels = torch.from_numpy(test_labels)
-    pso_bounds = (np.full((model.dimensions,), CONFIG['pso_velocity_range'][0]),
-                  np.full((model.dimensions,), CONFIG['pso_velocity_range'][1]))
-    loss, _ = optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'], pso_bounds)
+    loss, _ = optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'], CONFIG['pso_velocity_range'])
     print_info("Loss after PSO optimizing = " + str(loss))
 
     best_accuracy = -1.0

@@ -32,10 +32,10 @@ CONFIG = {
     'optimizer': optim.SGD,
     'momentum': 0.9,
     'shuffle': True,
-    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': 0.4},
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9)},
     'pso_velocity_range': (0, 1),
     'n_particles': 100,
-    'pso_iters': 400,
+    'pso_iters': 100,
     'pso_optimizer': PSO
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True, random_state=CONFIG['random_state'])
@@ -64,7 +64,6 @@ def fit_model(file_to_print):
     train_features = scaler.transform(train_features)
     test_features = scaler.transform(test_features)
 
-    """
     train_features = torch.from_numpy(train_features)
     train_labels = torch.from_numpy(train_labels)
     test_features = torch.from_numpy(test_features)
@@ -74,7 +73,6 @@ def fit_model(file_to_print):
     pso_optimizer = CONFIG['pso_optimizer'](model, criterion, CONFIG['pso_options'], CONFIG['n_particles'])
     loss, _ = pso_optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'], pso_bounds)
     print_info("Loss after PSO optimizing = " + str(loss))
-    """
 
     trainloader = torch.utils.data.DataLoader(
         PsobDataset(train_features, train_labels, CONFIG['metrics']),
