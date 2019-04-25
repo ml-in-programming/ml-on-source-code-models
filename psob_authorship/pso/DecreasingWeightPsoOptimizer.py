@@ -21,7 +21,7 @@ class DecreasingWeightPsoOptimizer:
         pg_loss = np.min(pbs_loss)
         w_min = self.options['w'][0]
         w_max = self.options['w'][1]
-        r1, r2 = np.random.uniform(), np.random.uniform()
+        r1, r2 = np.random.uniform(0, 1, size=self.particles.shape), np.random.uniform(0, 1, size=self.particles.shape)
         stays_unchanged = 0
         for i in tqdm(range(iters)):
             w = w_max - (w_max - w_min) / iters * i
