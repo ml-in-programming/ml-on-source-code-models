@@ -1,0 +1,52 @@
+Config: {'experiment_name': 'one_split_fit_pso', 'experiment_notes': 'r1 and r2 are random numbers each iteration', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'n_splits': 10, 'random_state': 4562, 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'unchanged_iterations_stop': 100, 'use_pyswarms': False, 'particle_clamp': (-1, 1), 'use_only_early_stopping': False}, 'pso_velocity_clamp': (-1, 1), 'n_particles': 100, 'pso_iters': 100, 'pso_optimizer': <class 'psob_authorship.pso.PSO.PSO'>, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+Accuracy of model before training = 0.021739130434782608
+CHECKPOINT each 25 iteration. Loss: 9.411121
+CHECKPOINT each 25 iteration. Loss: 4.36223
+CHECKPOINT each 25 iteration. Loss: 3.726768
+CHECKPOINT each 25 iteration. Loss: 3.5380888
+Loss after PSO optimizing = 3.5356112
+Train accuracy of the network: 711 / 2700 = 26 %
+Final accuracy of the network: 89 / 322 = 27 %
+Correct labels / labels for each author:
+tensor([[ 1.,  7.],
+        [ 4., 14.],
+        [ 0.,  4.],
+        [ 0., 10.],
+        [ 0., 10.],
+        [69., 72.],
+        [ 0.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 1.,  6.],
+        [ 0.,  5.],
+        [ 0.,  9.],
+        [ 0.,  3.],
+        [ 0.,  7.],
+        [ 0.,  2.],
+        [ 0.,  8.],
+        [ 0.,  8.],
+        [ 0.,  7.],
+        [ 1.,  4.],
+        [ 0., 10.],
+        [ 1.,  5.],
+        [ 0.,  2.],
+        [ 0.,  5.],
+        [ 0.,  3.],
+        [ 5.,  7.],
+        [ 0.,  8.],
+        [ 0.,  6.],
+        [ 0.,  4.],
+        [ 0., 10.],
+        [ 0.,  2.],
+        [ 0.,  3.],
+        [ 0.,  5.],
+        [ 5., 21.],
+        [ 0.,  3.],
+        [ 1., 15.],
+        [ 1.,  4.],
+        [ 0.,  9.],
+        [ 0.,  3.],
+        [ 0.,  4.],
+        [ 0.,  5.]])
+END OF PSO TRAINING
+Execution time: 0:00:23.107669

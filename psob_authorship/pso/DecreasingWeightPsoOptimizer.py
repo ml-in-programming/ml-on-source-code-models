@@ -27,10 +27,10 @@ class DecreasingWeightPsoOptimizer:
         while self.options['use_only_early_stopping'] or i < iters:
             w = w_max - (w_max - w_min) / iters * i
             self.velocities = w * self.velocities + \
-                self.options['c1'] * np.random.uniform(0, 1, size=self.particles.shape) * (
-                                      pbs - self.particles) + \
-                self.options['c2'] * np.random.uniform(0, 1, size=self.particles.shape) * (
-                                      pg - self.particles)
+                self.options['c1'] * np.random.uniform() * \
+                (pbs - self.particles) + \
+                self.options['c2'] * np.random.uniform() * \
+                (pg - self.particles)
             self.particles = self.particles + self.velocities
             if self.velocity_clamp is not None:
                 self.velocities = np.clip(self.velocities, self.velocity_clamp[0], self.velocity_clamp[1])
