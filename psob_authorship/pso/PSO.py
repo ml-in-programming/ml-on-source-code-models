@@ -3,7 +3,6 @@ from functools import reduce
 import numpy as np
 import torch
 from torch import nn
-import pyswarms as ps
 
 from psob_authorship.pso.DecreasingWeightPsoOptimizer import DecreasingWeightPsoOptimizer
 
@@ -16,7 +15,7 @@ class PSO:
         self.options = options
         self.n_particles = n_particles
 
-    def optimize(self, train_features: torch.Tensor, train_labels: torch.Tensor, iters: int, bounds):
+    def optimize(self, train_features: torch.Tensor, train_labels: torch.Tensor, iters: int, velocity_clamp):
         def f_to_optimize(particles):
             losses = []
             for particle in particles:
@@ -27,8 +26,13 @@ class PSO:
                     losses.append(loss)
             return np.array(losses)
 
-        optimizer = DecreasingWeightPsoOptimizer(n_particles=self.n_particles, dimensions=self.model.dimensions,
-                                                 options=self.options, bounds=bounds)
+        if self.options['use_pyswarms']:
+            import pyswarms as ps
+            optimizer = ps.single.GlobalBestPSO(n_particles=self.n_particles, dimensions=self.model.dimensions,
+                                                options=self.options, velocity_clamp=velocity_clamp)
+        else:
+            optimizer = DecreasingWeightPsoOptimizer(n_particles=self.n_particles, dimensions=self.model.dimensions,
+                                                     options=self.options, velocity_clamp=velocity_clamp)
 
         loss, best_params = optimizer.optimize(f_to_optimize, iters=iters)
         self.set_model_weights(best_params)

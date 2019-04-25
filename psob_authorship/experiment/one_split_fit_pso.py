@@ -3,34 +3,29 @@ import logging
 import os
 import time
 
-import numpy as np
 import torch
 from sklearn import preprocessing
 from sklearn.model_selection import StratifiedKFold
 from torch import nn
 
 from psob_authorship.experiment.utils import make_experiment_reproducible
-from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 from psob_authorship.pso.PSO import PSO
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "c1, c2 -> 1.49, max velocity range",
+    'experiment_notes': "all params are as in paper except iterations stop",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
-    'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],  # 9 is macro
-    'early_stopping_rounds': 700,
     'n_splits': 10,
     'random_state': 4562,
     'criterion': nn.CrossEntropyLoss,
-    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9)},
-    'pso_velocity_range': (0, 1),
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'unchanged_iterations_stop': 100, 'use_pyswarms': False},
+    'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
     'pso_iters': 1000,
-    'optimizer': PSO,
-    'shuffle': True
+    'optimizer': PSO
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], random_state=CONFIG['random_state'], shuffle=True)
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
@@ -39,7 +34,7 @@ make_experiment_reproducible(CONFIG['random_state'])
 
 
 def fit_model(file_to_print):
-    logger = logging.getLogger('one_split_fit')
+    logger = logging.getLogger('one_split_fit_pso')
     configure_logger_by_default(logger)
     logger.info("START fit_model")
 
@@ -49,7 +44,7 @@ def fit_model(file_to_print):
         file_to_print.write(info + "\n")
 
     train_index, test_index = next(CONFIG['cv'].split(INPUT_FEATURES, INPUT_LABELS))
-    model = Model(len(CONFIG['metrics']))
+    model = Model()
     criterion = CONFIG['criterion']()
     optimizer = CONFIG['optimizer'](model, criterion, CONFIG['pso_options'], CONFIG['n_particles'])
 
@@ -63,10 +58,17 @@ def fit_model(file_to_print):
     train_labels = torch.from_numpy(train_labels)
     test_features = torch.from_numpy(test_features)
     test_labels = torch.from_numpy(test_labels)
-    loss, _ = optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'], CONFIG['pso_velocity_range'])
+    loss, _ = optimizer.optimize(train_features, train_labels, CONFIG['pso_iters'], CONFIG['pso_velocity_clamp'])
     print_info("Loss after PSO optimizing = " + str(loss))
 
-    best_accuracy = -1.0
+    correct = 0
+    total = 0
+    outputs = model(train_features)
+    _, predicted = torch.max(outputs.data, 1)
+    total += train_labels.size(0)
+    correct += (predicted == train_labels).sum().item()
+    print_info('Train accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
+
     correct = 0
     total = 0
     labels_dist = torch.zeros(CONFIG['number_of_authors'])
@@ -78,7 +80,6 @@ def fit_model(file_to_print):
     for i, label in enumerate(test_labels):
         labels_dist[label] += 1
         labels_correct[label] += predicted[i] == test_labels[i]
-    print_info('Best accuracy: ' + str(max(best_accuracy, correct / total)))
     print_info('Final accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
     print_info("Correct labels / labels for each author:\n" + str(torch.stack((labels_correct, labels_dist), dim=1)))
     logger.info("END fit_model")
