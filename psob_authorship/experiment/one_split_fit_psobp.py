@@ -31,7 +31,7 @@ CONFIG = {
     'criterion': nn.CrossEntropyLoss(),
     'optimizer': optim.Adam,
     'shuffle': True,
-    'trainers_to_use': ['pso', 'bp'],
+    'trainers_to_use': ['bp', 'pso'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
                     'unchanged_iterations_stop': 100, 'use_pyswarms': False,
                     'particle_clamp': (-1, 1), 'use_only_early_stopping': False
