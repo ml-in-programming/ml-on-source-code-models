@@ -27,9 +27,9 @@ class DecreasingWeightPsoOptimizer:
         while self.options['use_only_early_stopping'] or i < iters:
             w = w_max - (w_max - w_min) / iters * i
             self.velocities = w * self.velocities + \
-                self.options['c1'] * np.random.uniform() * \
+                self.options['c1'] * np.random.uniform(0, 1, size=self.particles.shape) * \
                 (pbs - self.particles) + \
-                self.options['c2'] * np.random.uniform() * \
+                self.options['c2'] * np.random.uniform(0, 1, size=self.particles.shape) * \
                 (pg - self.particles)
             self.particles = self.particles + self.velocities
             if self.velocity_clamp is not None:
@@ -46,6 +46,7 @@ class DecreasingWeightPsoOptimizer:
                 self.options['print_info']("CHECKPOINT each 25 iteration. Loss: " + str(pg_loss))
             stays_unchanged = stays_unchanged + 1 if pg_loss_prev == pg_loss else 0
             if stays_unchanged == self.options['unchanged_iterations_stop']:
+                self.options['print_info']("Training early stopped on iteration " + str(i))
                 return pg_loss, pg
             i += 1
         return pg_loss, pg

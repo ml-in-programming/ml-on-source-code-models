@@ -8,7 +8,7 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
     print_info = config['pso_options']['print_info']
     print_model_accuracy_before_train(model, test_features, test_labels, print_info)
 
-    criterion = config['criterion']()
+    criterion = config['criterion']
     optimizer = config['optimizer'](model.parameters(), lr=config['lr'])
 
     trainloader = torch.utils.data.DataLoader(

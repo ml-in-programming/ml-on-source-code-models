@@ -19,8 +19,7 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "first psobp with pso params as in paper, except unchanged_iterations_stop (not 10 but 100) "
-                        "and r1 and r2 are random vectors each iteration",
+    'experiment_notes': "criterion is created once in config",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
@@ -29,9 +28,10 @@ CONFIG = {
     'lr': 0.001,
     'n_splits': 10,
     'random_state': 4562,
-    'criterion': nn.CrossEntropyLoss,
+    'criterion': nn.CrossEntropyLoss(),
     'optimizer': optim.Adam,
     'shuffle': True,
+    'trainers_to_use': ['pso', 'bp'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
                     'unchanged_iterations_stop': 100, 'use_pyswarms': False,
                     'particle_clamp': (-1, 1), 'use_only_early_stopping': False
@@ -71,8 +71,11 @@ def fit_model(file_to_print):
     test_labels = torch.from_numpy(test_labels)
 
     model = Model()
-    train_pso(model, train_features, train_labels, test_features, test_labels, CONFIG)
-    train_bp(model, train_features, train_labels, test_features, test_labels, CONFIG)
+    for trainer_type in CONFIG['trainers_to_use']:
+        if trainer_type == 'bp':
+            train_bp(model, train_features, train_labels, test_features, test_labels, CONFIG)
+        elif trainer_type == 'pso':
+            train_pso(model, train_features, train_labels, test_features, test_labels, CONFIG)
     logger.info("END fit_model")
 
 

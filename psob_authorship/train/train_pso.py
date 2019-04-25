@@ -7,7 +7,7 @@ def train_pso(model, train_features, train_labels, test_features, test_labels, c
     print_info = config['pso_options']['print_info']
     print_model_accuracy_before_train(model, test_features, test_labels, print_info)
 
-    criterion = config['criterion']()
+    criterion = config['criterion']
     optimizer = config['pso_optimizer'](model, criterion, config['pso_options'], config['n_particles'])
 
     loss, _ = optimizer.optimize(train_features, train_labels, config['pso_iters'], config['pso_velocity_clamp'])
