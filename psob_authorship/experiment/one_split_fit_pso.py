@@ -15,13 +15,13 @@ from psob_authorship.pso.PSO import PSO
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "r1 and r2 are in shape of number of particles",
+    'experiment_notes': "r1 and r2 are constant numbers",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'n_splits': 10,
     'random_state': 4562,
     'criterion': nn.CrossEntropyLoss,
-    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'unchanged_iterations_stop': 100, 'use_pyswarms': False},
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.65, 0.65), 'unchanged_iterations_stop': 100, 'use_pyswarms': False},
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
     'pso_iters': 1000,

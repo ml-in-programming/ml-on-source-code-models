@@ -21,13 +21,13 @@ class DecreasingWeightPsoOptimizer:
         pg_loss = np.min(pbs_loss)
         w_min = self.options['w'][0]
         w_max = self.options['w'][1]
-        r1, r2 = np.random.uniform(0, 1, size=self.particles.shape), np.random.uniform(0, 1, size=self.particles.shape)
+        r1, r2 = np.random.uniform(), np.random.uniform()
         stays_unchanged = 0
         for i in tqdm(range(iters)):
             w = w_max - (w_max - w_min) / iters * i
             self.velocities = w * self.velocities + \
-                              self.options['c1'] * r1 * (pbs - self.particles) + \
-                              self.options['c2'] * r2 * (pg - self.particles)
+                              self.options['c1'] * np.random.uniform(0, 1, size=self.particles.shape) * (pbs - self.particles) + \
+                              self.options['c2'] * np.random.uniform(0, 1, size=self.particles.shape) * (pg - self.particles)
             self.particles = self.particles + self.velocities
             if self.velocity_clamp is not None:
                 self.velocities = np.clip(self.velocities, self.velocity_clamp[0], self.velocity_clamp[1])
