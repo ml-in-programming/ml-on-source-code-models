@@ -21,10 +21,13 @@ CONFIG = {
     'n_splits': 10,
     'random_state': 4562,
     'criterion': nn.CrossEntropyLoss,
-    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.65, 0.65), 'unchanged_iterations_stop': 100, 'use_pyswarms': False},
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
+                    'unchanged_iterations_stop': 100, 'use_pyswarms': False,
+                    'particle_clamp': (-1, 1), 'use_only_early_stopping': True
+                    },
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
-    'pso_iters': 1000,
+    'pso_iters': 100,
     'optimizer': PSO
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], random_state=CONFIG['random_state'], shuffle=True)
@@ -43,6 +46,7 @@ def fit_model(file_to_print):
         print(info)
         file_to_print.write(info + "\n")
 
+    CONFIG['pso_options']['print_info'] = print_info
     train_index, test_index = next(CONFIG['cv'].split(INPUT_FEATURES, INPUT_LABELS))
     model = Model()
     criterion = CONFIG['criterion']()

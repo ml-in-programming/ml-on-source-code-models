@@ -1,0 +1,63 @@
+Config: {'experiment_name': 'one_split_fit_pso', 'experiment_notes': 'all as in paper except only early stopping used', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'n_splits': 10, 'random_state': 4562, 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'unchanged_iterations_stop': 100, 'use_pyswarms': False, 'particle_clamp': (-1, 1), 'use_only_early_stopping': True}, 'pso_velocity_clamp': (-1, 1), 'n_particles': 100, 'pso_iters': 100, 'optimizer': <class 'psob_authorship.pso.PSO.PSO'>, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+CHECKPOINT each 25 iteration. Loss: 9.411121
+CHECKPOINT each 25 iteration. Loss: 9.145097
+CHECKPOINT each 25 iteration. Loss: 7.6869345
+CHECKPOINT each 25 iteration. Loss: 6.315858
+CHECKPOINT each 25 iteration. Loss: 5.6207547
+CHECKPOINT each 25 iteration. Loss: 5.5011363
+CHECKPOINT each 25 iteration. Loss: 5.5005903
+CHECKPOINT each 25 iteration. Loss: 5.5005894
+CHECKPOINT each 25 iteration. Loss: 5.5005894
+CHECKPOINT each 25 iteration. Loss: 5.500588
+CHECKPOINT each 25 iteration. Loss: 5.4992986
+CHECKPOINT each 25 iteration. Loss: 5.4930973
+CHECKPOINT each 25 iteration. Loss: 5.4364333
+CHECKPOINT each 25 iteration. Loss: 5.4317865
+CHECKPOINT each 25 iteration. Loss: 5.4317865
+CHECKPOINT each 25 iteration. Loss: 5.4317865
+CHECKPOINT each 25 iteration. Loss: 5.4317865
+Loss after PSO optimizing = 5.4317865
+Train accuracy of the network: 963 / 2700 = 35 %
+Final accuracy of the network: 111 / 322 = 34 %
+Correct labels / labels for each author:
+tensor([[ 0.,  7.],
+        [ 5., 14.],
+        [ 0.,  4.],
+        [ 0., 10.],
+        [ 2., 10.],
+        [70., 72.],
+        [ 1.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 0.,  6.],
+        [ 0.,  5.],
+        [ 1.,  9.],
+        [ 0.,  3.],
+        [ 3.,  7.],
+        [ 0.,  2.],
+        [ 0.,  8.],
+        [ 1.,  8.],
+        [ 0.,  7.],
+        [ 0.,  4.],
+        [ 3., 10.],
+        [ 1.,  5.],
+        [ 0.,  2.],
+        [ 1.,  5.],
+        [ 2.,  3.],
+        [ 0.,  7.],
+        [ 2.,  8.],
+        [ 0.,  6.],
+        [ 0.,  4.],
+        [ 3., 10.],
+        [ 0.,  2.],
+        [ 0.,  3.],
+        [ 1.,  5.],
+        [ 9., 21.],
+        [ 0.,  3.],
+        [ 5., 15.],
+        [ 0.,  4.],
+        [ 1.,  9.],
+        [ 0.,  3.],
+        [ 0.,  4.],
+        [ 0.,  5.]])
+Execution time: 0:01:48.275574

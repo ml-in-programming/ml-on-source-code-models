@@ -23,11 +23,14 @@ class DecreasingWeightPsoOptimizer:
         w_max = self.options['w'][1]
         r1, r2 = np.random.uniform(), np.random.uniform()
         stays_unchanged = 0
-        for i in tqdm(range(iters)):
+        i = 0
+        while self.options['use_only_early_stopping'] or i < iters:
             w = w_max - (w_max - w_min) / iters * i
             self.velocities = w * self.velocities + \
-                              self.options['c1'] * np.random.uniform(0, 1, size=self.particles.shape) * (pbs - self.particles) + \
-                              self.options['c2'] * np.random.uniform(0, 1, size=self.particles.shape) * (pg - self.particles)
+                self.options['c1'] * np.random.uniform(0, 1, size=self.particles.shape) * (
+                                      pbs - self.particles) + \
+                self.options['c2'] * np.random.uniform(0, 1, size=self.particles.shape) * (
+                                      pg - self.particles)
             self.particles = self.particles + self.velocities
             if self.velocity_clamp is not None:
                 self.velocities = np.clip(self.velocities, self.velocity_clamp[0], self.velocity_clamp[1])
@@ -39,15 +42,18 @@ class DecreasingWeightPsoOptimizer:
             pg = pbs[np.argmin(pbs_loss)]
             pg_loss_prev = pg_loss
             pg_loss = np.min(pbs_loss)
-            print("Loss: " + str(pg_loss))
+            if i % 25 == 0:
+                self.options['print_info']("CHECKPOINT each 25 iteration. Loss: " + str(pg_loss))
             stays_unchanged = stays_unchanged + 1 if pg_loss_prev == pg_loss else 0
             if stays_unchanged == self.options['unchanged_iterations_stop']:
                 return pg_loss, pg
+            i += 1
         return pg_loss, pg
 
     def initialize_particles(self):
         self.particles = np.random.uniform(
-            low=-1.0, high=1.0, size=(self.n_particles, self.dimensions)
+            low=self.options['particle_clamp'][0], high=self.options['particle_clamp'][1],
+            size=(self.n_particles, self.dimensions)
         )
         if self.velocity_clamp is not None:
             self.velocities = np.random.uniform(low=self.velocity_clamp[0], high=self.velocity_clamp[1],
