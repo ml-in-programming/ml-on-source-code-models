@@ -47,7 +47,7 @@ class DecreasingWeightPsoOptimizer:
             pg_loss = np.min(pbs_loss)
             if i % 100 == 0:
                 loss, acc = test_loss_and_acc(pg)
-                self.options['print_info'](str(i) + " CHECKPOINT each 100 iteration. Train Loss: " + str(pg_loss) +
+                self.options['print_info']("CHECKPOINT each 100th ITERATION " + str(i) + ". Train Loss: " + str(pg_loss) +
                                            ", Test Loss: " + str(loss) + ", Test Accuracy: " + str(acc))
             stays_unchanged = stays_unchanged + 1 if pg_loss_prev == pg_loss else 0
             if stays_unchanged == self.options['unchanged_iterations_stop']:

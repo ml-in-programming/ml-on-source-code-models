@@ -19,19 +19,17 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "SGD with small lr and a lot of iterations in PSO. 10k epochs in both pso and bp."
-                        " Experiment to see the potential of both techniques.",
+    'experiment_notes': "compare SGD with Adam when pso iters = 10k",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
     'batch_size': 32,
-    'early_stopping_rounds': 10000,
+    'early_stopping_rounds': 500,
     'lr': 0.001,
     'n_splits': 10,
     'random_state': 4562,
     'criterion': nn.CrossEntropyLoss(),
-    'optimizer': optim.SGD,
-    'momentum': 0.9,
+    'optimizer': optim.Adam,
     'shuffle': True,
     'trainers_to_use': ['pso', 'bp'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
