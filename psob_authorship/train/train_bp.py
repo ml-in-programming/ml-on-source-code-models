@@ -1,12 +1,11 @@
 import torch
 
 from psob_authorship.features.PsobDataset import PsobDataset
-from psob_authorship.train.utils import print_model_accuracy_before_train
+from psob_authorship.train.utils import print_model_accuracy_and_loss_before_train
 
 
 def train_bp(model, train_features, train_labels, test_features, test_labels, config):
     print_info = config['pso_options']['print_info']
-    print_model_accuracy_before_train(model, test_features, test_labels, print_info)
 
     criterion = config['criterion']
     optimizer = config['optimizer'](model.parameters(), lr=config['lr'])
@@ -22,6 +21,9 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
 
     best_accuracy = -1.0
     current_duration = 0
+    print_model_accuracy_and_loss_before_train(model, criterion,
+                                               train_features, train_labels, test_features, test_labels,
+                                               print_info)
     for epoch in range(config['epochs']):
         for data in trainloader:
             inputs, labels = data
@@ -49,9 +51,14 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
             print_info("On epoch " + str(epoch) + " training was early stopped")
             break
         if epoch % 100 == 0:
-            print_info(
-                "CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": current accuracy " + str(accuracy) + " , best "
-                + str(best_accuracy))
+            with torch.no_grad():
+                outputs = model(train_features)
+                train_loss = criterion(outputs, train_labels).item()
+                outputs = model(test_features)
+                test_loss = criterion(outputs, test_labels).item()
+                print_info(
+                    "CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": current accuracy " + str(accuracy) + " , best "
+                    + str(best_accuracy) + ", train loss " + str(train_loss) + ", test loss " + str(test_loss))
 
     correct = 0
     total = 0
