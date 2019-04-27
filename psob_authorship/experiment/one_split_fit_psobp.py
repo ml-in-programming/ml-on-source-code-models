@@ -19,7 +19,7 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "look at loss of bp",
+    'experiment_notes': "add bp after",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
@@ -31,10 +31,11 @@ CONFIG = {
     'criterion': nn.CrossEntropyLoss(),
     'optimizer': optim.Adam,
     'shuffle': True,
-    'trainers_to_use': ['bp'],
+    'trainers_to_use': ['pso', 'bp'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
-                    'unchanged_iterations_stop': 100, 'use_pyswarms': False,
-                    'particle_clamp': (-1, 1), 'use_only_early_stopping': False
+                    'use_pyswarms': False,
+                    'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': True,
+                    'unchanged_iterations_stop': 1000,  'use_only_early_stopping': False
                     },
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,

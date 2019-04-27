@@ -34,6 +34,9 @@ class DecreasingWeightPsoOptimizer:
             self.particles = self.particles + self.velocities
             if self.velocity_clamp is not None:
                 self.velocities = np.clip(self.velocities, self.velocity_clamp[0], self.velocity_clamp[1])
+            if self.options['use_particle_clamp_each_iteration']:
+                self.particles = np.clip(self.particles,
+                                         self.options['particle_clamp'][0], self.options['particle_clamp'][1])
             new_loss = f(self.particles)
             pbs_with_new_loss = np.vstack((pbs_loss, new_loss))
             pbs_loss = np.min(pbs_with_new_loss, axis=0)
