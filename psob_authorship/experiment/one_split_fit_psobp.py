@@ -19,27 +19,29 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "added test loss logging and pso_iters 1000 -> 5000",
+    'experiment_notes': "SGD with small lr and a lot of iterations in PSO. 10k epochs in both pso and bp."
+                        " Experiment to see the potential of both techniques.",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
     'batch_size': 32,
-    'early_stopping_rounds': 500,
+    'early_stopping_rounds': 10000,
     'lr': 0.001,
     'n_splits': 10,
     'random_state': 4562,
     'criterion': nn.CrossEntropyLoss(),
-    'optimizer': optim.Adam,
+    'optimizer': optim.SGD,
+    'momentum': 0.9,
     'shuffle': True,
     'trainers_to_use': ['pso', 'bp'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
                     'use_pyswarms': False,
                     'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': False,
-                    'unchanged_iterations_stop': 1000,  'use_only_early_stopping': False
+                    'unchanged_iterations_stop': 10000,  'use_only_early_stopping': False
                     },
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
-    'pso_iters': 5000,
+    'pso_iters': 10000,
     'pso_optimizer': PSO
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True, random_state=CONFIG['random_state'])

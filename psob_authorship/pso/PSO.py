@@ -15,13 +15,20 @@ class PSO:
         self.options = options
         self.n_particles = n_particles
 
-    def get_best_test_loss(self, test_features: torch.Tensor, test_labels: torch.Tensor):
+    def get_best_test_loss_and_acc(self, test_features: torch.Tensor, test_labels: torch.Tensor):
         def semi_applied_func(particle):
             self.set_model_weights(particle)
             with torch.no_grad():
                 outputs = self.model(test_features)
-                loss = self.criterion(outputs, test_labels)
-            return loss.item()
+                correct = 0
+                total = 0
+                _, predicted = torch.max(outputs.data, 1)
+                total += test_labels.size(0)
+                correct += (predicted == test_labels).sum().item()
+
+                loss = self.criterion(outputs, test_labels).item()
+                accuracy = correct / total
+            return loss, accuracy
         return semi_applied_func
 
     def optimize(self, train_features: torch.Tensor, train_labels: torch.Tensor,
@@ -46,7 +53,8 @@ class PSO:
                                                      options=self.options, velocity_clamp=velocity_clamp)
 
         loss, best_params = optimizer.optimize(f_to_optimize, iters=iters,
-                                               test_loss=self.get_best_test_loss(test_features, test_labels))
+                                               test_loss_and_acc=
+                                               self.get_best_test_loss_and_acc(test_features, test_labels))
         self.set_model_weights(best_params)
         return loss, best_params
 
