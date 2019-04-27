@@ -12,7 +12,9 @@ def train_pso(model, train_features, train_labels, test_features, test_labels, c
     print_model_accuracy_and_loss_before_train(model, criterion,
                                                train_features, train_labels, test_features, test_labels,
                                                print_info)
-    loss, _ = optimizer.optimize(train_features, train_labels, config['pso_iters'], config['pso_velocity_clamp'])
+    loss, _ = optimizer.optimize(train_features, train_labels,
+                                 test_features, test_labels,
+                                 config['pso_iters'], config['pso_velocity_clamp'])
     print_info("Loss after PSO optimizing = " + str(loss))
 
     correct = 0

@@ -1,0 +1,246 @@
+Config: {'experiment_name': 'one_split_fit_psobp', 'experiment_notes': 'added test loss logging and pso_iters 1000 -> 5000', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'epochs': 10000, 'batch_size': 32, 'early_stopping_rounds': 500, 'lr': 0.001, 'n_splits': 10, 'random_state': 4562, 'criterion': CrossEntropyLoss(), 'optimizer': <class 'torch.optim.adam.Adam'>, 'shuffle': True, 'trainers_to_use': ['pso', 'bp'], 'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'use_pyswarms': False, 'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': True, 'unchanged_iterations_stop': 1000, 'use_only_early_stopping': False}, 'pso_velocity_clamp': (-1, 1), 'n_particles': 100, 'pso_iters': 5000, 'pso_optimizer': <class 'psob_authorship.pso.PSO.PSO'>, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+INITIAL DATA: accuracy 0.021739130434782608, train loss 3.6309494972229004, test loss 3.6335628032684326
+CHECKPOINT each 25 iteration. Train Loss: 9.411121, Test Loss: 9.743815422058105
+CHECKPOINT each 25 iteration. Train Loss: 9.132499, Test Loss: 9.35540771484375
+CHECKPOINT each 25 iteration. Train Loss: 8.908691, Test Loss: 8.792411804199219
+CHECKPOINT each 25 iteration. Train Loss: 8.70481, Test Loss: 8.513116836547852
+CHECKPOINT each 25 iteration. Train Loss: 8.482004, Test Loss: 8.639715194702148
+CHECKPOINT each 25 iteration. Train Loss: 8.32902, Test Loss: 8.44257926940918
+CHECKPOINT each 25 iteration. Train Loss: 8.257089, Test Loss: 8.355758666992188
+CHECKPOINT each 25 iteration. Train Loss: 8.07839, Test Loss: 8.019027709960938
+CHECKPOINT each 25 iteration. Train Loss: 7.9120307, Test Loss: 7.987078666687012
+CHECKPOINT each 25 iteration. Train Loss: 7.876596, Test Loss: 7.9384355545043945
+CHECKPOINT each 25 iteration. Train Loss: 7.7270355, Test Loss: 7.843996524810791
+CHECKPOINT each 25 iteration. Train Loss: 7.6698775, Test Loss: 7.77799129486084
+CHECKPOINT each 25 iteration. Train Loss: 7.429241, Test Loss: 7.388367652893066
+CHECKPOINT each 25 iteration. Train Loss: 7.2811747, Test Loss: 6.999017238616943
+CHECKPOINT each 25 iteration. Train Loss: 7.167115, Test Loss: 6.989680767059326
+CHECKPOINT each 25 iteration. Train Loss: 7.0424047, Test Loss: 6.752218723297119
+CHECKPOINT each 25 iteration. Train Loss: 6.9166117, Test Loss: 6.781277179718018
+CHECKPOINT each 25 iteration. Train Loss: 6.8209085, Test Loss: 6.633121967315674
+CHECKPOINT each 25 iteration. Train Loss: 6.7214365, Test Loss: 6.698997497558594
+CHECKPOINT each 25 iteration. Train Loss: 6.697901, Test Loss: 6.642283916473389
+CHECKPOINT each 25 iteration. Train Loss: 6.587391, Test Loss: 6.621805667877197
+CHECKPOINT each 25 iteration. Train Loss: 6.528664, Test Loss: 6.724369049072266
+CHECKPOINT each 25 iteration. Train Loss: 6.2597365, Test Loss: 6.387057781219482
+CHECKPOINT each 25 iteration. Train Loss: 6.056748, Test Loss: 6.146644592285156
+CHECKPOINT each 25 iteration. Train Loss: 5.8529763, Test Loss: 5.90193510055542
+CHECKPOINT each 25 iteration. Train Loss: 5.7015514, Test Loss: 5.689114570617676
+CHECKPOINT each 25 iteration. Train Loss: 5.5049996, Test Loss: 5.516608238220215
+CHECKPOINT each 25 iteration. Train Loss: 5.3768115, Test Loss: 5.401749134063721
+CHECKPOINT each 25 iteration. Train Loss: 5.28833, Test Loss: 5.321989059448242
+CHECKPOINT each 25 iteration. Train Loss: 5.192285, Test Loss: 5.27058219909668
+CHECKPOINT each 25 iteration. Train Loss: 5.1096473, Test Loss: 5.208785057067871
+CHECKPOINT each 25 iteration. Train Loss: 5.011762, Test Loss: 5.186588764190674
+CHECKPOINT each 25 iteration. Train Loss: 4.9827285, Test Loss: 5.164931774139404
+CHECKPOINT each 25 iteration. Train Loss: 4.95024, Test Loss: 5.162357330322266
+CHECKPOINT each 25 iteration. Train Loss: 4.9385123, Test Loss: 5.154538154602051
+CHECKPOINT each 25 iteration. Train Loss: 4.929535, Test Loss: 5.14985990524292
+CHECKPOINT each 25 iteration. Train Loss: 4.9224815, Test Loss: 5.141839027404785
+CHECKPOINT each 25 iteration. Train Loss: 4.9093556, Test Loss: 5.127711772918701
+CHECKPOINT each 25 iteration. Train Loss: 4.8965673, Test Loss: 5.105787754058838
+CHECKPOINT each 25 iteration. Train Loss: 4.887502, Test Loss: 5.082816123962402
+CHECKPOINT each 25 iteration. Train Loss: 4.8836746, Test Loss: 5.0810322761535645
+CHECKPOINT each 25 iteration. Train Loss: 4.879139, Test Loss: 5.075145721435547
+CHECKPOINT each 25 iteration. Train Loss: 4.877081, Test Loss: 5.087262153625488
+CHECKPOINT each 25 iteration. Train Loss: 4.8746133, Test Loss: 5.081817626953125
+CHECKPOINT each 25 iteration. Train Loss: 4.872086, Test Loss: 5.085522651672363
+CHECKPOINT each 25 iteration. Train Loss: 4.8709993, Test Loss: 5.072900295257568
+CHECKPOINT each 25 iteration. Train Loss: 4.8704877, Test Loss: 5.069516181945801
+CHECKPOINT each 25 iteration. Train Loss: 4.8696475, Test Loss: 5.0731048583984375
+CHECKPOINT each 25 iteration. Train Loss: 4.869316, Test Loss: 5.082157135009766
+CHECKPOINT each 25 iteration. Train Loss: 4.8689203, Test Loss: 5.076699256896973
+CHECKPOINT each 25 iteration. Train Loss: 4.867301, Test Loss: 5.0702290534973145
+CHECKPOINT each 25 iteration. Train Loss: 4.865386, Test Loss: 5.059978008270264
+CHECKPOINT each 25 iteration. Train Loss: 4.8639965, Test Loss: 5.058538913726807
+CHECKPOINT each 25 iteration. Train Loss: 4.861961, Test Loss: 5.071765422821045
+CHECKPOINT each 25 iteration. Train Loss: 4.8607845, Test Loss: 5.074443340301514
+CHECKPOINT each 25 iteration. Train Loss: 4.85978, Test Loss: 5.072920799255371
+CHECKPOINT each 25 iteration. Train Loss: 4.85916, Test Loss: 5.074129104614258
+CHECKPOINT each 25 iteration. Train Loss: 4.8587384, Test Loss: 5.076382160186768
+CHECKPOINT each 25 iteration. Train Loss: 4.856667, Test Loss: 5.0771050453186035
+CHECKPOINT each 25 iteration. Train Loss: 4.856094, Test Loss: 5.077409267425537
+CHECKPOINT each 25 iteration. Train Loss: 4.8553467, Test Loss: 5.078281879425049
+CHECKPOINT each 25 iteration. Train Loss: 4.8551035, Test Loss: 5.076150894165039
+CHECKPOINT each 25 iteration. Train Loss: 4.854969, Test Loss: 5.076391220092773
+CHECKPOINT each 25 iteration. Train Loss: 4.8548336, Test Loss: 5.076051235198975
+CHECKPOINT each 25 iteration. Train Loss: 4.8547006, Test Loss: 5.072447776794434
+CHECKPOINT each 25 iteration. Train Loss: 4.8546352, Test Loss: 5.0709099769592285
+CHECKPOINT each 25 iteration. Train Loss: 4.854575, Test Loss: 5.073451042175293
+CHECKPOINT each 25 iteration. Train Loss: 4.8545446, Test Loss: 5.072872638702393
+CHECKPOINT each 25 iteration. Train Loss: 4.8544807, Test Loss: 5.072622299194336
+CHECKPOINT each 25 iteration. Train Loss: 4.8544717, Test Loss: 5.071640491485596
+CHECKPOINT each 25 iteration. Train Loss: 4.854469, Test Loss: 5.072089672088623
+CHECKPOINT each 25 iteration. Train Loss: 4.854468, Test Loss: 5.072270393371582
+CHECKPOINT each 25 iteration. Train Loss: 4.8544645, Test Loss: 5.07206392288208
+CHECKPOINT each 25 iteration. Train Loss: 4.8544645, Test Loss: 5.07206392288208
+CHECKPOINT each 25 iteration. Train Loss: 4.854463, Test Loss: 5.072068214416504
+CHECKPOINT each 25 iteration. Train Loss: 4.8544607, Test Loss: 5.072074890136719
+CHECKPOINT each 25 iteration. Train Loss: 4.8544607, Test Loss: 5.072074890136719
+CHECKPOINT each 25 iteration. Train Loss: 4.8544593, Test Loss: 5.072070598602295
+CHECKPOINT each 25 iteration. Train Loss: 4.854459, Test Loss: 5.072071075439453
+CHECKPOINT each 25 iteration. Train Loss: 4.854459, Test Loss: 5.072071075439453
+CHECKPOINT each 25 iteration. Train Loss: 4.854457, Test Loss: 5.072072505950928
+CHECKPOINT each 25 iteration. Train Loss: 4.8544555, Test Loss: 5.072073936462402
+CHECKPOINT each 25 iteration. Train Loss: 4.854454, Test Loss: 5.072056293487549
+CHECKPOINT each 25 iteration. Train Loss: 4.854454, Test Loss: 5.07206392288208
+CHECKPOINT each 25 iteration. Train Loss: 4.854452, Test Loss: 5.072066783905029
+CHECKPOINT each 25 iteration. Train Loss: 4.854451, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.854448, Test Loss: 5.072066783905029
+CHECKPOINT each 25 iteration. Train Loss: 4.8544474, Test Loss: 5.072064399719238
+CHECKPOINT each 25 iteration. Train Loss: 4.8544455, Test Loss: 5.07206392288208
+CHECKPOINT each 25 iteration. Train Loss: 4.854445, Test Loss: 5.0720648765563965
+CHECKPOINT each 25 iteration. Train Loss: 4.8544436, Test Loss: 5.072062969207764
+CHECKPOINT each 25 iteration. Train Loss: 4.8544436, Test Loss: 5.072062969207764
+CHECKPOINT each 25 iteration. Train Loss: 4.854443, Test Loss: 5.072063446044922
+CHECKPOINT each 25 iteration. Train Loss: 4.8544426, Test Loss: 5.0720648765563965
+CHECKPOINT each 25 iteration. Train Loss: 4.854442, Test Loss: 5.072066783905029
+CHECKPOINT each 25 iteration. Train Loss: 4.854442, Test Loss: 5.072066783905029
+CHECKPOINT each 25 iteration. Train Loss: 4.854442, Test Loss: 5.072065830230713
+CHECKPOINT each 25 iteration. Train Loss: 4.854442, Test Loss: 5.072065830230713
+CHECKPOINT each 25 iteration. Train Loss: 4.854442, Test Loss: 5.072065830230713
+CHECKPOINT each 25 iteration. Train Loss: 4.8544416, Test Loss: 5.072065830230713
+CHECKPOINT each 25 iteration. Train Loss: 4.8544416, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544416, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.854441, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072065830230713
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072065830230713
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066783905029
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066783905029
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+CHECKPOINT each 25 iteration. Train Loss: 4.8544407, Test Loss: 5.072066307067871
+Training early stopped on iteration 3561
+Loss after PSO optimizing = 4.8544407
+Train accuracy of the network: 1216 / 2700 = 45 %
+Final accuracy of the network: 142 / 322 = 44 %
+Correct labels / labels for each author:
+tensor([[ 1.,  7.],
+        [11., 14.],
+        [ 0.,  4.],
+        [ 2., 10.],
+        [ 4., 10.],
+        [70., 72.],
+        [ 3.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 1.,  6.],
+        [ 2.,  5.],
+        [ 4.,  9.],
+        [ 2.,  3.],
+        [ 2.,  7.],
+        [ 0.,  2.],
+        [ 2.,  8.],
+        [ 0.,  8.],
+        [ 4.,  7.],
+        [ 0.,  4.],
+        [ 2., 10.],
+        [ 1.,  5.],
+        [ 0.,  2.],
+        [ 2.,  5.],
+        [ 0.,  3.],
+        [ 1.,  7.],
+        [ 1.,  8.],
+        [ 0.,  6.],
+        [ 0.,  4.],
+        [ 4., 10.],
+        [ 0.,  2.],
+        [ 0.,  3.],
+        [ 3.,  5.],
+        [11., 21.],
+        [ 1.,  3.],
+        [ 3., 15.],
+        [ 0.,  4.],
+        [ 1.,  9.],
+        [ 1.,  3.],
+        [ 3.,  4.],
+        [ 0.,  5.]])
+END OF PSO TRAINING
+INITIAL DATA: accuracy 0.4409937888198758, train loss 4.854440689086914, test loss 5.072066307067871
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.468944099378882 , best 0.468944099378882, train loss 4.281545639038086, test loss 4.614950180053711
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6739130434782609 , best 0.6832298136645962, train loss 0.19564615190029144, test loss 2.0202696323394775
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7018633540372671 , best 0.7018633540372671, train loss 0.03541066497564316, test loss 2.1779918670654297
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7204968944099379 , best 0.7204968944099379, train loss 0.009768566116690636, test loss 2.406895160675049
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7080745341614907 , best 0.7204968944099379, train loss 0.0034612235613167286, test loss 2.6586503982543945
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7080745341614907 , best 0.7204968944099379, train loss 0.0022826932836323977, test loss 2.9042298793792725
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7018633540372671 , best 0.7204968944099379, train loss 0.0012673434102907777, test loss 3.158135175704956
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7049689440993789 , best 0.7204968944099379, train loss 0.0005043693818151951, test loss 3.393047332763672
+On epoch 791 training was early stopped
+Finished training
+Best accuracy: 0.7204968944099379
+Accuracy of the last validation of the network: 229 / 322 = 71 %
+Correct labels / labels for each author of last validation:
+tensor([[ 3.,  7.],
+        [13., 14.],
+        [ 4.,  4.],
+        [ 4., 10.],
+        [ 7., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 6.,  6.],
+        [ 3.,  5.],
+        [ 7.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 1.,  8.],
+        [ 6.,  8.],
+        [ 7.,  7.],
+        [ 1.,  4.],
+        [ 4., 10.],
+        [ 3.,  5.],
+        [ 0.,  2.],
+        [ 3.,  5.],
+        [ 3.,  3.],
+        [ 4.,  7.],
+        [ 4.,  8.],
+        [ 6.,  6.],
+        [ 2.,  4.],
+        [ 7., 10.],
+        [ 1.,  2.],
+        [ 1.,  3.],
+        [ 3.,  5.],
+        [17., 21.],
+        [ 1.,  3.],
+        [10., 15.],
+        [ 1.,  4.],
+        [ 0.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+Execution time: 0:19:16.029691

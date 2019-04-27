@@ -13,7 +13,7 @@ class DecreasingWeightPsoOptimizer:
         self.particles = None
         self.velocities = None
 
-    def optimize(self, f, iters):
+    def optimize(self, f, iters, test_loss):
         self.initialize_particles()
         pbs = np.copy(self.particles)
         pbs_loss = f(pbs)
@@ -46,7 +46,8 @@ class DecreasingWeightPsoOptimizer:
             pg_loss_prev = pg_loss
             pg_loss = np.min(pbs_loss)
             if i % 25 == 0:
-                self.options['print_info']("CHECKPOINT each 25 iteration. Loss: " + str(pg_loss))
+                self.options['print_info']("CHECKPOINT each 25 iteration. Train Loss: " + str(pg_loss) +
+                                           ", Test Loss: " + str(test_loss(pg)))
             stays_unchanged = stays_unchanged + 1 if pg_loss_prev == pg_loss else 0
             if stays_unchanged == self.options['unchanged_iterations_stop']:
                 self.options['print_info']("Training early stopped on iteration " + str(i))
