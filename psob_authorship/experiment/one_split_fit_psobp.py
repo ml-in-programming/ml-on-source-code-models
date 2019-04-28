@@ -19,7 +19,7 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "compare SGD with Adam when pso iters = 10k",
+    'experiment_notes': "w_min 0.4 -> 0.65",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
@@ -32,14 +32,14 @@ CONFIG = {
     'optimizer': optim.Adam,
     'shuffle': True,
     'trainers_to_use': ['pso', 'bp'],
-    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
+    'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.65, 0.9),
                     'use_pyswarms': False,
                     'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': False,
-                    'unchanged_iterations_stop': 10000,  'use_only_early_stopping': False
+                    'unchanged_iterations_stop': 20000,  'use_only_early_stopping': False
                     },
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
-    'pso_iters': 10000,
+    'pso_iters': 20000,
     'pso_optimizer': PSO
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True, random_state=CONFIG['random_state'])
