@@ -96,7 +96,7 @@ def run_cross_validation_psobp(file_to_print) -> torch.Tensor:
         best_accuracy_bp, best_accuracy_pso = None, None
         for trainer_type in CONFIG['trainers_to_use']:
             if trainer_type == 'bp':
-                best_accuracy_bp = train_bp(model, train_features, train_labels, test_features, test_labels, CONFIG)
+                best_accuracy_bp, _ = train_bp(model, train_features, train_labels, test_features, test_labels, CONFIG)
             elif trainer_type == 'pso':
                 best_accuracy_pso = train_pso(model, train_features, train_labels, test_features, test_labels, CONFIG)
         print_info('Best accuracy pso: ' + str(best_accuracy_pso) + ', bp: ' + str(best_accuracy_bp))
