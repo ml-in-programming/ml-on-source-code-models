@@ -74,7 +74,7 @@ CONFIG = {
     'experiment_name': "10_fold_cross_validation",
     'experiment_notes': "10 fold cv for Adam",
     'number_of_authors': 40,
-    'labels_features_common_name': "./extracted_for_each_file",
+    'labels_features_common_name': "../extracted_for_each_file",
     'metrics': [i for i in range(19)],
     'epochs': 10000,
     'batch_size': 32,
