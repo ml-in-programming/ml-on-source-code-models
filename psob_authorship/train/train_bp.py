@@ -1,7 +1,8 @@
 import torch
 
 from psob_authorship.features.PsobDataset import PsobDataset
-from psob_authorship.train.utils import print_model_accuracy_and_loss_before_train
+from psob_authorship.train.utils import get_model_accuracy_and_loss_for_train_and_test, \
+    print_100th_checkpoint_evaluation
 
 
 def train_bp(model, train_features, train_labels, test_features, test_labels, config):
@@ -21,9 +22,9 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
 
     best_accuracy = -1.0
     current_duration = 0
-    print_model_accuracy_and_loss_before_train(model, criterion,
-                                               train_features, train_labels, test_features, test_labels,
-                                               print_info)
+    get_model_accuracy_and_loss_for_train_and_test(model, criterion,
+                                                   train_features, train_labels, test_features, test_labels,
+                                                   print_info)
     for epoch in range(config['epochs']):
         for inputs, labels in trainloader:
             inputs = inputs.to(config['device'])
@@ -54,14 +55,11 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
             break
         if epoch % 100 == 0:
             with torch.no_grad():
-                outputs = model(train_features)
-                train_loss = criterion(outputs, train_labels).item()
-                outputs = model(test_features)
-                test_loss = criterion(outputs, test_labels).item()
-                print_info(
-                    "CHECKPOINT EACH 100th EPOCH " + str(epoch) + ": current accuracy " + str(accuracy) + " , best "
-                    + str(best_accuracy) + ", train loss " + str(train_loss) + ", test loss " + str(test_loss))
-
+                print_100th_checkpoint_evaluation(epoch,
+                                                  model, criterion,
+                                                  train_features, train_labels,
+                                                  test_features, test_labels,
+                                                  print_info)
     correct = 0
     total = 0
     labels_dist = torch.zeros(config['number_of_authors'])

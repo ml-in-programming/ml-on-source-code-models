@@ -1,19 +1,37 @@
 import torch
 
 
-def print_model_accuracy_and_loss_before_train(model, criterion,
-                                               train_features, train_labels, test_features, test_labels,
-                                               print_info):
+def get_model_accuracy_and_loss(model, criterion, features, labels):
+    outputs = model(features)
+    loss = criterion(outputs, labels).item()
+    _, predicted = torch.max(outputs.data, 1)
     correct = 0
     total = 0
-    outputs = model(test_features)
-    _, predicted = torch.max(outputs.data, 1)
-    total += test_labels.size(0)
-    correct += (predicted == test_labels).sum().item()
+    total += labels.size(0)
+    correct += (predicted == labels).sum().item()
     accuracy = correct / total
-    outputs = model(train_features)
-    train_loss = criterion(outputs, train_labels).item()
-    outputs = model(test_features)
-    test_loss = criterion(outputs, test_labels).item()
-    print_info("INITIAL DATA: " + "accuracy " + str(accuracy) +
-               ", train loss " + str(train_loss) + ", test loss " + str(test_loss))
+    return loss, accuracy
+
+
+def get_model_accuracy_and_loss_for_train_and_test(model, criterion,
+                                                   train_features, train_labels,
+                                                   test_features, test_labels):
+    train_loss, train_accuracy = get_model_accuracy_and_loss(model, criterion, train_features, train_labels)
+    test_loss, test_accuracy = get_model_accuracy_and_loss(model, criterion, test_features, test_labels)
+    return train_loss, test_loss, train_accuracy, test_accuracy
+
+
+def print_100th_checkpoint_evaluation(epoch,
+                                      model, criterion,
+                                      train_features, train_labels,
+                                      test_features, test_labels,
+                                      print_info):
+    train_loss, test_loss, train_accuracy, test_accuracy = \
+        get_model_accuracy_and_loss_for_train_and_test(model, criterion,
+                                                       train_features, train_labels,
+                                                       test_features, test_labels)
+    print_info(
+        "CHECKPOINT EACH 100th EPOCH " + str(epoch) + ". Train Loss: " + str(train_loss) +
+        " , Test Loss: " + str(test_loss) + ", Train Accuracy: " + str(train_accuracy) +
+        ", Test Accuracy: " + str(test_accuracy)
+    )

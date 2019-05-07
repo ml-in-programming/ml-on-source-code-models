@@ -1,6 +1,6 @@
 import torch
 
-from psob_authorship.train.utils import print_model_accuracy_and_loss_before_train
+from psob_authorship.train.utils import get_model_accuracy_and_loss_for_train_and_test
 
 
 def train_pso(model, train_features, train_labels, test_features, test_labels, config):
@@ -9,9 +9,9 @@ def train_pso(model, train_features, train_labels, test_features, test_labels, c
     criterion = config['criterion']
     optimizer = config['pso_optimizer'](model, criterion, config['pso_options'], config['n_particles'])
 
-    print_model_accuracy_and_loss_before_train(model, criterion,
-                                               train_features, train_labels, test_features, test_labels,
-                                               print_info)
+    get_model_accuracy_and_loss_for_train_and_test(model, criterion,
+                                                   train_features, train_labels, test_features, test_labels,
+                                                   print_info)
     loss, _ = optimizer.optimize(train_features, train_labels,
                                  test_features, test_labels,
                                  config['pso_iters'], config['pso_velocity_clamp'])
