@@ -1,7 +1,5 @@
 import numpy as np
 
-from psob_authorship.train.utils import print_100th_checkpoint_evaluation
-
 
 class DecreasingWeightPsoOptimizer:
     def __init__(self, n_particles, dimensions, options, velocity_clamp) -> None:

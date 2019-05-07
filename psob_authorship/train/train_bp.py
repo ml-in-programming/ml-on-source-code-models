@@ -1,8 +1,7 @@
 import torch
 
 from psob_authorship.features.PsobDataset import PsobDataset
-from psob_authorship.train.utils import get_model_accuracy_and_loss_for_train_and_test, \
-    print_100th_checkpoint_evaluation, print_evaluation_before_train
+from psob_authorship.train.utils import print_100th_checkpoint_evaluation, print_evaluation_before_train
 
 
 def train_bp(model, train_features, train_labels, test_features, test_labels, config):

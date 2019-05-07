@@ -1,6 +1,6 @@
 import torch
 
-from psob_authorship.train.utils import get_model_accuracy_and_loss_for_train_and_test, print_evaluation_before_train
+from psob_authorship.train.utils import print_evaluation_before_train
 
 
 def train_pso(model, train_features, train_labels, test_features, test_labels, config):
