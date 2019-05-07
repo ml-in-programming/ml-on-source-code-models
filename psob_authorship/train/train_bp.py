@@ -2,7 +2,7 @@ import torch
 
 from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.train.utils import get_model_accuracy_and_loss_for_train_and_test, \
-    print_100th_checkpoint_evaluation
+    print_100th_checkpoint_evaluation, print_evaluation_before_train
 
 
 def train_bp(model, train_features, train_labels, test_features, test_labels, config):
@@ -22,9 +22,10 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
 
     best_accuracy = -1.0
     current_duration = 0
-    get_model_accuracy_and_loss_for_train_and_test(model, criterion,
-                                                   train_features, train_labels, test_features, test_labels,
-                                                   print_info)
+    print_evaluation_before_train(model, criterion,
+                                  train_features, train_labels,
+                                  test_features, test_labels,
+                                  print_info)
     for epoch in range(config['epochs']):
         for inputs, labels in trainloader:
             inputs = inputs.to(config['device'])

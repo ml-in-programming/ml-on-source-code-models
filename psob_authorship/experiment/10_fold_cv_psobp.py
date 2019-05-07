@@ -40,7 +40,7 @@ CONFIG = {
                     },
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
-    'pso_iters': 10000,
+    'pso_iters': 5000,
     'pso_optimizer': PSO,
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True, random_state=CONFIG['random_state']) \
