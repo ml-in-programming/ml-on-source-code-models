@@ -20,6 +20,7 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
     )
 
     best_accuracy = -1.0
+    train_accuracy = -1.0
     current_duration = 0
     print_evaluation_before_train(model, criterion,
                                   train_features, train_labels,
@@ -47,6 +48,17 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
         accuracy = correct / total
         if best_accuracy >= accuracy:
             current_duration += 1
+            with torch.no_grad():
+                train_correct = 0
+                train_total = 0
+                for inputs, labels in trainloader:
+                    inputs = inputs.to(config['device'])
+                    labels = labels.to(config['device'])
+                    outputs = model(inputs)
+                    _, predicted = torch.max(outputs.data, 1)
+                    train_total += labels.size(0)
+                    train_correct += (predicted == labels).sum().item()
+                train_accuracy = train_correct / train_total
         else:
             current_duration = 0
         best_accuracy = max(best_accuracy, accuracy)
@@ -62,8 +74,6 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
                                                   print_info)
     correct = 0
     total = 0
-    train_correct = 0
-    train_total = 0
     labels_dist = torch.zeros(config['number_of_authors'])
     labels_correct = torch.zeros(config['number_of_authors'])
     with torch.no_grad():
@@ -77,20 +87,11 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
             for i, label in enumerate(labels):
                 labels_dist[label] += 1
                 labels_correct[label] += predicted[i] == labels[i]
-        for inputs, labels in trainloader:
-            inputs = inputs.to(config['device'])
-            labels = labels.to(config['device'])
-            outputs = model(inputs)
-            _, predicted = torch.max(outputs.data, 1)
-            train_total += labels.size(0)
-            train_correct += (predicted == labels).sum().item()
     print_info('Finished training')
     best_accuracy = max(best_accuracy, correct / total)
-    train_accuracy = train_correct / train_total
     print_info('Best accuracy: ' + str(best_accuracy))
     print_info('Accuracy of the last validation of the network: %d / %d = %d %%' %
                (correct, total, 100 * correct / total))
     print_info("Correct labels / labels for each author of last validation:\n" +
                str(torch.stack((labels_correct, labels_dist), dim=1)))
-    # TODO: not consistent, test accuracy is best and train acc is from the last epoch
     return best_accuracy, train_accuracy
