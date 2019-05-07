@@ -15,7 +15,7 @@ def train_pso(model, train_features, train_labels, test_features, test_labels, c
     loss, _ = optimizer.optimize(train_features, train_labels,
                                  test_features, test_labels,
                                  config['pso_iters'], config['pso_velocity_clamp'])
-    print_info("Loss after PSO optimizing = " + str(loss))
+    print_info("Train loss after PSO optimizing = " + str(loss))
 
     correct = 0
     total = 0
@@ -36,6 +36,8 @@ def train_pso(model, train_features, train_labels, test_features, test_labels, c
     for i, label in enumerate(test_labels):
         labels_dist[label] += 1
         labels_correct[label] += predicted[i] == test_labels[i]
-    print_info('Final accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * correct / total))
+    final_accuracy = correct / total
+    print_info('Final accuracy of the network: %d / %d = %d %%' % (correct, total, 100 * final_accuracy))
     print_info("Correct labels / labels for each author:\n" + str(torch.stack((labels_correct, labels_dist), dim=1)))
     print_info("END OF PSO TRAINING")
+    return final_accuracy

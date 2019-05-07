@@ -40,7 +40,7 @@ CONFIG = {
                     },
     'pso_velocity_clamp': (-1, 1),
     'n_particles': 100,
-    'pso_iters': 20000,
+    'pso_iters': 10000,
     'pso_optimizer': PSO,
 }
 CONFIG['cv'] = StratifiedKFold(n_splits=CONFIG['n_splits'], shuffle=True, random_state=CONFIG['random_state']) \
@@ -100,7 +100,9 @@ def run_cross_validation_psobp(file_to_print) -> torch.Tensor:
             elif trainer_type == 'pso':
                 best_accuracy_pso = train_pso(model, train_features, train_labels, test_features, test_labels, CONFIG)
         print_info('Best accuracy pso: ' + str(best_accuracy_pso) + ', bp: ' + str(best_accuracy_bp))
-        accuracies[fold_number][repeat_number] = max(best_accuracy_bp, best_accuracy_pso)
+        best_accuracy = max(best_accuracy_bp, best_accuracy_pso)
+        accuracies[fold_number][repeat_number] = best_accuracy
+        print_info('Best final accuracy: ' + str(best_accuracy))
         print_info('END OF EVALUATION OF ' + str(fold_number) + ' FOLD, REPEAT ' + str(repeat_number))
         print_info('=========================================================================')
     logger.info("END run_cross_validation")
