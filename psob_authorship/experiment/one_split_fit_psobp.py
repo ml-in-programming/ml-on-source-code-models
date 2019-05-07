@@ -3,14 +3,12 @@ import logging
 import os
 import time
 
-import numpy as np
 import torch
 from sklearn import preprocessing
 from sklearn.model_selection import StratifiedKFold
 from torch import optim, nn
 
 from psob_authorship.experiment.utils import make_experiment_reproducible
-from psob_authorship.features.PsobDataset import PsobDataset
 from psob_authorship.features.utils import configure_logger_by_default
 from psob_authorship.model.Model import Model
 from psob_authorship.pso.PSO import PSO
@@ -19,7 +17,8 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "all as in paper, particle clamp each iteration",
+    'experiment_notes': "reproduction of results, all params as in paper, r1 and r2 are random vectors generated each "
+                        "iteration",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
@@ -34,7 +33,7 @@ CONFIG = {
     'trainers_to_use': ['pso', 'bp'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
                     'use_pyswarms': False,
-                    'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': True,
+                    'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': False,
                     'unchanged_iterations_stop': 20000,  'use_only_early_stopping': False
                     },
     'pso_velocity_clamp': (-1, 1),
