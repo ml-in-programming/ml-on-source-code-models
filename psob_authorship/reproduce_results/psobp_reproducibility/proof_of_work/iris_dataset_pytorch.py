@@ -60,7 +60,7 @@ class Model(nn.Module):
         return x
 
 
-def conduct_iris_dataset_comparison_experiment():
+def conduct_iris_dataset_pytorch_comparison_experiment():
     # Load the iris dataset
     data = load_iris()
 
@@ -102,4 +102,4 @@ def conduct_iris_dataset_comparison_experiment():
 
 
 if __name__ == '__main__':
-    conduct_iris_dataset_comparison_experiment()
+    conduct_iris_dataset_pytorch_comparison_experiment()
