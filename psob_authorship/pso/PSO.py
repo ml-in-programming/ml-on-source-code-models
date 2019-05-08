@@ -48,15 +48,15 @@ class PSO:
             import pyswarms as ps
             optimizer = ps.single.GlobalBestPSO(n_particles=self.n_particles, dimensions=self.model.dimensions,
                                                 options=self.options, velocity_clamp=velocity_clamp)
+            final_loss, best_params = optimizer.optimize(f_to_optimize, iters=iters)
         else:
             optimizer = DecreasingWeightPsoOptimizer(n_particles=self.n_particles, dimensions=self.model.dimensions,
                                                      options=self.options, velocity_clamp=velocity_clamp)
-
-        final_loss, best_params = optimizer.optimize(f_to_optimize, iters=iters,
-                                                     print_checkpoint=
-                                                     self.print_pso_checkpoint(train_features, train_labels,
-                                                                               test_features, test_labels,
-                                                                               self.options['print_info']))
+            final_loss, best_params = optimizer.optimize(f_to_optimize, iters=iters,
+                                                         print_checkpoint=
+                                                         self.print_pso_checkpoint(train_features, train_labels,
+                                                                                   test_features, test_labels,
+                                                                                   self.options['print_info']))
         self.set_model_weights(best_params)
         return final_loss, best_params
 
