@@ -44,7 +44,8 @@ class DecreasingWeightPsoOptimizer:
             pg_loss_prev = pg_loss
             pg_loss = np.min(pbs_loss)
             if i % 100 == 0:
-                print_checkpoint(i, pg)
+                if print_checkpoint is not None:
+                    print_checkpoint(i, pg)
             stays_unchanged = stays_unchanged + 1 if pg_loss_prev == pg_loss else 0
             if stays_unchanged == self.options['unchanged_iterations_stop']:
                 self.options['print_info']("Training early stopped on iteration " + str(i))
