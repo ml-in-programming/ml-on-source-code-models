@@ -48,6 +48,8 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
         accuracy = correct / total
         if best_accuracy >= accuracy:
             current_duration += 1
+        else:
+            current_duration = 0
             with torch.no_grad():
                 train_correct = 0
                 train_total = 0
@@ -59,8 +61,6 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
                     train_total += labels.size(0)
                     train_correct += (predicted == labels).sum().item()
                 train_accuracy = train_correct / train_total
-        else:
-            current_duration = 0
         best_accuracy = max(best_accuracy, accuracy)
         if current_duration > config['early_stopping_rounds']:
             print_info("On epoch " + str(epoch) + " training was early stopped")
