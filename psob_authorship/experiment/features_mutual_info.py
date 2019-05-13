@@ -22,6 +22,10 @@ CONFIG = {
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'random_state': 4562,
+    'discrete_features': [False, False, False, False, False,
+                          False, False, False, False, True,
+                          False, False, False, False, False,
+                          False, False, False, True],
     'pso_options': {}
 }
 INPUT_FEATURES = torch.load(CONFIG['labels_features_common_name'] + "_features.tr").numpy()
@@ -39,10 +43,9 @@ def get_features_mutual_info(file_to_print):
         print(info)
         file_to_print.write(info + "\n")
 
-    descrete_features = [False for _ in range(19)]
-    descrete_features[9] = True
-    descrete_features[18] = True
-    mutual_info = mutual_info_classif(INPUT_FEATURES, INPUT_LABELS, discrete_features=descrete_features, random_state=CONFIG['random_state'])
+    mutual_info = mutual_info_classif(INPUT_FEATURES, INPUT_LABELS,
+                                      discrete_features=CONFIG['discrete_features'],
+                                      random_state=CONFIG['random_state'])
     print_info("Mutual info: ")
     print_info(str(list(zip(range(mutual_info.shape[0]), zip(MetricsCalculator.ALL_METRICS, mutual_info)))))
     logger.info("END " + CONFIG['experiment_name'])

@@ -87,7 +87,7 @@ def draw_accuracies_graph(train_accuracies, test_accuracies, hidden_dims):
     plt.plot(hidden_dims, test_accuracies, '-o')
     plt.legend(('train', 'test'))
     plt.ylabel("Accuracy")
-    plt.xlabel("Percentage of train")
+    plt.xlabel("Hidden layer size")
     img_path_to_save_plot = "../experiment_result/" + CONFIG['experiment_name'] + "_"\
                             + str(datetime.datetime.now()) + ".png"
     plt.savefig(img_path_to_save_plot)
