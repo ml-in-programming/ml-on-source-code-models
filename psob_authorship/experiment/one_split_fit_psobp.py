@@ -17,8 +17,7 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "reproduction of results, all params as in paper, r1 and r2 are random vectors generated each "
-                        "iteration",
+    'experiment_notes': "nonlin twice, only bp",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
@@ -30,6 +29,7 @@ CONFIG = {
     'criterion': nn.CrossEntropyLoss(),
     'optimizer': optim.Adam,
     'shuffle': True,
+    'device': torch.device("cuda:0" if torch.cuda.is_available() else "cpu"),
     'trainers_to_use': ['pso', 'bp'],
     'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9),
                     'use_pyswarms': False,
@@ -73,7 +73,10 @@ def fit_model(file_to_print):
     model = Model()
     for trainer_type in CONFIG['trainers_to_use']:
         if trainer_type == 'bp':
-            train_bp(model, train_features, train_labels, test_features, test_labels, CONFIG)
+            test_acc, train_acc, test_loss, train_loss = \
+                train_bp(model, train_features, train_labels, test_features, test_labels, CONFIG)
+            print_info("Best Test Accuracy: " + str(test_acc) + ", Train Accuracy: " + str(train_acc) +
+                       ", Test Loss: " + str(test_loss) + ", Train Loss: " + str(train_loss))
         elif trainer_type == 'pso':
             train_pso(model, train_features, train_labels, test_features, test_labels, CONFIG)
     logger.info("END fit_model")

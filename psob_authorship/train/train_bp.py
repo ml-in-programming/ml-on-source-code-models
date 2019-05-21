@@ -21,6 +21,8 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
 
     best_accuracy = -1.0
     train_accuracy = -1.0
+    train_loss = -1.0
+    test_loss = -1.0
     current_duration = 0
     print_evaluation_before_train(model, criterion,
                                   train_features, train_labels,
@@ -61,6 +63,8 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
                     train_total += labels.size(0)
                     train_correct += (predicted == labels).sum().item()
                 train_accuracy = train_correct / train_total
+                train_loss = criterion(model(train_features), train_labels).item()
+                test_loss = criterion(model(test_features), test_labels).item()
         best_accuracy = max(best_accuracy, accuracy)
         if current_duration > config['early_stopping_rounds']:
             print_info("On epoch " + str(epoch) + " training was early stopped")
@@ -94,4 +98,4 @@ def train_bp(model, train_features, train_labels, test_features, test_labels, co
                (correct, total, 100 * correct / total))
     print_info("Correct labels / labels for each author of last validation:\n" +
                str(torch.stack((labels_correct, labels_dist), dim=1)))
-    return best_accuracy, train_accuracy
+    return best_accuracy, train_accuracy, test_loss, train_loss
