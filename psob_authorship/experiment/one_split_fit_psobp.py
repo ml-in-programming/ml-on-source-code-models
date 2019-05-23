@@ -17,7 +17,7 @@ from psob_authorship.train.train_pso import train_pso
 
 CONFIG = {
     'experiment_name': os.path.basename(__file__).split('.')[0],
-    'experiment_notes': "nonlin twice, only bp",
+    'experiment_notes': "",
     'number_of_authors': 40,
     'labels_features_common_name': "../calculated_features/extracted_for_each_file",
     'epochs': 10000,
