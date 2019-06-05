@@ -1,0 +1,4 @@
+Execution time: 0:00:12.659701
+Config: {'labels_features_common_name': '../calculated_features/without_5', 'epochs': 10, 'batch_size': 32, 'early_stopping_rounds': 350, 'lr': 0.02, 'n_splits': 10, 'cv': StratifiedKFold(n_splits=10, random_state=None, shuffle=False), 'scoring': 'accuracy', 'params': {'optimizer__momentum': [0.9]}}
+Best score: 0.35506287227001987
+Best params: {'optimizer__momentum': 0.9}

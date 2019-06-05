@@ -1,0 +1,56 @@
+Config: {'experiment_name': 'one_split_fit_psobp', 'experiment_notes': 'only bp', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'epochs': 10000, 'batch_size': 32, 'early_stopping_rounds': 500, 'lr': 0.001, 'n_splits': 10, 'random_state': 4562, 'criterion': CrossEntropyLoss(), 'optimizer': <class 'torch.optim.adam.Adam'>, 'shuffle': True, 'device': device(type='cpu'), 'trainers_to_use': ['bp'], 'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'use_pyswarms': False, 'particle_clamp': (-1, 1), 'use_particle_clamp_each_iteration': False, 'unchanged_iterations_stop': 20000, 'use_only_early_stopping': False}, 'pso_velocity_clamp': (-1, 1), 'n_particles': 100, 'pso_iters': 20000, 'pso_optimizer': <class 'psob_authorship.pso.PSO.PSO'>, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+INITIAL DATA. Train Loss: 3.6309494972229004 , Test Loss: 3.6335628032684326, Train Accuracy: 0.017777777777777778, Test Accuracy: 0.021739130434782608
+CHECKPOINT EACH 100th EPOCH 0. Train Loss: 2.2352917194366455 , Test Loss: 2.275700807571411, Train Accuracy: 0.4262962962962963, Test Accuracy: 0.40062111801242234
+CHECKPOINT EACH 100th EPOCH 100. Train Loss: 0.30840834975242615 , Test Loss: 0.8652099370956421, Train Accuracy: 0.9237037037037037, Test Accuracy: 0.7919254658385093
+CHECKPOINT EACH 100th EPOCH 200. Train Loss: 0.0802965760231018 , Test Loss: 1.107527732849121, Train Accuracy: 0.9929629629629629, Test Accuracy: 0.7857142857142857
+CHECKPOINT EACH 100th EPOCH 300. Train Loss: 0.021116960793733597 , Test Loss: 1.4244345426559448, Train Accuracy: 0.9985185185185185, Test Accuracy: 0.782608695652174
+CHECKPOINT EACH 100th EPOCH 400. Train Loss: 0.007600599899888039 , Test Loss: 1.749592900276184, Train Accuracy: 0.9992592592592593, Test Accuracy: 0.7857142857142857
+CHECKPOINT EACH 100th EPOCH 500. Train Loss: 0.003879368770867586 , Test Loss: 2.0641658306121826, Train Accuracy: 0.9988888888888889, Test Accuracy: 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 600. Train Loss: 0.002175562549382448 , Test Loss: 2.4103803634643555, Train Accuracy: 0.9996296296296296, Test Accuracy: 0.7763975155279503
+On epoch 655 training was early stopped
+Finished training
+Best accuracy: 0.8012422360248447
+Accuracy of the last validation of the network: 246 / 322 = 76 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  7.],
+        [13., 14.],
+        [ 4.,  4.],
+        [ 8., 10.],
+        [ 7., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 1.,  3.],
+        [ 5.,  6.],
+        [ 2.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 1.,  8.],
+        [ 5.,  8.],
+        [ 6.,  7.],
+        [ 1.,  4.],
+        [ 3., 10.],
+        [ 4.,  5.],
+        [ 0.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 4.,  8.],
+        [ 6.,  6.],
+        [ 3.,  4.],
+        [ 8., 10.],
+        [ 1.,  2.],
+        [ 2.,  3.],
+        [ 2.,  5.],
+        [19., 21.],
+        [ 2.,  3.],
+        [10., 15.],
+        [ 2.,  4.],
+        [ 3.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+Best Test Accuracy: 0.8012422360248447, Train Accuracy: 0.9718518518518519, Test Loss: 0.9595212936401367, Train Loss: 0.1518762856721878
+Execution time: 0:03:45.001239

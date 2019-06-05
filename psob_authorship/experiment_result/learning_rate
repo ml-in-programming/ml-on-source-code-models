@@ -1,0 +1,5 @@
+Execution time: 0:47:33.793569
+Config: {'experiment_name': 'learning_rate', 'labels_features_common_name': '../calculated_features/without_5', 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 350, 'cv': 10, 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True, 'random_state': 0, 'params': {'lr': [0.001, 0.005, 0.01, 0.015, 0.02, 0.025]}}
+Accuracies for learning rates: 
+{0.001: 0.5186335403726708, 0.005: 0.5869565217391305, 0.01: 0.562111801242236, 0.015: 0.5527950310559007, 0.02: 0.5993788819875776, 0.025: 0.5559006211180124}
+Best: 0.02

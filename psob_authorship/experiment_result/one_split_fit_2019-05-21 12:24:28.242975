@@ -1,0 +1,67 @@
+Config: {'experiment_name': 'one_split_fit', 'experiment_notes': 'nonlin is taken twice.', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 700, 'lr': 0.02, 'n_splits': 10, 'random_state': 4562, 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4161490683229814 , best 0.4161490683229814
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7111801242236024 , best 0.7204968944099379
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7360248447204969 , best 0.7453416149068323
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7329192546583851 , best 0.7453416149068323
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7484472049689441 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7422360248447205 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7453416149068323 , best 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7577639751552795 , best 0.7608695652173914
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7608695652173914 , best 0.7608695652173914
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7639751552795031 , best 0.7639751552795031
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7639751552795031 , best 0.7670807453416149
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7670807453416149 , best 0.7670807453416149
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7701863354037267 , best 0.7732919254658385
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7701863354037267 , best 0.7732919254658385
+CHECKPOINT EACH 100th EPOCH 1400: current accuracy 0.7763975155279503 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 1500: current accuracy 0.7701863354037267 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 1600: current accuracy 0.7701863354037267 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 1700: current accuracy 0.7701863354037267 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 1800: current accuracy 0.7701863354037267 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 1900: current accuracy 0.7732919254658385 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 2000: current accuracy 0.7670807453416149 , best 0.7795031055900621
+On epoch 2059 training was early stopped
+Best accuracy: 0.7795031055900621
+Final accuracy of the network: 247 / 322 = 76 %
+Correct labels / labels for each author:
+tensor([[ 5.,  7.],
+        [13., 14.],
+        [ 4.,  4.],
+        [ 8., 10.],
+        [ 5., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 0.,  3.],
+        [ 5.,  6.],
+        [ 4.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 2.,  8.],
+        [ 5.,  8.],
+        [ 6.,  7.],
+        [ 1.,  4.],
+        [ 2., 10.],
+        [ 4.,  5.],
+        [ 1.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 4.,  8.],
+        [ 6.,  6.],
+        [ 3.,  4.],
+        [ 8., 10.],
+        [ 0.,  2.],
+        [ 1.,  3.],
+        [ 4.,  5.],
+        [19., 21.],
+        [ 2.,  3.],
+        [ 9., 15.],
+        [ 3.,  4.],
+        [ 4.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 5.,  5.]])
+Execution time: 0:11:42.473163

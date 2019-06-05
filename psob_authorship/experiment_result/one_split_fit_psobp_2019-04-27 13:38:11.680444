@@ -1,0 +1,147 @@
+Config: {'experiment_name': 'one_split_fit_psobp', 'experiment_notes': 'add bp after', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'epochs': 10000, 'batch_size': 32, 'early_stopping_rounds': 500, 'lr': 0.001, 'n_splits': 10, 'random_state': 4562, 'criterion': CrossEntropyLoss(), 'optimizer': <class 'torch.optim.adam.Adam'>, 'shuffle': True, 'trainers_to_use': ['pso', 'bp'], 'pso_options': {'c1': 1.49, 'c2': 1.49, 'w': (0.4, 0.9), 'unchanged_iterations_stop': 1000, 'use_pyswarms': False, 'particle_clamp': (-1, 1), 'use_only_early_stopping': False}, 'pso_velocity_clamp': (-1, 1), 'n_particles': 100, 'pso_iters': 1000, 'pso_optimizer': <class 'psob_authorship.pso.PSO.PSO'>, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+INITIAL DATA: accuracy 0.021739130434782608, train loss 3.6309494972229004, test loss 3.6335628032684326
+CHECKPOINT each 25 iteration. Loss: 9.411121
+CHECKPOINT each 25 iteration. Loss: 9.092128
+CHECKPOINT each 25 iteration. Loss: 8.688136
+CHECKPOINT each 25 iteration. Loss: 8.688136
+CHECKPOINT each 25 iteration. Loss: 8.446991
+CHECKPOINT each 25 iteration. Loss: 8.10042
+CHECKPOINT each 25 iteration. Loss: 7.5624976
+CHECKPOINT each 25 iteration. Loss: 7.295745
+CHECKPOINT each 25 iteration. Loss: 6.8294635
+CHECKPOINT each 25 iteration. Loss: 6.3138766
+CHECKPOINT each 25 iteration. Loss: 5.833687
+CHECKPOINT each 25 iteration. Loss: 5.4832873
+CHECKPOINT each 25 iteration. Loss: 5.188082
+CHECKPOINT each 25 iteration. Loss: 4.9769425
+CHECKPOINT each 25 iteration. Loss: 4.768663
+CHECKPOINT each 25 iteration. Loss: 4.515062
+CHECKPOINT each 25 iteration. Loss: 4.363367
+CHECKPOINT each 25 iteration. Loss: 4.2211637
+CHECKPOINT each 25 iteration. Loss: 4.095027
+CHECKPOINT each 25 iteration. Loss: 3.9962797
+CHECKPOINT each 25 iteration. Loss: 3.9275856
+CHECKPOINT each 25 iteration. Loss: 3.8800912
+CHECKPOINT each 25 iteration. Loss: 3.8302522
+CHECKPOINT each 25 iteration. Loss: 3.7991164
+CHECKPOINT each 25 iteration. Loss: 3.7796052
+CHECKPOINT each 25 iteration. Loss: 3.772968
+CHECKPOINT each 25 iteration. Loss: 3.77002
+CHECKPOINT each 25 iteration. Loss: 3.7688274
+CHECKPOINT each 25 iteration. Loss: 3.7688127
+CHECKPOINT each 25 iteration. Loss: 3.7688081
+CHECKPOINT each 25 iteration. Loss: 3.7688065
+CHECKPOINT each 25 iteration. Loss: 3.7688065
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+CHECKPOINT each 25 iteration. Loss: 3.7688057
+Loss after PSO optimizing = 3.7688057
+Train accuracy of the network: 1368 / 2700 = 50 %
+Final accuracy of the network: 153 / 322 = 47 %
+Correct labels / labels for each author:
+tensor([[ 2.,  7.],
+        [ 9., 14.],
+        [ 1.,  4.],
+        [ 2., 10.],
+        [ 2., 10.],
+        [72., 72.],
+        [ 4.,  6.],
+        [ 2.,  3.],
+        [ 0.,  3.],
+        [ 4.,  6.],
+        [ 0.,  5.],
+        [ 5.,  9.],
+        [ 2.,  3.],
+        [ 3.,  7.],
+        [ 0.,  2.],
+        [ 0.,  8.],
+        [ 2.,  8.],
+        [ 3.,  7.],
+        [ 0.,  4.],
+        [ 1., 10.],
+        [ 1.,  5.],
+        [ 1.,  2.],
+        [ 1.,  5.],
+        [ 2.,  3.],
+        [ 3.,  7.],
+        [ 3.,  8.],
+        [ 2.,  6.],
+        [ 1.,  4.],
+        [ 4., 10.],
+        [ 0.,  2.],
+        [ 0.,  3.],
+        [ 1.,  5.],
+        [17., 21.],
+        [ 0.,  3.],
+        [ 3., 15.],
+        [ 0.,  4.],
+        [ 0.,  9.],
+        [ 0.,  3.],
+        [ 0.,  4.],
+        [ 0.,  5.]])
+END OF PSO TRAINING
+INITIAL DATA: accuracy 0.4751552795031056, train loss 3.768805742263794, test loss 4.663593292236328
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.5031055900621118 , best 0.5031055900621118, train loss 3.360455274581909, test loss 4.329955101013184
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6677018633540373 , best 0.6801242236024845, train loss 0.18982002139091492, test loss 2.25583815574646
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.6801242236024845 , best 0.6863354037267081, train loss 0.03842749074101448, test loss 2.324585199356079
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.6894409937888198 , best 0.6925465838509317, train loss 0.011249435134232044, test loss 2.4183309078216553
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7111801242236024 , best 0.7111801242236024, train loss 0.004306333139538765, test loss 2.574561834335327
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7236024844720497 , best 0.7236024844720497, train loss 0.0023805841337889433, test loss 2.7868170738220215
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.717391304347826 , best 0.7236024844720497, train loss 0.0014961278066039085, test loss 2.998102903366089
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7142857142857143 , best 0.7236024844720497, train loss 0.0008142117876559496, test loss 3.305079221725464
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.717391304347826 , best 0.7267080745341615, train loss 0.0018736097263172269, test loss 3.6182243824005127
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7204968944099379 , best 0.7267080745341615, train loss 0.00033715777681209147, test loss 3.896385431289673
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7049689440993789 , best 0.7267080745341615, train loss 0.0001999148662434891, test loss 4.1333723068237305
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.7080745341614907 , best 0.7267080745341615, train loss 0.00010708066838560626, test loss 4.345654487609863
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7018633540372671 , best 0.7267080745341615, train loss 6.156179733807221e-05, test loss 4.564729690551758
+On epoch 1298 training was early stopped
+Finished training
+Best accuracy: 0.7267080745341615
+Accuracy of the last validation of the network: 229 / 322 = 71 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  7.],
+        [12., 14.],
+        [ 4.,  4.],
+        [ 5., 10.],
+        [ 7., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 0.,  3.],
+        [ 0.,  3.],
+        [ 6.,  6.],
+        [ 1.,  5.],
+        [ 7.,  9.],
+        [ 3.,  3.],
+        [ 4.,  7.],
+        [ 1.,  2.],
+        [ 1.,  8.],
+        [ 6.,  8.],
+        [ 6.,  7.],
+        [ 1.,  4.],
+        [ 2., 10.],
+        [ 4.,  5.],
+        [ 0.,  2.],
+        [ 0.,  5.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 4.,  8.],
+        [ 6.,  6.],
+        [ 2.,  4.],
+        [ 8., 10.],
+        [ 1.,  2.],
+        [ 1.,  3.],
+        [ 3.,  5.],
+        [18., 21.],
+        [ 2.,  3.],
+        [ 9., 15.],
+        [ 1.,  4.],
+        [ 1.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+Execution time: 0:10:46.952185

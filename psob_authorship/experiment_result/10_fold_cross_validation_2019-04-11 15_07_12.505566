@@ -1,0 +1,574 @@
+Config: {'experiment_name': '10_fold_cross_validation', 'experiment_notes': '10 fold cv for Adam', 'number_of_authors': 40, 'labels_features_common_name': '/content/extracted_for_each_file', 'metrics': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 10000, 'batch_size': 32, 'early_stopping_rounds': 500, 'lr': 0.001, 'n_splits': 10, 'n_repeats': 1, 'random_state': 4562, 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.adam.Adam'>, 'shuffle': True, 'device': device(type='cpu'), 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+New 0 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.42857142857142855 , best 0.42857142857142855
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7453416149068323 , best 0.7453416149068323
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7795031055900621 , best 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7732919254658385 , best 0.7919254658385093
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7608695652173914 , best 0.7919254658385093
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7577639751552795 , best 0.7919254658385093
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7546583850931677 , best 0.7919254658385093
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7546583850931677 , best 0.7919254658385093
+On epoch 739 training was early stopped
+Finished training for 0 fold, repeat 0
+Best accuracy: 0.7919254658385093
+Accuracy of the last validation of the network: 243 / 322 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  7.],
+        [13., 14.],
+        [ 4.,  4.],
+        [ 6., 10.],
+        [ 7., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 1.,  3.],
+        [ 6.,  6.],
+        [ 2.,  5.],
+        [ 8.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 2.,  8.],
+        [ 5.,  8.],
+        [ 6.,  7.],
+        [ 1.,  4.],
+        [ 2., 10.],
+        [ 3.,  5.],
+        [ 0.,  2.],
+        [ 0.,  5.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 4.,  8.],
+        [ 6.,  6.],
+        [ 4.,  4.],
+        [ 9., 10.],
+        [ 0.,  2.],
+        [ 1.,  3.],
+        [ 5.,  5.],
+        [19., 21.],
+        [ 2.,  3.],
+        [11., 15.],
+        [ 2.,  4.],
+        [ 2.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+New 1 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.40822784810126583 , best 0.40822784810126583
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7310126582278481 , best 0.7310126582278481
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7310126582278481 , best 0.740506329113924
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7310126582278481 , best 0.740506329113924
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7278481012658228 , best 0.740506329113924
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7436708860759493 , best 0.7436708860759493
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7373417721518988 , best 0.7468354430379747
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7373417721518988 , best 0.7468354430379747
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7563291139240507 , best 0.7563291139240507
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7531645569620253 , best 0.7658227848101266
+CHECKPOINT EACH 100th EPOCH 1000: current accuracy 0.7563291139240507 , best 0.7658227848101266
+CHECKPOINT EACH 100th EPOCH 1100: current accuracy 0.75 , best 0.7658227848101266
+CHECKPOINT EACH 100th EPOCH 1200: current accuracy 0.7563291139240507 , best 0.7658227848101266
+CHECKPOINT EACH 100th EPOCH 1300: current accuracy 0.7531645569620253 , best 0.7658227848101266
+On epoch 1325 training was early stopped
+Finished training for 1 fold, repeat 0
+Best accuracy: 0.7658227848101266
+Accuracy of the last validation of the network: 238 / 316 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 4.,  7.],
+        [12., 14.],
+        [ 4.,  4.],
+        [ 4., 10.],
+        [ 4.,  9.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 2.,  3.],
+        [ 6.,  6.],
+        [ 2.,  5.],
+        [ 8.,  9.],
+        [ 2.,  3.],
+        [ 5.,  7.],
+        [ 0.,  1.],
+        [ 3.,  8.],
+        [ 6.,  7.],
+        [ 7.,  7.],
+        [ 1.,  4.],
+        [ 6., 10.],
+        [ 2.,  5.],
+        [ 2.,  2.],
+        [ 3.,  5.],
+        [ 2.,  3.],
+        [ 6.,  7.],
+        [ 6.,  8.],
+        [ 4.,  6.],
+        [ 2.,  4.],
+        [ 8., 10.],
+        [ 2.,  2.],
+        [ 3.,  3.],
+        [ 3.,  4.],
+        [17., 20.],
+        [ 0.,  3.],
+        [12., 15.],
+        [ 2.,  3.],
+        [ 4.,  9.],
+        [ 2.,  3.],
+        [ 2.,  4.],
+        [ 0.,  5.]])
+New 2 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4180064308681672 , best 0.4180064308681672
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6816720257234726 , best 0.7106109324758842
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.707395498392283 , best 0.7170418006430869
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7363344051446945 , best 0.7363344051446945
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7234726688102894 , best 0.7427652733118971
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7202572347266881 , best 0.7427652733118971
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.729903536977492 , best 0.7427652733118971
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7234726688102894 , best 0.7427652733118971
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7331189710610932 , best 0.7427652733118971
+On epoch 830 training was early stopped
+Finished training for 2 fold, repeat 0
+Best accuracy: 0.7427652733118971
+Accuracy of the last validation of the network: 230 / 311 = 73 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  7.],
+        [14., 14.],
+        [ 4.,  4.],
+        [ 4., 10.],
+        [ 3.,  9.],
+        [70., 71.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 1.,  3.],
+        [ 6.,  6.],
+        [ 3.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 2.,  7.],
+        [ 0.,  1.],
+        [ 4.,  8.],
+        [ 4.,  7.],
+        [ 4.,  6.],
+        [ 0.,  4.],
+        [ 5., 10.],
+        [ 2.,  5.],
+        [ 0.,  2.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 7.,  8.],
+        [ 3.,  6.],
+        [ 0.,  4.],
+        [ 9., 10.],
+        [ 2.,  2.],
+        [ 2.,  3.],
+        [ 3.,  4.],
+        [18., 20.],
+        [ 1.,  2.],
+        [13., 15.],
+        [ 0.,  3.],
+        [ 3.,  8.],
+        [ 2.,  3.],
+        [ 3.,  4.],
+        [ 2.,  5.]])
+New 3 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.45307443365695793 , best 0.45307443365695793
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7184466019417476 , best 0.7281553398058253
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7572815533980582 , best 0.7605177993527508
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7572815533980582 , best 0.7734627831715211
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7508090614886731 , best 0.7734627831715211
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7637540453074434 , best 0.7734627831715211
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7605177993527508 , best 0.7734627831715211
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7508090614886731 , best 0.7734627831715211
+On epoch 728 training was early stopped
+Finished training for 3 fold, repeat 0
+Best accuracy: 0.7734627831715211
+Accuracy of the last validation of the network: 232 / 309 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  6.],
+        [12., 13.],
+        [ 4.,  4.],
+        [ 2., 10.],
+        [ 5.,  9.],
+        [71., 71.],
+        [ 6.,  6.],
+        [ 3.,  3.],
+        [ 2.,  3.],
+        [ 4.,  6.],
+        [ 3.,  5.],
+        [ 8.,  9.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 0.,  1.],
+        [ 2.,  8.],
+        [ 4.,  7.],
+        [ 4.,  6.],
+        [ 0.,  4.],
+        [ 3., 10.],
+        [ 3.,  5.],
+        [ 1.,  2.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 6.,  8.],
+        [ 5.,  6.],
+        [ 3.,  4.],
+        [ 9., 10.],
+        [ 2.,  2.],
+        [ 3.,  3.],
+        [ 4.,  4.],
+        [17., 20.],
+        [ 1.,  2.],
+        [12., 15.],
+        [ 0.,  3.],
+        [ 1.,  8.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 2.,  5.]])
+New 4 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.47058823529411764 , best 0.47058823529411764
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7091503267973857 , best 0.7287581699346405
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7352941176470589 , best 0.7483660130718954
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7352941176470589 , best 0.7483660130718954
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7352941176470589 , best 0.7549019607843137
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7320261437908496 , best 0.7549019607843137
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7287581699346405 , best 0.7549019607843137
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7352941176470589 , best 0.7549019607843137
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7352941176470589 , best 0.7549019607843137
+On epoch 812 training was early stopped
+Finished training for 4 fold, repeat 0
+Best accuracy: 0.7549019607843137
+Accuracy of the last validation of the network: 224 / 306 = 73 %
+Correct labels / labels for each author of last validation:
+tensor([[ 3.,  6.],
+        [12., 13.],
+        [ 2.,  4.],
+        [ 6., 10.],
+        [ 6.,  9.],
+        [69., 71.],
+        [ 4.,  5.],
+        [ 1.,  3.],
+        [ 1.,  3.],
+        [ 5.,  6.],
+        [ 4.,  5.],
+        [ 7.,  9.],
+        [ 2.,  3.],
+        [ 6.,  7.],
+        [ 0.,  1.],
+        [ 1.,  8.],
+        [ 5.,  7.],
+        [ 3.,  6.],
+        [ 1.,  4.],
+        [ 4., 10.],
+        [ 3.,  5.],
+        [ 2.,  2.],
+        [ 0.,  4.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 6.,  8.],
+        [ 2.,  6.],
+        [ 2.,  4.],
+        [ 8., 10.],
+        [ 1.,  2.],
+        [ 1.,  2.],
+        [ 4.,  4.],
+        [17., 20.],
+        [ 2.,  2.],
+        [11., 15.],
+        [ 2.,  3.],
+        [ 2.,  8.],
+        [ 3.,  3.],
+        [ 4.,  4.],
+        [ 2.,  4.]])
+New 5 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.39603960396039606 , best 0.39603960396039606
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.6864686468646864 , best 0.6897689768976898
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.6963696369636964 , best 0.7062706270627063
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7062706270627063 , best 0.7095709570957096
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7128712871287128 , best 0.7161716171617162
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7128712871287128 , best 0.7260726072607261
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7095709570957096 , best 0.7260726072607261
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7095709570957096 , best 0.7260726072607261
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7161716171617162 , best 0.7260726072607261
+CHECKPOINT EACH 100th EPOCH 900: current accuracy 0.7128712871287128 , best 0.7260726072607261
+On epoch 955 training was early stopped
+Finished training for 5 fold, repeat 0
+Best accuracy: 0.7260726072607261
+Accuracy of the last validation of the network: 215 / 303 = 70 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  6.],
+        [13., 13.],
+        [ 3.,  4.],
+        [ 6., 10.],
+        [ 6.,  9.],
+        [69., 71.],
+        [ 5.,  5.],
+        [ 0.,  3.],
+        [ 0.,  2.],
+        [ 5.,  6.],
+        [ 2.,  5.],
+        [ 8.,  9.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 0.,  1.],
+        [ 3.,  8.],
+        [ 3.,  7.],
+        [ 3.,  6.],
+        [ 1.,  4.],
+        [ 2.,  9.],
+        [ 4.,  5.],
+        [ 2.,  2.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 6.,  6.],
+        [ 5.,  8.],
+        [ 5.,  6.],
+        [ 1.,  4.],
+        [ 7., 10.],
+        [ 1.,  2.],
+        [ 2.,  2.],
+        [ 1.,  4.],
+        [17., 20.],
+        [ 2.,  2.],
+        [10., 15.],
+        [ 2.,  3.],
+        [ 1.,  8.],
+        [ 1.,  3.],
+        [ 1.,  4.],
+        [ 0.,  4.]])
+New 6 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4358108108108108 , best 0.4358108108108108
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7601351351351351 , best 0.7635135135135135
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7837837837837838 , best 0.7905405405405406
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.777027027027027 , best 0.7905405405405406
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7804054054054054 , best 0.793918918918919
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7702702702702703 , best 0.793918918918919
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7702702702702703 , best 0.793918918918919
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7702702702702703 , best 0.793918918918919
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7668918918918919 , best 0.793918918918919
+On epoch 828 training was early stopped
+Finished training for 6 fold, repeat 0
+Best accuracy: 0.793918918918919
+Accuracy of the last validation of the network: 230 / 296 = 77 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  6.],
+        [13., 13.],
+        [ 4.,  4.],
+        [ 7., 10.],
+        [ 4.,  9.],
+        [71., 71.],
+        [ 5.,  5.],
+        [ 2.,  3.],
+        [ 1.,  2.],
+        [ 5.,  5.],
+        [ 2.,  4.],
+        [ 7.,  8.],
+        [ 3.,  3.],
+        [ 6.,  6.],
+        [ 1.,  1.],
+        [ 0.,  8.],
+        [ 4.,  7.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 3.,  9.],
+        [ 4.,  5.],
+        [ 1.,  2.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 5.,  6.],
+        [ 3.,  8.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 8.,  9.],
+        [ 1.,  2.],
+        [ 2.,  2.],
+        [ 4.,  4.],
+        [16., 20.],
+        [ 1.,  2.],
+        [12., 15.],
+        [ 0.,  3.],
+        [ 3.,  8.],
+        [ 2.,  3.],
+        [ 3.,  4.],
+        [ 2.,  4.]])
+New 7 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4671280276816609 , best 0.4671280276816609
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7508650519031141 , best 0.7577854671280276
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.754325259515571 , best 0.7785467128027682
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7577854671280276 , best 0.7785467128027682
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7612456747404844 , best 0.7785467128027682
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7577854671280276 , best 0.7785467128027682
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7577854671280276 , best 0.7785467128027682
+On epoch 662 training was early stopped
+Finished training for 7 fold, repeat 0
+Best accuracy: 0.7785467128027682
+Accuracy of the last validation of the network: 219 / 289 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 6.,  6.],
+        [13., 13.],
+        [ 4.,  4.],
+        [ 4.,  9.],
+        [ 5.,  9.],
+        [71., 71.],
+        [ 5.,  5.],
+        [ 1.,  2.],
+        [ 0.,  2.],
+        [ 4.,  5.],
+        [ 1.,  4.],
+        [ 5.,  8.],
+        [ 1.,  2.],
+        [ 4.,  6.],
+        [ 0.,  1.],
+        [ 1.,  7.],
+        [ 4.,  7.],
+        [ 4.,  6.],
+        [ 0.,  3.],
+        [ 4.,  9.],
+        [ 1.,  5.],
+        [ 1.,  1.],
+        [ 1.,  4.],
+        [ 3.,  3.],
+        [ 5.,  6.],
+        [ 6.,  7.],
+        [ 6.,  6.],
+        [ 1.,  3.],
+        [ 8.,  9.],
+        [ 2.,  2.],
+        [ 2.,  2.],
+        [ 3.,  4.],
+        [19., 20.],
+        [ 0.,  2.],
+        [13., 15.],
+        [ 2.,  3.],
+        [ 4.,  8.],
+        [ 1.,  2.],
+        [ 2.,  4.],
+        [ 2.,  4.]])
+New 8 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4912891986062718 , best 0.4912891986062718
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.7003484320557491 , best 0.7073170731707317
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.735191637630662 , best 0.7386759581881533
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7212543554006968 , best 0.7456445993031359
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7212543554006968 , best 0.7456445993031359
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7282229965156795 , best 0.7456445993031359
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7282229965156795 , best 0.7456445993031359
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7282229965156795 , best 0.7456445993031359
+On epoch 739 training was early stopped
+Finished training for 8 fold, repeat 0
+Best accuracy: 0.7456445993031359
+Accuracy of the last validation of the network: 208 / 287 = 72 %
+Correct labels / labels for each author of last validation:
+tensor([[ 4.,  6.],
+        [10., 13.],
+        [ 4.,  4.],
+        [ 8.,  9.],
+        [ 3.,  9.],
+        [70., 71.],
+        [ 4.,  5.],
+        [ 0.,  2.],
+        [ 1.,  2.],
+        [ 5.,  5.],
+        [ 0.,  4.],
+        [ 7.,  8.],
+        [ 2.,  2.],
+        [ 5.,  6.],
+        [ 0.,  1.],
+        [ 0.,  7.],
+        [ 6.,  7.],
+        [ 6.,  6.],
+        [ 0.,  3.],
+        [ 3.,  9.],
+        [ 3.,  5.],
+        [ 0.,  1.],
+        [ 1.,  4.],
+        [ 2.,  2.],
+        [ 6.,  6.],
+        [ 6.,  7.],
+        [ 5.,  6.],
+        [ 0.,  3.],
+        [ 6.,  9.],
+        [ 2.,  2.],
+        [ 1.,  2.],
+        [ 3.,  4.],
+        [18., 20.],
+        [ 2.,  2.],
+        [11., 15.],
+        [ 1.,  3.],
+        [ 1.,  8.],
+        [ 2.,  2.],
+        [ 0.,  3.],
+        [ 0.,  4.]])
+New 9 fold. repeat = 0
+CHECKPOINT EACH 100th EPOCH 0: current accuracy 0.4452296819787986 , best 0.4452296819787986
+CHECKPOINT EACH 100th EPOCH 100: current accuracy 0.734982332155477 , best 0.7420494699646644
+CHECKPOINT EACH 100th EPOCH 200: current accuracy 0.7455830388692579 , best 0.7561837455830389
+CHECKPOINT EACH 100th EPOCH 300: current accuracy 0.7597173144876325 , best 0.7632508833922261
+CHECKPOINT EACH 100th EPOCH 400: current accuracy 0.7526501766784452 , best 0.7667844522968198
+CHECKPOINT EACH 100th EPOCH 500: current accuracy 0.7597173144876325 , best 0.7667844522968198
+CHECKPOINT EACH 100th EPOCH 600: current accuracy 0.7597173144876325 , best 0.7667844522968198
+CHECKPOINT EACH 100th EPOCH 700: current accuracy 0.7597173144876325 , best 0.7667844522968198
+CHECKPOINT EACH 100th EPOCH 800: current accuracy 0.7561837455830389 , best 0.7667844522968198
+On epoch 871 training was early stopped
+Finished training for 9 fold, repeat 0
+Best accuracy: 0.7667844522968198
+Accuracy of the last validation of the network: 212 / 283 = 74 %
+Correct labels / labels for each author of last validation:
+tensor([[ 4.,  6.],
+        [13., 13.],
+        [ 2.,  3.],
+        [ 3.,  9.],
+        [ 5.,  9.],
+        [71., 71.],
+        [ 4.,  5.],
+        [ 0.,  2.],
+        [ 0.,  2.],
+        [ 5.,  5.],
+        [ 3.,  4.],
+        [ 8.,  8.],
+        [ 2.,  2.],
+        [ 5.,  6.],
+        [ 0.,  1.],
+        [ 3.,  7.],
+        [ 5.,  7.],
+        [ 4.,  6.],
+        [ 0.,  3.],
+        [ 5.,  9.],
+        [ 1.,  4.],
+        [ 0.,  1.],
+        [ 2.,  4.],
+        [ 2.,  2.],
+        [ 5.,  6.],
+        [ 6.,  7.],
+        [ 3.,  6.],
+        [ 1.,  3.],
+        [ 8.,  9.],
+        [ 0.,  1.],
+        [ 2.,  2.],
+        [ 4.,  4.],
+        [17., 20.],
+        [ 1.,  2.],
+        [10., 14.],
+        [ 2.,  3.],
+        [ 1.,  8.],
+        [ 0.,  2.],
+        [ 3.,  3.],
+        [ 2.,  4.]])
+Execution time: 0:47:24.733034
+Accuracies: 
+tensor([[0.7919],
+        [0.7658],
+        [0.7428],
+        [0.7735],
+        [0.7549],
+        [0.7261],
+        [0.7939],
+        [0.7785],
+        [0.7456],
+        [0.7668]])
+Mean of all accuracies: tensor(0.7640)
+Std of all accuracies: tensor(0.0207)
+Std unbiased of all accuracies (Bessel's correction): tensor(0.0218)
+Means: tensor([0.7919, 0.7658, 0.7428, 0.7735, 0.7549, 0.7261, 0.7939, 0.7785, 0.7456,
+        0.7668])
+Stds: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+Stds unbiased (Bessel's correction): tensor([nan, nan, nan, nan, nan, nan, nan, nan, nan, nan])
+Mean of means: tensor(0.7640)
+Std of means: tensor(0.0207)
+Std of means (Bessel's correction): tensor(0.0218)

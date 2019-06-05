@@ -1,0 +1,3 @@
+dataset/java_project_jar/java_project_jar/LineIterator.java file was changed:
+three lines were removed.
+This was done because code was incorrect and couldn't be compiled due to using goto statement.

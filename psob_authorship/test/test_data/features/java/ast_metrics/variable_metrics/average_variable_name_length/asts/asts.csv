@@ -1,0 +1,4 @@
+id,ast
+/home/mikhail/Documents/Development/ml-on-source-code-models/psob_authorship/test/test_data/features/java/ast_metrics/variable_metrics/average_variable_name_length/1_variable.java,1 1{1 2{2 3{}1 4{3 3{}4 3{}1 5{5 3{}1 6{6 3{}1 7{7 3{}8 3{}9 3{}}10 3{}}13 3{}}}}14 3{}}
+/home/mikhail/Documents/Development/ml-on-source-code-models/psob_authorship/test/test_data/features/java/ast_metrics/variable_metrics/average_variable_name_length/2_variables.java,1 1{1 2{2 3{}1 4{3 3{}4 3{}1 5{5 3{}1 6{15 3{}1 7{7 3{}8 3{}16 3{}}10 3{}}1 6{6 3{}1 7{17 3{}8 3{}9 3{}}10 3{}}13 3{}}}}14 3{}}
+/home/mikhail/Documents/Development/ml-on-source-code-models/psob_authorship/test/test_data/features/java/ast_metrics/variable_metrics/average_variable_name_length/3_variables.java,1 1{1 2{2 3{}1 4{3 3{}4 3{}1 5{5 3{}1 6{6 3{}1 7{7 3{}8 3{}9 3{}}10 3{}}1 6{6 3{}1 7{11 3{}8 3{}9 3{}}10 3{}}1 6{6 3{}1 7{12 3{}8 3{}9 3{}}10 3{}}13 3{}}}}14 3{}}

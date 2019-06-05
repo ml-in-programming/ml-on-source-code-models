@@ -1,0 +1,274 @@
+Config: {'experiment_name': 'partial_train_test_accuracy', 'experiment_notes': 'INCORRECT EXPERIMENT, TRAIN ACCURACY NOT CORRESPONDS TO TEST ACCURACY. train on part of train set and check train and test accuracy', 'train_splits': [0.2, 0.4, 0.6, 0.8, 1], 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/extracted_for_each_file', 'epochs': 10000, 'batch_size': 32, 'early_stopping_rounds': 500, 'lr': 0.001, 'n_splits': 10, 'random_state': 4562, 'criterion': CrossEntropyLoss(), 'optimizer': <class 'torch.optim.adam.Adam'>, 'shuffle': True, 'device': device(type='cpu'), 'pso_options': {}, 'cv': StratifiedKFold(n_splits=10, random_state=4562, shuffle=True)}
+INITIAL DATA. Train Loss: 3.6398684978485107 , Test Loss: 3.63325572013855, Train Accuracy: 0.02962962962962963, Test Accuracy: 0.018633540372670808
+CHECKPOINT EACH 100th EPOCH 0. Train Loss: 3.075899600982666 , Test Loss: 3.0805652141571045, Train Accuracy: 0.3148148148148148, Test Accuracy: 0.3198757763975155
+CHECKPOINT EACH 100th EPOCH 100. Train Loss: 0.40918877720832825 , Test Loss: 1.7563039064407349, Train Accuracy: 0.9018518518518519, Test Accuracy: 0.6304347826086957
+CHECKPOINT EACH 100th EPOCH 200. Train Loss: 0.12844714522361755 , Test Loss: 2.076808214187622, Train Accuracy: 0.9888888888888889, Test Accuracy: 0.6366459627329193
+CHECKPOINT EACH 100th EPOCH 300. Train Loss: 0.03996306285262108 , Test Loss: 2.3967478275299072, Train Accuracy: 1.0, Test Accuracy: 0.6335403726708074
+CHECKPOINT EACH 100th EPOCH 400. Train Loss: 0.01416059210896492 , Test Loss: 2.6852452754974365, Train Accuracy: 1.0, Test Accuracy: 0.6428571428571429
+CHECKPOINT EACH 100th EPOCH 500. Train Loss: 0.0054146465845406055 , Test Loss: 2.958336591720581, Train Accuracy: 1.0, Test Accuracy: 0.639751552795031
+CHECKPOINT EACH 100th EPOCH 600. Train Loss: 0.0021474396344274282 , Test Loss: 3.2153332233428955, Train Accuracy: 1.0, Test Accuracy: 0.6428571428571429
+CHECKPOINT EACH 100th EPOCH 700. Train Loss: 0.0008702525519765913 , Test Loss: 3.4667840003967285, Train Accuracy: 1.0, Test Accuracy: 0.6428571428571429
+CHECKPOINT EACH 100th EPOCH 800. Train Loss: 0.0003565152583178133 , Test Loss: 3.7099900245666504, Train Accuracy: 1.0, Test Accuracy: 0.6459627329192547
+CHECKPOINT EACH 100th EPOCH 900. Train Loss: 0.00014716078294441104 , Test Loss: 3.95029354095459, Train Accuracy: 1.0, Test Accuracy: 0.639751552795031
+CHECKPOINT EACH 100th EPOCH 1000. Train Loss: 6.110226968303323e-05 , Test Loss: 4.186069965362549, Train Accuracy: 1.0, Test Accuracy: 0.6335403726708074
+CHECKPOINT EACH 100th EPOCH 1100. Train Loss: 2.5487828679615632e-05 , Test Loss: 4.415600299835205, Train Accuracy: 1.0, Test Accuracy: 0.6335403726708074
+On epoch 1196 training was early stopped
+Finished training
+Best accuracy: 0.6490683229813664
+Accuracy of the last validation of the network: 205 / 322 = 63 %
+Correct labels / labels for each author of last validation:
+tensor([[ 3.,  7.],
+        [12., 14.],
+        [ 3.,  4.],
+        [ 5., 10.],
+        [ 5., 10.],
+        [72., 72.],
+        [ 5.,  6.],
+        [ 1.,  3.],
+        [ 0.,  3.],
+        [ 3.,  6.],
+        [ 2.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 1.,  8.],
+        [ 6.,  8.],
+        [ 4.,  7.],
+        [ 0.,  4.],
+        [ 2., 10.],
+        [ 2.,  5.],
+        [ 0.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 0.,  7.],
+        [ 3.,  8.],
+        [ 0.,  6.],
+        [ 0.,  4.],
+        [ 7., 10.],
+        [ 0.,  2.],
+        [ 1.,  3.],
+        [ 4.,  5.],
+        [17., 21.],
+        [ 1.,  3.],
+        [ 9., 15.],
+        [ 3.,  4.],
+        [ 3.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 2.,  5.]])
+INITIAL DATA. Train Loss: 3.6745259761810303 , Test Loss: 3.641451358795166, Train Accuracy: 0.02962962962962963, Test Accuracy: 0.034161490683229816
+CHECKPOINT EACH 100th EPOCH 0. Train Loss: 2.7104640007019043 , Test Loss: 2.6960346698760986, Train Accuracy: 0.38981481481481484, Test Accuracy: 0.3695652173913043
+CHECKPOINT EACH 100th EPOCH 100. Train Loss: 0.42404982447624207 , Test Loss: 1.2695376873016357, Train Accuracy: 0.8981481481481481, Test Accuracy: 0.6987577639751553
+CHECKPOINT EACH 100th EPOCH 200. Train Loss: 0.1234683021903038 , Test Loss: 1.4698700904846191, Train Accuracy: 0.9916666666666667, Test Accuracy: 0.7111801242236024
+CHECKPOINT EACH 100th EPOCH 300. Train Loss: 0.03291403502225876 , Test Loss: 1.7555699348449707, Train Accuracy: 0.9990740740740741, Test Accuracy: 0.6987577639751553
+CHECKPOINT EACH 100th EPOCH 400. Train Loss: 0.010089253075420856 , Test Loss: 2.0467748641967773, Train Accuracy: 0.9990740740740741, Test Accuracy: 0.6987577639751553
+CHECKPOINT EACH 100th EPOCH 500. Train Loss: 0.004038325045257807 , Test Loss: 2.341017961502075, Train Accuracy: 0.9990740740740741, Test Accuracy: 0.6956521739130435
+CHECKPOINT EACH 100th EPOCH 600. Train Loss: 0.0019160580122843385 , Test Loss: 2.6663832664489746, Train Accuracy: 1.0, Test Accuracy: 0.6863354037267081
+On epoch 689 training was early stopped
+Finished training
+Best accuracy: 0.7204968944099379
+Accuracy of the last validation of the network: 221 / 322 = 68 %
+Correct labels / labels for each author of last validation:
+tensor([[ 3.,  7.],
+        [12., 14.],
+        [ 3.,  4.],
+        [ 8., 10.],
+        [ 4., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 0.,  3.],
+        [ 5.,  6.],
+        [ 2.,  5.],
+        [ 7.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 1.,  8.],
+        [ 5.,  8.],
+        [ 3.,  7.],
+        [ 1.,  4.],
+        [ 3., 10.],
+        [ 2.,  5.],
+        [ 1.,  2.],
+        [ 1.,  5.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 3.,  8.],
+        [ 4.,  6.],
+        [ 3.,  4.],
+        [ 5., 10.],
+        [ 0.,  2.],
+        [ 1.,  3.],
+        [ 5.,  5.],
+        [16., 21.],
+        [ 2.,  3.],
+        [10., 15.],
+        [ 1.,  4.],
+        [ 3.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+INITIAL DATA. Train Loss: 3.7924373149871826 , Test Loss: 3.7796456813812256, Train Accuracy: 0.025925925925925925, Test Accuracy: 0.021739130434782608
+CHECKPOINT EACH 100th EPOCH 0. Train Loss: 2.52411150932312 , Test Loss: 2.559079170227051, Train Accuracy: 0.412962962962963, Test Accuracy: 0.38509316770186336
+CHECKPOINT EACH 100th EPOCH 100. Train Loss: 0.36265596747398376 , Test Loss: 1.1006125211715698, Train Accuracy: 0.9098765432098765, Test Accuracy: 0.7391304347826086
+CHECKPOINT EACH 100th EPOCH 200. Train Loss: 0.1006709411740303 , Test Loss: 1.319920301437378, Train Accuracy: 0.9895061728395061, Test Accuracy: 0.7639751552795031
+CHECKPOINT EACH 100th EPOCH 300. Train Loss: 0.026847127825021744 , Test Loss: 1.6114524602890015, Train Accuracy: 0.9993827160493827, Test Accuracy: 0.7515527950310559
+CHECKPOINT EACH 100th EPOCH 400. Train Loss: 0.008087027817964554 , Test Loss: 1.9099979400634766, Train Accuracy: 0.9993827160493827, Test Accuracy: 0.7546583850931677
+CHECKPOINT EACH 100th EPOCH 500. Train Loss: 0.0033731095027178526 , Test Loss: 2.242957353591919, Train Accuracy: 0.9993827160493827, Test Accuracy: 0.7453416149068323
+CHECKPOINT EACH 100th EPOCH 600. Train Loss: 0.0018107702489942312 , Test Loss: 2.591803550720215, Train Accuracy: 0.9993827160493827, Test Accuracy: 0.7515527950310559
+On epoch 649 training was early stopped
+Finished training
+Best accuracy: 0.7701863354037267
+Accuracy of the last validation of the network: 243 / 322 = 75 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  7.],
+        [14., 14.],
+        [ 3.,  4.],
+        [ 8., 10.],
+        [ 5., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 0.,  3.],
+        [ 6.,  6.],
+        [ 3.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 3.,  8.],
+        [ 6.,  8.],
+        [ 7.,  7.],
+        [ 1.,  4.],
+        [ 4., 10.],
+        [ 2.,  5.],
+        [ 0.,  2.],
+        [ 4.,  5.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 3.,  8.],
+        [ 5.,  6.],
+        [ 3.,  4.],
+        [ 6., 10.],
+        [ 0.,  2.],
+        [ 1.,  3.],
+        [ 5.,  5.],
+        [18., 21.],
+        [ 2.,  3.],
+        [10., 15.],
+        [ 0.,  4.],
+        [ 3.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+INITIAL DATA. Train Loss: 3.756732702255249 , Test Loss: 3.7853028774261475, Train Accuracy: 0.02962962962962963, Test Accuracy: 0.018633540372670808
+CHECKPOINT EACH 100th EPOCH 0. Train Loss: 2.353846788406372 , Test Loss: 2.417830228805542, Train Accuracy: 0.41759259259259257, Test Accuracy: 0.40062111801242234
+CHECKPOINT EACH 100th EPOCH 100. Train Loss: 0.32048842310905457 , Test Loss: 0.9678423404693604, Train Accuracy: 0.9217592592592593, Test Accuracy: 0.7577639751552795
+CHECKPOINT EACH 100th EPOCH 200. Train Loss: 0.08580318093299866 , Test Loss: 1.1588340997695923, Train Accuracy: 0.9921296296296296, Test Accuracy: 0.7639751552795031
+CHECKPOINT EACH 100th EPOCH 300. Train Loss: 0.02223438210785389 , Test Loss: 1.441061019897461, Train Accuracy: 0.9981481481481481, Test Accuracy: 0.7701863354037267
+CHECKPOINT EACH 100th EPOCH 400. Train Loss: 0.006400687154382467 , Test Loss: 1.7272429466247559, Train Accuracy: 0.9990740740740741, Test Accuracy: 0.7670807453416149
+CHECKPOINT EACH 100th EPOCH 500. Train Loss: 0.0031203252729028463 , Test Loss: 1.9939744472503662, Train Accuracy: 0.9990740740740741, Test Accuracy: 0.7701863354037267
+CHECKPOINT EACH 100th EPOCH 600. Train Loss: 0.002017862629145384 , Test Loss: 2.2695038318634033, Train Accuracy: 0.999537037037037, Test Accuracy: 0.7670807453416149
+On epoch 663 training was early stopped
+Finished training
+Best accuracy: 0.7919254658385093
+Accuracy of the last validation of the network: 248 / 322 = 77 %
+Correct labels / labels for each author of last validation:
+tensor([[ 5.,  7.],
+        [13., 14.],
+        [ 4.,  4.],
+        [ 7., 10.],
+        [ 8., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 1.,  3.],
+        [ 5.,  6.],
+        [ 3.,  5.],
+        [ 7.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 3.,  8.],
+        [ 6.,  8.],
+        [ 6.,  7.],
+        [ 1.,  4.],
+        [ 4., 10.],
+        [ 4.,  5.],
+        [ 0.,  2.],
+        [ 2.,  5.],
+        [ 3.,  3.],
+        [ 6.,  7.],
+        [ 4.,  8.],
+        [ 6.,  6.],
+        [ 2.,  4.],
+        [ 7., 10.],
+        [ 0.,  2.],
+        [ 1.,  3.],
+        [ 4.,  5.],
+        [19., 21.],
+        [ 2.,  3.],
+        [11., 15.],
+        [ 3.,  4.],
+        [ 2.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 4.,  5.]])
+INITIAL DATA. Train Loss: 3.8090195655822754 , Test Loss: 3.801635265350342, Train Accuracy: 0.014074074074074074, Test Accuracy: 0.012422360248447204
+CHECKPOINT EACH 100th EPOCH 0. Train Loss: 2.2443878650665283 , Test Loss: 2.278317928314209, Train Accuracy: 0.43666666666666665, Test Accuracy: 0.41304347826086957
+CHECKPOINT EACH 100th EPOCH 100. Train Loss: 0.32074639201164246 , Test Loss: 0.8398621082305908, Train Accuracy: 0.9214814814814815, Test Accuracy: 0.7919254658385093
+CHECKPOINT EACH 100th EPOCH 200. Train Loss: 0.08521637320518494 , Test Loss: 1.075113296508789, Train Accuracy: 0.9881481481481481, Test Accuracy: 0.7857142857142857
+CHECKPOINT EACH 100th EPOCH 300. Train Loss: 0.02279922366142273 , Test Loss: 1.3584963083267212, Train Accuracy: 0.9981481481481481, Test Accuracy: 0.7795031055900621
+CHECKPOINT EACH 100th EPOCH 400. Train Loss: 0.00909823551774025 , Test Loss: 1.6752395629882812, Train Accuracy: 0.9974074074074074, Test Accuracy: 0.7732919254658385
+CHECKPOINT EACH 100th EPOCH 500. Train Loss: 0.003822867525741458 , Test Loss: 2.041938543319702, Train Accuracy: 0.9992592592592593, Test Accuracy: 0.7577639751552795
+On epoch 586 training was early stopped
+Finished training
+Best accuracy: 0.7950310559006211
+Accuracy of the last validation of the network: 246 / 322 = 76 %
+Correct labels / labels for each author of last validation:
+tensor([[ 4.,  7.],
+        [13., 14.],
+        [ 4.,  4.],
+        [ 6., 10.],
+        [ 6., 10.],
+        [72., 72.],
+        [ 6.,  6.],
+        [ 2.,  3.],
+        [ 0.,  3.],
+        [ 6.,  6.],
+        [ 3.,  5.],
+        [ 9.,  9.],
+        [ 3.,  3.],
+        [ 5.,  7.],
+        [ 1.,  2.],
+        [ 2.,  8.],
+        [ 5.,  8.],
+        [ 6.,  7.],
+        [ 1.,  4.],
+        [ 2., 10.],
+        [ 4.,  5.],
+        [ 0.,  2.],
+        [ 1.,  5.],
+        [ 3.,  3.],
+        [ 7.,  7.],
+        [ 5.,  8.],
+        [ 6.,  6.],
+        [ 3.,  4.],
+        [ 7., 10.],
+        [ 1.,  2.],
+        [ 1.,  3.],
+        [ 4.,  5.],
+        [19., 21.],
+        [ 2.,  3.],
+        [12., 15.],
+        [ 2.,  4.],
+        [ 2.,  9.],
+        [ 2.,  3.],
+        [ 4.,  4.],
+        [ 5.,  5.]])
+======RESULTING ACCURACIES======
+TRAIN: [1.0, 0.9990740740740741, 0.9993827160493827, 0.9990740740740741, 0.9985185185185185]
+TEST: [0.6490683229813664, 0.7204968944099379, 0.7701863354037267, 0.7919254658385093, 0.7950310559006211]
+Execution time: 0:18:16.716660

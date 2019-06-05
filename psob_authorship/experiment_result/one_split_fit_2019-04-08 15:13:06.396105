@@ -1,0 +1,16 @@
+CHECKPOINT EACH 100th EPOCH 0: 0.2919254658385093
+CHECKPOINT EACH 100th EPOCH 100: 0.515527950310559
+CHECKPOINT EACH 100th EPOCH 200: 0.5559006211180124
+CHECKPOINT EACH 100th EPOCH 300: 0.5217391304347826
+CHECKPOINT EACH 100th EPOCH 400: 0.5341614906832298
+CHECKPOINT EACH 100th EPOCH 500: 0.5217391304347826
+On epoch 551 training was early stopped
+Accuracy of the network: 170 / 322 = 52 %
+Correct answers for each author: tensor([ 3., 14.,  4.,  5.,  3., 70.,  6.,  0.,  0.,  2.,  1.,  9.,  3.,  1.,
+         0.,  0.,  3.,  2.,  0.,  2.,  3.,  0.,  0.,  0.,  1.,  6.,  2.,  0.,
+         5.,  0.,  2.,  0., 14.,  0.,  7.,  2.,  0.,  0.,  0.,  0.])
+Authors distribution in test: tensor([ 7., 14.,  4., 10., 10., 72.,  6.,  3.,  3.,  6.,  5.,  9.,  3.,  7.,
+         2.,  8.,  8.,  7.,  4., 10.,  5.,  2.,  5.,  3.,  7.,  8.,  6.,  4.,
+        10.,  2.,  3.,  5., 21.,  3., 15.,  4.,  9.,  3.,  4.,  5.])
+Execution time: 0:03:02.373939
+Config: {'experiment_name': 'one_split_fit', 'number_of_authors': 40, 'labels_features_common_name': '../calculated_features/split_each_file', 'metrics': [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'epochs': 5000, 'batch_size': 32, 'early_stopping_rounds': 350, 'lr': 0.02, 'n_splits': 10, 'cv': StratifiedKFold(n_splits=10, random_state=0, shuffle=False), 'scoring': 'accuracy', 'criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'optimizer': <class 'torch.optim.sgd.SGD'>, 'momentum': 0.9, 'shuffle': True}
